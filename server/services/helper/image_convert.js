@@ -1,4 +1,4 @@
-// let sharp=require("sharp")
+let sharp = require("sharp")
 let AWS = require("aws-sdk")
 
 const s3 = new AWS.S3({
@@ -6,19 +6,21 @@ const s3 = new AWS.S3({
     secretAccessKey: process.env.SecretAccessKey,
     region: process.env.Region   // secretAccessKey is also store in .env file
 })
+
 const convertImageToWebp = (data) => {
     return new Promise((resolve, reject) => {
-        // sharp(data?.buffer).webp({ quality: 50 })
-        //     .toBuffer()
-        //     .then(async(newBuffer) => {
-        //         let upload_= await uploadToS3(data,newBuffer)
-        //         resolve(upload_);;
-        //     })
-        //     .catch((err) => {
-        resolve(false)
-        // });
+        sharp(data?.buffer).webp({ quality: 50 })
+            .toBuffer()
+            .then(async (newBuffer) => {
+                let upload_ = await uploadToS3(data, newBuffer)
+                resolve(upload_);;
+            })
+            .catch((err) => {
+                resolve(false)
+            });
     })
 }
+
 const uploadToS3 = async (file, bufferImage) => {
     return new Promise((resolve, reject) => {
         let fileName = Date.now().toString() + ".webp"
