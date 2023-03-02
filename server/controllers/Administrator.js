@@ -73,7 +73,7 @@ const adminController = {
       if(!req.file || err){
         return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.NO_IMAGE), 203);
       }
-      let fileName = 'admin/' + req.file.filename;
+      let fileName = req.file.filename;
       let result = await AdministrationUtils.addProfilePicture(fileName, admin_id);
       return helpers.showOutput(res, result, result.code);
     });

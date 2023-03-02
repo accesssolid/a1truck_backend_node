@@ -78,7 +78,7 @@ const middleware = {
           });
         }
         let admin_id = decoded.admin_id;
-        let response = await Administration.getDetails(admin_id);
+        let response = await Administration.getAdminDetail(admin_id);
         if (!response.status) {
           return res.status(451).json({
             status: false,
