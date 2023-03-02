@@ -5,6 +5,16 @@ var commonController = require('../controllers/Common');
 var middleware = require("../controllers/middleware");
 
 // without token
+router.post('/login', AdministratorController.login);
+router.post('/forget_password', AdministratorController.forgotPassword);
+router.post('/verify_otp', AdministratorController.verifyOtp);
+router.post('/reset_password', AdministratorController.resetPassword);
+router.post('/logout', AdministratorController.logout);
+
+router.get('/get_admin_detail', middleware.checkAdminToken, AdministratorController.getAdminDetail);
+router.post('/add_profile_pic', middleware.checkAdminToken, AdministratorController.addProfilePicture);
+router.post('/change_password', middleware.checkAdminToken, AdministratorController.changePassword);
+router.post('/change_email', middleware.checkAdminToken, AdministratorController.changeEmail);
 
 
 // Admin Routes with Token
