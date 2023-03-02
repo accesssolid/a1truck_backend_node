@@ -6,7 +6,7 @@ let Bookings = require("../../models/Bookings")
 // let nodemailer = require("nodemailer");
 const stripe = require("stripe")(process.env.Stripe_Secret_Key);
 let slots = {
-  truck: 27,
+  truck: 21,
   bobtail: 10
 }
 let prices = [{
@@ -24,6 +24,39 @@ let prices = [{
 }]
 
 let BookingsUtils = {
+
+  getEmptySlotCount: async (data, user_id) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let availableSlots = []
+        let { startTime, endTime, vehicle_type } = data
+        startTime = new Date(startTime)
+        endTime = new Date(endTime)
+        for (let i = 1; i <= slots[vehicle_type]; i++) {
+          // check conflicts of slot
+          let conflictingBookingsQuery = {
+            vehicle_type,
+            status: { $ne: 2 },
+            slot_number: i,
+            $or: [
+              { start_time: { $lt: endTime }, end_time: { $gt: startTime } }, // booking overlaps with another booking
+              { start_time: { $gte: startTime, $lt: endTime } }, // booking starts during another booking
+              { end_time: { $gt: startTime, $lte: endTime } } // booking ends during another booking
+            ]
+          }
+          let conflictingBookingsResponse = await getDataArray(Bookings, conflictingBookingsQuery, '')
+          if (!conflictingBookingsResponse?.status) {
+            availableSlots.push(i)
+          }
+        }
+        resolve(helpers.showResponse(true, "Here is a count of available slots", availableSlots.length, null, 200));
+      } catch (err) {
+        console.log("in catch err", err)
+        resolve(helpers.showResponse(true, "Here is a count of available slots", 0, null, 200));
+      }
+    })
+  },
+
   checkSlotAvailabilty: async (data, user_id) => {
     return new Promise(async (resolve, reject) => {
       try {
@@ -35,7 +68,19 @@ let BookingsUtils = {
           return helpers.showResponse(false, "Invalid User", null, null, 200);
         }
         let userData = userResponse?.data
-        let slot_number = 0
+        let slot_number = 1
+         // checkSlot already booked for particular time for this vehicle
+         let where = {
+          vehicle_id: ObjectId(vehicle_id),
+          start_time: startTime,
+          end_time: endTime,
+          user_id: ObjectId(user_id)
+        }
+        let selectedVehicleBookingResponse = await getDataArray(Bookings, where, '')
+        if(selectedVehicleBookingResponse?.status) {
+          resolve(helpers.showResponse(false, "You have already booked a parking lot for selected time and selected vehicle", null, null, 200));
+          return false
+        }
         for (let i = 1; i <= slots[vehicle_type]; i++) {
           // check conflicts of slot
           let conflictingBookingsQuery = {

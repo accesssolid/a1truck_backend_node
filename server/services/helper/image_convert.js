@@ -1,4 +1,4 @@
-let sharp = require("sharp")
+// let sharp = require("sharp")
 let AWS = require("aws-sdk")
 
 const s3 = new AWS.S3({
@@ -9,15 +9,15 @@ const s3 = new AWS.S3({
 
 const convertImageToWebp = (data) => {
     return new Promise((resolve, reject) => {
-        sharp(data?.buffer).webp({ quality: 50 })
-            .toBuffer()
-            .then(async (newBuffer) => {
-                let upload_ = await uploadToS3(data, newBuffer)
-                resolve(upload_);;
-            })
-            .catch((err) => {
+        // sharp(data?.buffer).webp({ quality: 50 })
+        //     .toBuffer()
+        //     .then(async (newBuffer) => {
+        //         let upload_ = await uploadToS3(data, newBuffer)
+        //         resolve(upload_);;
+            // })
+            // .catch((err) => {
                 resolve(false)
-            });
+            // });
     })
 }
 

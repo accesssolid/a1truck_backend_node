@@ -4,6 +4,7 @@ var BookingsController = require('../controllers/Bookings');
 var middleware = require("../controllers/middleware");
 
 // Users Routes with token
+router.post('/get_empty_slots_count',middleware.checkToken, BookingsController.getEmptySlotCount);
 router.post('/check_slot_availability',middleware.checkToken, BookingsController.checkSlotAvailabilty);
 
 // Common Routes
