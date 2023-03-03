@@ -142,17 +142,35 @@ let BookingsUtils = {
   },
 
   getAllBookings : async(user_id) => {
-    let result = await Bookings.aggregate([
-      { 
-        $match : { user_id : ObjectId(user_id) } 
-      },
-      {
-        $project : { payment_object : 0 }
-      }
-    ]);
-    if(result.length > 0){
-      let completed_bookings = result.filter(item => item.booking_status === 2);
-      let other_bookings = result.filter(item => item.booking_status === 1 );
+    let populate = [{
+      path: 'vehicle_id'
+    }]
+    let result = await getDataArray(Bookings, { user_id : ObjectId(user_id) }, '', null, null, populate);
+    if(result.status){
+      let newData = result.data;
+      let parsedData = newData.map(item => {
+          return {
+            _id : item._id,
+            user_id : item.user_id,
+            vehicle_id : item.vehicle_id,
+            start_time : item.start_time,
+            end_time : item.end_time,
+            end_time : item.end_time,
+            vehicle_type : item.vehicle_type,
+            payment_object : {
+              amount : JSON.parse(item.payment_object).amount / 100,
+              brand : JSON.parse(item.payment_object).payment_method_details.card.brand,
+              last4 : JSON.parse(item.payment_object).payment_method_details.card.last4
+            },
+            slot_number : item.slot_number,
+            booking_ref : item.booking_ref,
+            booking_status : item.booking_status,
+            createdAt : item.createdAt,
+            updatedAt : item.updatedAt
+          }
+      });
+      let completed_bookings = parsedData.filter(item => item.booking_status === 2);
+      let other_bookings = parsedData.filter(item => item.booking_status === 1 );
       let bookings = {
         completed_bookings,
         other_bookings

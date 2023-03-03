@@ -46,12 +46,12 @@ const adminUtils = {
                         port: 587,
                         secure: false,
                         auth: {
-                            user: 'frontierapp35@gmail.com',
-                            pass: 'gokiqsacxxcdujhp'
+                            user: process.env.APP_EMAIL,
+                            pass: process.env.APP_PASSWORD
                         },
                     });
                     await transporter.sendMail({
-                        from: 'frontierapp35@gmail.com',
+                        from: process.env.APP_EMAIL,
                         to: email,
                         subject: 'Forgot password',
                         html: "<b>Greetings, </b><br /><br />Here is your 4 Digits reset password Code<br />" +
