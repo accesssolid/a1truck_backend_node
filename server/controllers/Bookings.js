@@ -30,7 +30,17 @@ const boookingsController = {
     }
     let result = await Bookings.checkSlotAvailabilty(req.body, user_id);
     return helpers.showOutput(res, result, result.code);
+  },
+
+  getAllBookings : async(req, res, next) => {
+    let user_id = req.decoded._id;
+    if (!user_id) {
+      return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_USER), 403);
+    }
+    let result = await Bookings.getAllBookings(user_id);
+    return helpers.showOutput(res, result, result.code);
   }
+
 };
 
 module.exports = {

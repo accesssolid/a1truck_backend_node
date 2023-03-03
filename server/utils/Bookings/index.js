@@ -139,7 +139,29 @@ let BookingsUtils = {
         resolve(helpers.showResponse(false, "Slot Error !!! Please Try Again Later", err, null, 200));
       }
     })
+  },
+
+  getAllBookings : async(user_id) => {
+    let result = await Bookings.aggregate([
+      { 
+        $match : { user_id : ObjectId(user_id) } 
+      },
+      {
+        $project : { payment_object : 0 }
+      }
+    ]);
+    if(result.length > 0){
+      let completed_bookings = result.filter(item => item.booking_status === 2);
+      let other_bookings = result.filter(item => item.booking_status === 1 );
+      let bookings = {
+        completed_bookings,
+        other_bookings
+      }
+      return helpers.showResponse(true, 'Successfully fetched bookings', bookings, null, 200);
+    }
+    return helpers.showResponse(true, 'Bookings not found', null, null, 200);
   }
+  
 };
 
 module.exports = {
