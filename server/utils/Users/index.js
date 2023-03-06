@@ -2,6 +2,7 @@ require("../../db_functions");
 let md5 = require("md5");
 
 let Users = require("../../models/Users");
+let Bookings = require('../../models/Bookings');
 let ObjectId = require("mongodb").ObjectID;
 var Messages = require("./messages");
 let jwt = require("jsonwebtoken");
@@ -10,6 +11,7 @@ let moment = require("moment");
 let nodemailer = require("nodemailer");
 let { constValues, statusCodes } = require("../../services/helper/constants");
 const stripe = require("stripe")(process.env.Stripe_Secret_Key);
+
 let UserUtils = {
   login: async (data) => {
 
@@ -972,11 +974,7 @@ let UserUtils = {
       const deleted = await stripe.customers.del(
         res.stripe_id
       );
-   
-
       if (deleted) {
-      
-      
           return helpers.showResponse(
             true,
             "Strip account deleted",
@@ -984,8 +982,6 @@ let UserUtils = {
             null,
             200
           );
-        
-      
       }
       return helpers.showResponse(
         false,
@@ -1003,9 +999,8 @@ let UserUtils = {
         304
       );
     }
-  },
- 
- 
+  }
+
 };
 
 module.exports = {

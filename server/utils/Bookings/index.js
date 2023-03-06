@@ -156,6 +156,7 @@ let BookingsUtils = {
             start_time : item.start_time,
             end_time : item.end_time,
             end_time : item.end_time,
+            booking_type : item.slot_type,
             vehicle_type : item.vehicle_type,
             payment_object : {
               amount : JSON.parse(item.payment_object).amount / 100,
@@ -177,7 +178,7 @@ let BookingsUtils = {
       }
       return helpers.showResponse(true, 'Successfully fetched bookings', bookings, null, 200);
     }
-    return helpers.showResponse(true, 'Bookings not found', null, null, 200);
+    return helpers.showResponse(false, 'Bookings not found', null, null, 200);
   }
   
 };

@@ -36,6 +36,14 @@ router.get('/bookingType',  commonController.getBookingType);
 // Terms & Privacy & how its work
 router.patch('/terms', commonController.AddTermsContent);
 router.get('/terms',commonController.getTermsContent);
+
+// Admin panel apis.
+router.post('/get_all_users_details_admin', middleware.checkAdminToken, AdministratorController.getAllUsersDetailsAdmin);
+router.post('/delete_user_by_admin', middleware.checkAdminToken, AdministratorController.deleteUserByAdmin);
+router.post('/get_admin_dashboard_count', middleware.checkAdminToken, AdministratorController.getAdminDashboardCount);
+router.post('/get_all_bookings_admin', middleware.checkAdminToken, AdministratorController.getAllBookingsAdmin);
+router.post('/get_dashboard_data', middleware.checkAdminToken, AdministratorController.getDashBoardData);
+
 // Common Routes
 router.get('*',(req, res) => {res.status(405).json({status:false, message:"Invalid Get Request"})});
 router.post('*',(req, res) => {res.status(405).json({status:false, message:"Invalid Post Request"})});

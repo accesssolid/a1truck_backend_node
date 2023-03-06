@@ -8,6 +8,8 @@ let nodemailer = require("nodemailer");
 let moment = require("moment");
 let md5 = require("md5");
 let FAQ = require("../../models/FAQ");
+let Users = require('../../models/Users');
+let Bookings = require('../../models/Bookings');
 const { constValues, statusCodes } = require("../../services/helper/constants");
 
 const adminUtils = {
@@ -166,7 +168,98 @@ const adminUtils = {
             return helpers.showResponse(true, 'Email Successfully changed', null, null, 200);
         }
         return helpers.showResponse(false, 'Failed to update email', null, null, 200);
+    },
+
+    getAllUsersDetailsAdmin : async(data) => {
+        let sort = { createdAt : -1 }
+        let result = await getDataArray(Users, { user_status : { $ne : 2 } }, '-password -otp -stripe_id', null, sort);
+        if(result.status){
+            return helpers.showResponse(true, 'Successfully fetched all users', result.data, null, 200);
+        }
+        return helpers.showResponse(false, 'No Users Found', null, null, 200);
+    },
+
+    deleteUserByAdmin : async(data) => {
+    const{ user_id, type } = data;
+    let query = { _id : ObjectId(user_id), user_status : { $ne : 2 } }
+    let result = await getSingleData(Users, query, '-password -otp');
+    if(result.status){
+      let { data } = result;
+      if(type == 'enable'){
+        let response = await updateData(Users, { user_status : 1 }, ObjectId(data._id));
+        if(response.status){
+          return helpers.showResponse(true, 'Successfully enabled user account', null, null, 200);
+        }
+        return helpers.showResponse(false, 'Internal Server Error', null, null, 200);
+
+      }else if(type == 'disable'){
+        let response = await updateData(Users, { user_status : 0 }, ObjectId(data._id));
+        if(response.status){
+          return helpers.showResponse(true, 'Successfully disabled user account', null, null, 200);
+        }
+        return helpers.showResponse(false, 'Internal Server Error', null, null, 200);
+
+      }else if(type == 'delete'){
+        let response = await updateData(Users, { user_status : 2 }, ObjectId(data._id));
+        if(response.status){
+          return helpers.showResponse(true, 'Successfully deleted user account', null, null, 200);
+        }
+        return helpers.showResponse(false, 'Internal Server Error', null, null, 200);
+
+      }else{
+        return helpers.showResponse(false, 'Invalid Type', null, null, 200);
+      }
     }
+    return helpers.showResponse(false, 'User not found', null, null, 200);
+  },
+
+  getAdminDashboardCount : async(data) => {
+    let result1 = await getCount(Users, { user_status : { $eq : 1 } });
+    let result2 = await getCount(Bookings, {});
+    let dataArray = {
+      user_count : result1.data,
+      bookings_count : result2.data
+    }
+    return helpers.showResponse(true, 'List of dashboard data', dataArray, null, 200);
+  },
+
+  getAllBookingsAdmin : async(data) => {
+    let populate = [{
+      path: 'vehicle_id'
+    }]
+    let result = await getDataArray(Bookings, {}, '', null, null, populate);
+    if(result.status){
+      let newData = result.data;
+      let parsedData = newData.map(item => {
+          return {
+            _id : item._id,
+            user_id : item.user_id,
+            vehicle_id : item.vehicle_id,
+            start_time : item.start_time,
+            end_time : item.end_time,
+            end_time : item.end_time,
+            booking_type : item.slot_type,
+            vehicle_type : item.vehicle_type,
+            payment_object : {
+              amount : JSON.parse(item.payment_object).amount / 100,
+              brand : JSON.parse(item.payment_object).payment_method_details.card.brand,
+              last4 : JSON.parse(item.payment_object).payment_method_details.card.last4
+            },
+            slot_number : item.slot_number,
+            booking_ref : item.booking_ref,
+            booking_status : item.booking_status,
+            createdAt : item.createdAt,
+            updatedAt : item.updatedAt
+          }
+      });
+      return helpers.showResponse(true, 'Successfully fetched bookings', parsedData, null, 200);
+    }
+    return helpers.showResponse(false, 'Bookings not found', null, null, 200);
+  },
+
+  getDashBoardData : async(data) => {
+    
+  }
 
 }
 

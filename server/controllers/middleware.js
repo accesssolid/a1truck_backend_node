@@ -194,7 +194,7 @@ const middleware = {
         .json(helpers.showResponse(false, "Invalid User Type"));
     }
   },
-};
+}
 
 module.exports = {
   ...middleware,

@@ -3,6 +3,7 @@ var router = express.Router();
 var AuthController = require('../controllers/Users');
 var middleware = require("../controllers/middleware");
 const vehicleControllers = require("../controllers/Vehicles");
+
 // Users Routes without token
 router.post('/refresh', middleware.refreshToken);
 router.post('/signup', AuthController.register);
@@ -23,10 +24,6 @@ router.post('/add_card',middleware.checkToken, AuthController.addCard);
 router.get('/cards',middleware.checkToken, AuthController.listCards);
 router.delete('/cards',middleware.checkToken, AuthController.deleteCard);
 router.patch('/default_card',middleware.checkToken, AuthController.updateCustomer);
-
-
-// User vehicles 
-
 
 // Common Routes
 router.get('*',(req,res) => {res.status(405).json({status:false, message:"Invalid Get Request"})});
