@@ -1,5 +1,5 @@
 let ObjectId = require("mongodb").ObjectID;
-let moment = require("moment");
+let moment = require('moment-timezone');
 var FCM = require("fcm-node");
 var serverKey = process.env.FIREBASE_SERVER_KEY;
 var fcm = new FCM(serverKey);
@@ -8,6 +8,9 @@ const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 const twiliophone = process.env.TWILIO_PHONE_NUMBER;
 const isValidId = (_id) => mongoose.Types.ObjectId.isValid(_id);
+const User = require('../../models/Users');
+const Notification = require('../../models/notification');
+
 const showResponse = (
   status,
   message,
@@ -250,6 +253,32 @@ const localNotification = async (role, _id, data) => {
   return helpers.showResponse(false, "Invalid Identifier", null, null, 200);
 };
 
+  const localNotificationBooking = async (role, userData, data) => {
+    let { title, message, status, notification_data } = data;
+    if(userData.length > 0){
+      let usersNotification = [];
+      for(let i = 0; i < userData.length; i++){
+        let _id = ObjectId(userData[i]._id);
+        let notiObject = {
+          user_id : _id,
+          title,
+          message,
+          notification_type : "normal",
+          status,
+          is_read : 0,
+          notification_data : notification_data ? notification_data : {}
+        }
+        usersNotification.push(notiObject);
+      }
+      let insertResult = await insertMany(Notification, usersNotification);
+      if(insertResult.status){
+        return showResponse(true, 'notification send', null, null, 200);
+      }
+      return showResponse(false, 'Internal server error', null, null, 200);
+    }
+    return showResponse(false, 'No users has booking notification yet', null, null, 200);
+  }
+
 const sendFcmNotificationMultiple = (to, data, show) => {
   return new Promise((resolve, reject) => {
     data = { ...data, show: show ? show : false };
@@ -297,6 +326,7 @@ module.exports = {
   capitalize,
   getDistanceFromLatLonInKm,
   localNotification,
+  localNotificationBooking,
   // sendTwilioSMS,
   isValidId,
 };

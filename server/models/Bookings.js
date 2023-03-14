@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var Bookings = new Schema({
-  user_id: { 
+  user_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'userSchema'
   },
@@ -23,12 +23,16 @@ var Bookings = new Schema({
     default: ""
   },
   vehicle_type: {
-    type: String,
-    default: ""
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'VehiclType'
+  },
+  vehicle_type_key : {
+    type : String,
+    default : ''
   },
   payment_object: {
-    type: String,
-    default: ""
+    type: Object,
+    default: {}
   },
   slot_number: {
     type: Number,
@@ -40,11 +44,15 @@ var Bookings = new Schema({
   },
   booking_status: {
     type: Number,
-    default: 1 // 1-> active, 2->expired
+    default: 0 // 1-> active, 2 -> expired, 0 -> upcoming
+  },
+  time_zone : {
+    type : String,
+    default : ''
   }
 }, 
-{ 
-  timestamps: true 
+{
+  timestamps: true
 });
 
 module.exports = mongoose.model('Bookings', Bookings, 'bookings');

@@ -2,7 +2,7 @@ require("../../db_functions");
 let ContactUs = require("../../models/Contactus");
 let ObjectId = require("mongodb").ObjectID;
 let helpers = require("../../services/helper");
-let moment = require("moment");
+let moment = require('moment-timezone');
 const { constValues, statusCodes } = require("../../services/helper/constants");
 const Messages = require("../Users/messages");
 

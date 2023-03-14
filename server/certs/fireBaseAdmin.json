@@ -1,0 +1,12 @@
+{
+    "type": "service_account",
+    "project_id": "a1truckparking-eb660",
+    "private_key_id": "2db3cf4bda29022ef65094258e6b20717f5f08fa",
+    "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEugIBADANBgkqhkiG9w0BAQEFAASCBKQwggSgAgEAAoIBAQCw+JQ5eWMWNaTu\nxn7AhGl2y780UcjdSOYnjaTDTU/p0Tua4eqzyUd+Z3FEXV9pr7iVRKWrITUgso/1\nZ2CfXONSLHKk/AiRUZUk8YcGk2ORUyIujOHTGOQqnFdFHmu1okX7z1lLlNXupXvE\nbh12QuxJweGSsE8XLfZitA/VzW8/tY/zCWkO7XFpBybMfI02EQgLiYc+8W5e7ZI5\nTSLu46zLuI4sEw/JXhMudZzqsNxzWO89vdbqljrvRiclSnrCl2piQKZI62PjA3V3\nMPiuxiXvbdFTZo4+aEcMmhlYgPvqvkhIqYI6MPG1yJQh3BNRoyxn5SnZ7NsJ8DXP\nhOZjH4lBAgMBAAECgf9uacWfMrl09zwa2hKQYAzCPEA6AMzRtQ1x9W2sM4IL/DgJ\nW+qTQUig+HdPPkfJRSBk5Jo/chT6tRhVLsbvUYT0eONHRU1oeai+qw8TizcT9IM0\na3iyn8bX63pOl0i4wyJYlb6EPtgecJK5l/o7h6IBRjz2yHtzl0fa230FvVFke5IK\naxWAVUSMJ7c4BRkbdelKVBTkDF0f2BjL0taGbv3IRFQsRjVCBR4AXVYn7lHktA/1\ngms5gNNxaMRr9W8uk3V9OhI5zo9eW6oaAwqIbBpK1YQID2YQ56HzI3ebvZEnaZwh\nlQaPddDI28VAXEqckvITlwy9wI3S3LqlS5bht0kCgYEA3zlg5MCSUYe41Z43FgtF\n7C3RlvRYRKnbGQIvwwm8DGCwy4NQdiV5JwkbSY2QSnnBtDyYCFfon5v5GqKd8jFL\nyTp1wQJlsNx8zak/FznVUR6DEv6VTb+20qfH0KFwRSzSC3EvO2/tvvnn+gPhQ1iY\nbYD1Sk7YGf0pfFbEEt51moUCgYEAyvSfgG2Qp1QeFDW6wxhyCR71lXjIIEJRbcVb\nC3UPHQAIBw1NnBT4WyYYKK3RLp3tftzKu60/vC34kNU2Ebx3CPb3UhLOKvP1SJez\nrXkBnwvJe1GrEzyU6NQi6ZO8/7+lvNDv1GhtKIv1y4nHiy/XXWzj6sQehVu2yknJ\nzI5qFo0CgYAmMF7PQ9LEd/+7LBIoh00zFrOgq7TeKmD9ak5Zg7TUOUaFyrVdQRP1\nBa3Ra5Kf6yykdSldZAy8IacAU4nKAX0BtCqpFovnMhF37diJVK+V7S5ndX59iqrw\nZxvcKYJXk09r/bUi6gc2gPKa50cGioWpVkKgr9Rwvcr3JrDsuXpNMQKBgGMJ/q/g\nR5+wB8Ga+plr23Ih/nvDZf1//1aO4T/1Drv7IO+4CTBqd0ubilyHfbW+8X9f5Tqy\nb5C36j1bHjiHfJsOUWBmtt71D7Qt+0ti6myfhuG717zaalw38RWEt80hy5IZb396\nuhH4QqjhglOks/buRUZyD+bJ+6g5W9WLha+dAoGAb2oa0TlG8sDjn1SPnMQwnWPr\n5MyAtlwKWzwx1ugaaxQuyV+JN8Yegl/48Of/kTGeyrjPGhUoxlqxaSalacSg4yUr\n94EsFp3kJ+wV9Tu6Nw6gE2Hkd6O2Xy1iNte1exVjKV0oy0VCx+rgAA5qpND9lbSY\n6hgUztbG11xp0FboCvs=\n-----END PRIVATE KEY-----\n",
+    "client_email": "firebase-adminsdk-wwr5d@a1truckparking-eb660.iam.gserviceaccount.com",
+    "client_id": "109918540318779639906",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-wwr5d%40a1truckparking-eb660.iam.gserviceaccount.com"
+}

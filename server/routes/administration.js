@@ -24,7 +24,7 @@ router.get('/faq',  commonController.getAllfaq);
 router.delete('/faq/:_id',  commonController.deletefaq);
 
 // Vehicle Type
-router.post('/add_vehicleType',  commonController.Add_VehicleType);
+// router.post('/add_vehicleType',  commonController.Add_VehicleType);
 router.patch('/update_vehicleType',  commonController.Update_VehicleType);
 router.get('/all_vehicleType',  commonController.all_vehicleType);
 router.get('/vehicleType/:_id',  commonController.vehicleTypeId);
@@ -42,7 +42,12 @@ router.post('/get_all_users_details_admin', middleware.checkAdminToken, Administ
 router.post('/delete_user_by_admin', middleware.checkAdminToken, AdministratorController.deleteUserByAdmin);
 router.post('/get_admin_dashboard_count', middleware.checkAdminToken, AdministratorController.getAdminDashboardCount);
 router.post('/get_all_bookings_admin', middleware.checkAdminToken, AdministratorController.getAllBookingsAdmin);
-router.post('/get_dashboard_data', middleware.checkAdminToken, AdministratorController.getDashBoardData);
+router.post('/contact_to_user_by_admin', middleware.checkAdminToken, AdministratorController.contactToAdminByAdmin);
+router.post('/add_truck_make_and_color_admin', middleware.checkAdminToken, AdministratorController.addTruckMakeAndColorAdmin);
+router.post('/delete_truck_make_and_color', middleware.checkAdminToken, AdministratorController.deleteTruckMakeAndColor);
+router.post('/update_prices_and_slots', middleware.checkAdminToken, AdministratorController.updatePricesAndSlots);
+router.post('/landing_page_data_update', middleware.checkAdminToken, AdministratorController.landingPageDataUpdate);
+router.post('/get_dashboard_data_by_admin', middleware.checkAdminToken, AdministratorController.getDashBoardData);
 
 // Common Routes
 router.get('*',(req, res) => {res.status(405).json({status:false, message:"Invalid Get Request"})});

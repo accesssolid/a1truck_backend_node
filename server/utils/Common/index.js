@@ -4,10 +4,15 @@ let VechileType = require("../../models/VehicleType");
 let BookingType = require("../../models/Booking type");
 let FAQ = require("../../models/FAQ");
 let helpers = require("../../services/helper");
-let moment = require("moment");
+let moment = require('moment-timezone');
 let ObjectId = require("mongodb").ObjectId;
 const Message = require("../Administration/messages");
 const { statusCodes, constValues } = require("../../services/helper/constants");
+const fireBaseAdmin = require('../../services/helper/firebaseAdmin');
+const Bookings = require('../../models/Bookings');
+const User = require('../../models/Users');
+const Notification = require('../../models/notification');
+
 const commonUtil = {
 //Booking type
 AddBookingType: async (data) => {
@@ -39,7 +44,6 @@ getBookingType: async (data) => {
 VehicleTypeId: async (data) => {
   try {
     let { _id } = data?.params;
-
     if (!helpers.isValidId(_id)) {
       return helpers.showResponse( false, Message.NOT_VALIDID, null, null, statusCodes.success );
     }
@@ -54,7 +58,6 @@ VehicleTypeId: async (data) => {
 },
 All_VehicleType: async (data) => {
   try {
-
     let response = await getDataArray(VechileType, {status: { $eq: 1 },}, "-__v",null,{createdAt:-1});
     if (response.status) {
       return helpers.showResponse( true, Message.DATA_FOUND_SUCCESS, response.data, null, statusCodes.success );
@@ -65,20 +68,63 @@ All_VehicleType: async (data) => {
   }
 },
 
-update_VehicleType:async(data)=>{
+add_VehicleType : async(data) => {
   try {
-
-    let { _id,vehicle_Type } = data;
-
-    if (!helpers.isValidId(_id)) {
-      return helpers.showResponse( false, Message.NOT_VALIDID, null, null, statusCodes.success );
-    }
-    let checkVehicleExistance = await getSingleData( VechileType, { vehicle_Type, status: { $eq: 1 },_id:{$ne:ObjectId(_id)} }, "" );
+    let { vehicle_Type, daily, weekly, monthly } = data;
+    let checkVehicleExistance = await getSingleData( VechileType, { vehicle_Type, status : { $eq: 1 } }, "" );
     if (checkVehicleExistance.status) {
       return helpers.showResponse( false, Message.ALREADY_EXISTSTYPE, null, null, 200 );
     }
-    let newObj = { ...data };
-    delete newObj._id;
+    let newObj = {
+      vehicle_Type,
+      price : { daily, weekly, monthly }
+    };
+    if(data?.vehicle_type_key && data.vehicle_type_key != ''){
+      newObj.vehicle_type_key = data.vehicle_type_key
+    }
+    if(data?.slots && data.slots != ''){
+      newObj.slots = data.slots
+    }
+    let vehRef = new VechileType(newObj);
+    let result = await postData(vehRef);
+    if (result.status) {
+      return helpers.showResponse( true, Message.ADDED_NEWVEHICLE_TYPE, null, null, 200 );
+    }
+    return helpers.showResponse( false, Message.UNABLE_VEHICLE_TYPE, null, null, 200 );
+
+  } catch (err) {
+    return helpers.showResponse(false, err.message, null, null, 200);
+  }
+},
+
+update_VehicleType:async(data) => {
+  try {
+    let { _id, vehicle_Type } = data;
+    if (!helpers.isValidId(_id)) {
+      return helpers.showResponse( false, Message.NOT_VALIDID, null, null, statusCodes.success );
+    }
+    let checkVehicleExistance = await getSingleData( VechileType, { vehicle_Type, status: { $eq: 1 },_id : { $ne : ObjectId(_id) } }, "");
+    if (checkVehicleExistance.status) {
+      return helpers.showResponse( false, Message.ALREADY_EXISTSTYPE, null, null, 200 );
+    }
+    let newObj = {};
+    let price = { daily : '', weekly : '', monthly : '' }
+    if(data?.daily && data?.daily != ''){
+      price.daily = data.daily;
+    }
+    if(data?.weekly && data?.weekly != ''){
+      price.weekly = data.weekly
+    }
+    if(data?.monthly && data?.monthly != ''){
+      price.monthly = data.monthly;
+    }
+    if(data?.vehicle_Type && data?.vehicle_Type != ''){
+      newObj.vehicle_Type = data.vehicle_Type;
+    }
+    if(data?.vehicle_type_key && data?.vehicle_type_key != ''){
+      newObj.vehicle_type_key = data.vehicle_type_key;
+    }
+    newObj.price = price;
     let response = await updateData( VechileType, newObj, ObjectId(_id) );
     if (response.status) {
       return helpers.showResponse( true, Message.VEHICLE_UPDATED, response.data, null, 200 );
@@ -89,27 +135,6 @@ update_VehicleType:async(data)=>{
     return helpers.showResponse(false, err.message, null, null, 200);
   }
 },
-add_VehicleType:async(data)=>{
-  try {
-
-    let { vehicle_Type,price } = data;
-    let checkVehicleExistance = await getSingleData( VechileType, { vehicle_Type, status: { $eq: 1 }, }, "" );
-    if (checkVehicleExistance.status) {
-      return helpers.showResponse( false, Message.ALREADY_EXISTSTYPE, null, null, 200 );
-    }
-    let newObj = { vehicle_Type,price };
-    
-    let vehRef = new VechileType(newObj);
-    let result = await postData(vehRef);
-    if (result.status) {
-      return helpers.showResponse( true, Message.ADDED_NEWVEHICLE_TYPE, null, null, 200 );
-    }
-    return helpers.showResponse( false, Message.UNABLE_VEHICLE_TYPE, null, null, 200 );
-  } catch (err) {
-    return helpers.showResponse(false, err.message, null, null, 200);
-  }
-},
-
 
   // Terms and privacy and how its work 
   AddTermsContent: async (data) => {
@@ -204,6 +229,77 @@ add_VehicleType:async(data)=>{
       return helpers.showResponse(false, err.message, null, null, 200);
     }
   },
+
+  getVehicleData : async(req, res, next) => {
+    let result = await getDataArray( VechileType, { status: { $eq : 1 }, }, '');
+    if(result.status){
+      return helpers.showResponse( true, 'successfully get vehicle data', result?.data, null, 200 );
+    }
+    return helpers.showResponse(false, 'Data not found', null, null, 200);
+  },
+
+  fireNotificationOnEvents : async(query) => {
+    let bookingResult = await getDataArray(Bookings, query, '-payment_object');
+    if(bookingResult.status){
+      let bookingsData = bookingResult.data;
+      let userData = bookingsData.map(item => item.user_id);
+      if(userData.length != 0 && userData.length != undefined){
+        let userResult = await getDataArray(User, { _id : { $in : userData }, user_status : { $ne : 2 } }, '-password -otp');
+        if(userResult.status){
+          let userResponse = userResult.data;
+          let fcm_tokens = userResponse.map(item => {
+            return item.fcm_token;
+          });
+          let tokens = fcm_tokens.filter(item => item !== '');
+          if(tokens?.length > 0){
+            const message = {
+              tokens,
+              notification: {
+                title: "<-----------Booking Title ----------->",
+                body: "<------------Booking Body ------------>",
+              },
+              data: {},
+              "apns": {
+              "headers": {
+                "apns-priority": "10"
+              },
+              "payload": {
+                "aps": {
+                  "sound": "default"
+                }
+              }
+              },
+              contentAvailable: true,
+              priority: 'high',
+          }
+          let response = await fireBaseAdmin.messaging().sendMulticast(message);
+          console.log(response);
+          let localnotiObj = {
+            title : message.notification.title,
+            message : message.notification.body,
+            status : 1,
+            notification_data : {}
+          }
+          await helpers.localNotificationBooking("user", userResponse, localnotiObj);
+        }
+        return helpers.showResponse(true, 'Notification fired successfully', null, null, 200);
+      }
+      return helpers.showResponse(false, 'User not found', null, null, 200);
+    }
+    return helpers.showResponse(false, 'No users has booking yet', null, null, 200);
+    }
+    return helpers.showResponse(false, 'No Daily bookings found yet', null, null, 200);
+  },
+
+  getUserNotifications : async(_id) => {
+    let query = { user_id : ObjectId(_id), status : { $eq : 1 } };
+    let result = await getDataArray(Notification, query, '');
+    if(result.status){
+      return helpers.showResponse(true, 'Notification found', result.data, null, 200);
+    }
+    return helpers.showResponse(false, 'No Notification Found', null, null, 200);
+  }
+
 };
 
 module.exports = {

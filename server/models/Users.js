@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 const { constValues } = require('../services/helper/constants');
-let moment=require("moment")
+let moment=require('moment-timezone')
 var Schema = mongoose.Schema;
 var userSchema = new Schema({
     username: { type: String, default: "", },
@@ -8,7 +8,6 @@ var userSchema = new Schema({
       type: String,
       default: "",
       trim: true,
-     
       immutable: true,
       unique: true
     },

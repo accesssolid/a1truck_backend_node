@@ -5,12 +5,14 @@ var Messages = require("./messages");
 let helpers = require("../../services/helper");
 let jwt = require("jsonwebtoken");
 let nodemailer = require("nodemailer");
-let moment = require("moment");
+let moment = require('moment-timezone');
 let md5 = require("md5");
 let FAQ = require("../../models/FAQ");
 let Users = require('../../models/Users');
 let Bookings = require('../../models/Bookings');
 const { constValues, statusCodes } = require("../../services/helper/constants");
+const CommonContent = require('../../models/CommonContent');
+const VehicleType = require('../../models/VehicleType');
 
 const adminUtils = {
     login : async(bodyData) => {
@@ -171,10 +173,20 @@ const adminUtils = {
     },
 
     getAllUsersDetailsAdmin : async(data) => {
+        const { page, limit } = data;
+        let currentPage = +(page ? page : 1);
+        let pageLimit = +(limit ? limit : 0);
+        let skip = (currentPage - 1) * pageLimit;
+        let paginate = {
+            skip,
+            limit : pageLimit * 1 || 0
+        }
+        let query = { user_status : { $ne : 2 } }
         let sort = { createdAt : -1 }
-        let result = await getDataArray(Users, { user_status : { $ne : 2 } }, '-password -otp -stripe_id', null, sort);
+        let result = await getDataArray(Users, query, '-password -otp -stripe_id', paginate, sort);
         if(result.status){
-            return helpers.showResponse(true, 'Successfully fetched all users', result.data, null, 200);
+            totalCount = result.data.length;
+            return helpers.showResponse(true, 'Successfully fetched all users', result.data, totalCount, 200);
         }
         return helpers.showResponse(false, 'No Users Found', null, null, 200);
     },
@@ -227,39 +239,153 @@ const adminUtils = {
     let populate = [{
       path: 'vehicle_id'
     }]
-    let result = await getDataArray(Bookings, {}, '', null, null, populate);
+    let result = await getDataArray(Bookings, {}, '-payment_object', null, null, populate);
     if(result.status){
-      let newData = result.data;
-      let parsedData = newData.map(item => {
-          return {
-            _id : item._id,
-            user_id : item.user_id,
-            vehicle_id : item.vehicle_id,
-            start_time : item.start_time,
-            end_time : item.end_time,
-            end_time : item.end_time,
-            booking_type : item.slot_type,
-            vehicle_type : item.vehicle_type,
-            payment_object : {
-              amount : JSON.parse(item.payment_object).amount / 100,
-              brand : JSON.parse(item.payment_object).payment_method_details.card.brand,
-              last4 : JSON.parse(item.payment_object).payment_method_details.card.last4
-            },
-            slot_number : item.slot_number,
-            booking_ref : item.booking_ref,
-            booking_status : item.booking_status,
-            createdAt : item.createdAt,
-            updatedAt : item.updatedAt
-          }
-      });
-      return helpers.showResponse(true, 'Successfully fetched bookings', parsedData, null, 200);
+        let newData = result.data;
+        return helpers.showResponse(true, 'Successfully fetched bookings', newData, null, 200);
     }
     return helpers.showResponse(false, 'Bookings not found', null, null, 200);
-  },
+},
 
   getDashBoardData : async(data) => {
     
-  }
+  },
+
+  contactToAdminByAdmin : async(data) => {
+    let { email, message } = data;
+    let response = await getSingleData(Users, { email, status : { $ne : 2 } });
+    if(response.status){
+        try {
+            let transporter = nodemailer.createTransport({
+                host: 'smtp.gmail.com',
+                port: 587,
+                secure: false,
+                auth: {
+                    user: process.env.APP_EMAIL,
+                    pass: process.env.APP_PASSWORD
+                },
+            });
+            await transporter.sendMail({
+                from : process.env.APP_EMAIL,
+                to : email,
+                    subject: 'Response from A1 Truck',
+                    html: message,
+                });
+                return helpers.showResponse(true, "Email sent successfully", null, null, 200);
+        
+            } catch (err) {
+                return helpers.showResponse(false, "Error Occured, try again", null, null, 200);
+            }
+        }
+        return helpers.showResponse(false, 'Mentioned email is not registered with us', null, null, 200);
+    },
+
+    addTruckMakeAndColorAdmin : async(data) => {
+        const { type, make, color } = data;
+        if(type == 'truck_make'){
+            let result = await pushAndUpdateMany(CommonContent, { truck_makes : make }, {});
+            if(result.status){
+                return helpers.showResponse(false, 'Successfully updated truck make', null, null, 200);
+            }
+            return helpers.showResponse(false, 'Internal Server Error', null, null, 200);
+
+        }else if(type == 'truck_color'){
+            let result = await pushAndUpdateMany(CommonContent, { truck_colors : color }, {});
+            if(result.status){
+                return helpers.showResponse(false, 'Successfully updated truck color', null, null, 200);
+            }
+            return helpers.showResponse(false, 'Internal Server Error', null, null, 200);
+
+        }else{
+            return helpers.showResponse(false, 'Invalid type', null, null, 200);
+        }
+    },
+
+    deleteTruckMakeAndColor : async(data) => {
+        const { type, make, color } = data;
+        if(type == 'truck_make'){
+            let result = await pullAndUpdateMany(CommonContent, { truck_makes : make }, {});
+            if(result.status){
+                return helpers.showResponse(false, 'Successfully delete truck make', null, null, 200);
+            }
+            return helpers.showResponse(false, 'Internal Server Error', null, null, 200);
+
+        }else if(type == 'truck_color'){
+            let result = await pullAndUpdateMany(CommonContent, { truck_colors : color }, {});
+            if(result.status){
+                return helpers.showResponse(false, 'Successfully delete truck color', null, null, 200);
+            }
+            return helpers.showResponse(false, 'Internal Server Error', null, null, 200);
+
+        }else{
+            return helpers.showResponse(false, 'Invalid type', null, null, 200);
+        }
+    },
+
+    updatePricesAndSlots : async(data) => {
+        // {
+        //     "type" : "slots",
+        //     "price" : [
+        //       {
+        //         "_id" : "6405d7e4f45db096bb204f17",
+        //         "daily" : "300",
+        //         "weekly" : "500",
+        //         "monthly" : "450"
+        //       }
+        //     ]
+        //   }
+        // {
+            // "type" : "slots",
+            // "slot" : [
+            //     {
+            //       "_id" : "6405d7e4f45db096bb204f17",
+            //       "slot_data" : "20"
+            //     }
+            //   ]
+        // }
+        const { type } = data;
+        if(type == 'prices'){
+            const { price } = data;
+            let response = null;
+                for(let item of price){
+                    let price = {
+                        daily : item.daily != '' ? item.daily : '0',
+                        weekly : item.weekly!= '' ? item.weekly : '0',
+                        monthly : item.monthly != '' ? item.monthly : '0'
+                    }
+                    let query = { _id : ObjectId(item._id), status : { $ne : 2 } }
+                    response = await updateSingleData(VehicleType, query, { price : price }, { new: true, upsert : true });
+                }
+                if(response.status){
+                    return helpers.showResponse(true, 'Successfully updated prices', null, null, 200);
+                }
+                return helpers.showResponse(false, 'Internal server error!!', null, null, 200);
+
+        }else if(type == 'slots'){
+            const { slot } = data;
+            let response = null;
+                for(let item of slot){
+                    let query = { _id : ObjectId(item._id), status : { $ne : 2 } }
+                    response = await updateSingleData(VehicleType, query, { slots : item.slot_data }, { new: true, upsert : true });
+                }
+                if(response.status){
+                    return helpers.showResponse(true, 'Successfully updated slots', null, null, 200);
+                }
+                return helpers.showResponse(false, 'Internal server error!!', null, null, 200);
+
+        }else{
+            return helpers.showResponse(false, 'Invalid type', null, null, 200);
+        }
+
+    },
+
+    landingPageDataUpdate : async(data) => {
+        let response = await updateSingleData(CommonContent, {}, data, { new: true, upsert: true, });
+        if (response.status) {
+            return helpers.showResponse( true, 'Successfully updated landing page data', null, null, 200);
+        }
+        return helpers.showResponse(false, err.message, null, null, 200);
+    }
 
 }
 

@@ -2,7 +2,7 @@ require("../../db_functions");
 let Vehicle = require("../../models/Vehicles");
 let ObjectId = require("mongodb").ObjectID;
 let helpers = require("../../services/helper");
-let moment = require("moment");
+let moment = require('moment-timezone');
 const { constValues, statusCodes } = require("../../services/helper/constants");
 const Messages = require("../Users/messages");
 
@@ -361,47 +361,21 @@ const VehicleUtils = {
   getVehicle: async (data) => {
     try {
       let { _id } = data?.decoded;
-
       if (!helpers.isValidId(_id)) {
-        return helpers.showResponse(
-          false,
-          Messages.NOT_VALIDID,
-          null,
-          null,
-          statusCodes.success
-        );
+        return helpers.showResponse(false, Messages.NOT_VALIDID, null, null, statusCodes.success);
       }
-
-      let result = await getDataArray(
-        Vehicle,
-        {
-          created_by: ObjectId(_id),
-          status: { $ne: constValues.vehicle_delete },
-        },
-        "",
-        null,
+      let result = await getDataArray(Vehicle, { created_by: ObjectId(_id), status: { $ne: constValues.vehicle_delete } }, "",null,
         { default_vehicle: -1, createdAt: -1 }
       );
       if (!result.status) {
-        return helpers.showResponse(
-          false,
-          "No Vehicles available",
-          null,
-          null,
-          200
-        );
+        return helpers.showResponse(false, "No Vehicles available", null, null, 200);
       }
-      return helpers.showResponse(
-        true,
-        "Here is a list of my vehicles",
-        result.data,
-        null,
-        200
-      );
+      return helpers.showResponse(true, "Here is a list of my vehicles", result.data, null, 200);
     } catch (err) {
       return helpers.showResponse(false, err.message, null, null, 200);
     }
   },
+
   getVehicleByid: async (data) => {
     try {
       let { vehicleId } = data?.params;

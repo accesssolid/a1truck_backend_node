@@ -112,6 +112,11 @@ const adminController = {
     if (!admin_id) {
         return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_ADMIN), 403);
     }
+    let requiredFields = ['page', 'limit'];
+    let validator = helpers.validateParams(req, requiredFields);
+    if (!validator.status) {
+        return helpers.showOutput(res, helpers.showResponse(false, validator.message), 203);
+    }
     let result = await AdministrationUtils.getAllUsersDetailsAdmin(req.body);
     return helpers.showOutput(res, result, result.code);
   },
@@ -155,6 +160,123 @@ const adminController = {
     }
     let result = await AdministrationUtils.getDashBoardData(req.body);
     // return helpers.showOutput(res, result, result.code);
+  },
+
+  contactToAdminByAdmin : async(req, res, next) => {
+    let admin_id = req.decoded.admin_id;
+    if (!admin_id) {
+        return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_ADMIN), 403);
+    }
+    let requiredFields = ['email', 'message'];
+    let validator = helpers.validateParams(req, requiredFields);
+    if (!validator.status) {
+      return helpers.showOutput(res, helpers.showResponse(false, validator.message), 203);
+    }
+    let result = await AdministrationUtils.contactToAdminByAdmin(req.body);
+    return helpers.showOutput(res, result, result.code);
+  },
+
+  addTruckMakeAndColorAdmin : async(req, res, next) => {
+    let admin_id = req.decoded.admin_id;
+    if (!admin_id) {
+        return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_ADMIN), 403);
+    }
+    let requiredFields = ['type']; // truck_make -----> make,  and  truck_color -----> color
+    let validator = helpers.validateParams(req, requiredFields);
+    if (!validator.status) {
+      return helpers.showOutput(res, helpers.showResponse(false, validator.message), 203);
+    }
+    const { type } = req.body;
+    if(type == 'truck_make'){
+      requiredFields.push('make');
+      let validator = helpers.validateParams(req, requiredFields);
+      if (!validator.status) {
+        return helpers.showOutput(res, helpers.showResponse(false, validator.message), 203);
+      }
+      
+    }else if(type == 'truck_color'){
+      requiredFields.push('color');
+      let validator = helpers.validateParams(req, requiredFields);
+      if (!validator.status) {
+        return helpers.showOutput(res, helpers.showResponse(false, validator.message), 203);
+      }
+    }else{
+      return helpers.showResponse(false, 'Invalid type', null, null, 200);
+    }
+    let result = await AdministrationUtils.addTruckMakeAndColorAdmin(req.body);
+    return helpers.showOutput(res, result, result.code);
+  },
+
+  deleteTruckMakeAndColor : async(req, res, next) => {
+    let admin_id = req.decoded.admin_id;
+    if (!admin_id) {
+        return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_ADMIN), 403);
+    }
+    let requiredFields = ['type'];  // truck_make ----> make,  and truck_color ----> color
+    let validator = helpers.validateParams(req, requiredFields);
+    if (!validator.status) {
+      return helpers.showOutput(res, helpers.showResponse(false, validator.message), 203);
+    }
+    const { type } = req.body;
+    if(type == 'truck_make'){
+      requiredFields.push('make');
+      let validator = helpers.validateParams(req, requiredFields);
+      if (!validator.status) {
+        return helpers.showOutput(res, helpers.showResponse(false, validator.message), 203);
+      }
+      
+    }else if(type == 'truck_color'){
+      requiredFields.push('color');
+      let validator = helpers.validateParams(req, requiredFields);
+      if (!validator.status) {
+        return helpers.showOutput(res, helpers.showResponse(false, validator.message), 203);
+      }
+    }else{
+      return helpers.showResponse(false, 'Invalid type', null, null, 200);
+    }
+    let result = await AdministrationUtils.deleteTruckMakeAndColor(req.body);
+    return helpers.showOutput(res, result, result.code);
+  },
+
+  updatePricesAndSlots : async(req, res, next) => {
+    let admin_id = req.decoded.admin_id;
+    if (!admin_id) {
+        return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_ADMIN), 403);
+    }
+    let requiredFields = ['type'];  // prices and slot
+    let validator = helpers.validateParams(req, requiredFields);
+    if (!validator.status) {
+      return helpers.showOutput(res, helpers.showResponse(false, validator.message), 203);
+    }
+    const { type } = req.body;
+    if(type == 'prices'){
+      requiredFields.push('price');
+      let validator = helpers.validateParams(req, requiredFields);
+      if (!validator.status) {
+        return helpers.showOutput(res, helpers.showResponse(false, validator.message), 203);
+      }
+      
+    }else if(type == 'slots'){
+      requiredFields.push('slot');
+      let validator = helpers.validateParams(req, requiredFields);
+      if (!validator.status) {
+        return helpers.showOutput(res, helpers.showResponse(false, validator.message), 203);
+      }
+    }else{
+      return helpers.showResponse(false, 'Invalid type', null, null, 200);
+    }
+    let bodyData = typeof req.body == 'string' ? JSON.parse(req.body) : req.body;
+    let result = await AdministrationUtils.updatePricesAndSlots(bodyData);
+    return helpers.showOutput(res, result, result.code);
+  },
+
+  landingPageDataUpdate : async (req, res, next) => {
+    let admin_id = req.decoded.admin_id;
+    if (!admin_id) {
+        return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_ADMIN), 403);
+    }
+    let result = await AdministrationUtils.landingPageDataUpdate(req.body);
+    return helpers.showOutput(res, result, result.code);
   }
 
 };

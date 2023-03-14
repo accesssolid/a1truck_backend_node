@@ -21,5 +21,14 @@ const commanSchema=mongoose.Schema({
         type: Array,
         default: []
     },
+    why_truck_parking : {
+        type : String,
+        default : ''
+    },
+    about_truck_parking : {
+        type : String,
+        default : ''
+    }
+
 },{ timestamps: true })
 module.exports = mongoose.model('CommonContent', commanSchema, 'common_content');

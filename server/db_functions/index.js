@@ -183,3 +183,29 @@ module.export = getCount = (Model, query) => {
     });
   });
 };
+
+module.export = pushAndUpdateMany = (Model, DataObject, filter) => {
+  return new Promise((resolve, reject) => {
+      Model.updateMany(filter, { $push: DataObject }, { multi : true, new : true, upsert: true }, (err, updatedData) => {
+          if (err) {
+              let response = helpers.showResponse(false, err);
+              return resolve(response);
+          }
+          let response = helpers.showResponse(true, 'success', updatedData);
+          return resolve(response);
+      });
+  });
+}
+
+module.export = pullAndUpdateMany = (Model, DataObject, filter) => {
+  return new Promise((resolve, reject) => {
+      Model.updateMany(filter, { $pull: DataObject }, { multi : true, new : true, upsert: true }, (err, updatedData) => {
+          if (err) {
+              let response = helpers.showResponse(false, err);
+              return resolve(response);
+          }
+          let response = helpers.showResponse(true, 'success', updatedData);
+          return resolve(response);
+      });
+  });
+}

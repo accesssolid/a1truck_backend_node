@@ -5,7 +5,7 @@ var ControllerMessages = require("./controllerMessages");
 const boookingsController = {
 
   getEmptySlotCount: async (req, res) => {
-    let requiredFields = ["startTime", "endTime", "vehicle_type"];
+    let requiredFields = ["startTime", "endTime", "vehicle_type", "time_zone"];
     let validator = helpers.validateParams(req, requiredFields);
     if (!validator.status) {
       return helpers.showOutput(res, helpers.showResponse(false, validator.message), 203);
@@ -19,7 +19,7 @@ const boookingsController = {
   },
 
   checkSlotAvailabilty: async (req, res) => {
-    let requiredFields = ["startTime", "endTime", "slot_type", "vehicle_type", "card_id", "vehicle_id"];
+    let requiredFields = ["startTime", "endTime", "slot_type", "vehicle_type", "card_id", "vehicle_id", 'time_zone', 'total_amount'];
     let validator = helpers.validateParams(req, requiredFields);
     if (!validator.status) {
       return helpers.showOutput(res, helpers.showResponse(false, validator.message), 203);
@@ -37,7 +37,17 @@ const boookingsController = {
     if (!user_id) {
       return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_USER), 403);
     }
-    let result = await Bookings.getAllBookings(user_id);
+    let requiredFields = ['time_zone'];
+    let validator = helpers.validateParams(req, requiredFields);
+    if (!validator.status) {
+      return helpers.showOutput(res, helpers.showResponse(false, validator.message), 203);
+    }
+    let result = await Bookings.getAllBookings(req.body, user_id);
+    return helpers.showOutput(res, result, result.code);
+  },
+
+  autoUpdateBooking : async(req, res, next) => {
+    let result = await Bookings.autoUpdateBooking();
     return helpers.showOutput(res, result, result.code);
   }
 

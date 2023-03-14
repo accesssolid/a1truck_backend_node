@@ -8,6 +8,7 @@ router.post('/get_empty_slots_count',middleware.checkToken, BookingsController.g
 router.post('/check_slot_availability',middleware.checkToken, BookingsController.checkSlotAvailabilty);
 
 router.post('/get_all_bookings', middleware.checkToken, BookingsController.getAllBookings);
+router.post('/auto_update_booking_after_expiration', middleware.checkToken, BookingsController.autoUpdateBooking);
 
 // Common Routes
 router.get('*',(req,res) => {res.status(405).json({status:false, message:"Invalid Get Request"})});

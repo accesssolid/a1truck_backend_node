@@ -6,7 +6,10 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const cors = require("cors");
 const port = process.env.PORT;
-const compression = require('compression')
+const compression = require('compression');
+const cronJob = require('node-cron');
+const Bookings = require('./server/utils/Bookings/index');
+const Common = require('./server/controllers/Common');
 
 const app = express();
 
@@ -37,6 +40,22 @@ app.use(process.env["API_V1"] + "vehicle", vehicles);
 app.use(process.env["API_V1"] + "common", common);
 app.use(process.env["API_V1"] + "appdata", appdata);
 app.use(process.env["API_V1"] + "bookings", bookings);
+
+// cronJob.schedule('* * * * * *', function () {
+  // Bookings.autoUpdateBooking();
+// });
+
+// cronJob.schedule('* * * * * *', async function () {  // 2 hours prior booking ends.
+  // await Common.fireNotificationOnDailyEvents();
+// });
+
+// cronJob.schedule('* * * * * *', function () {  // upcoming booking half an hour ago or 30 min before.
+  // await Common.fireNotificationOnUpcomingEvent();
+// });
+
+// cronJob.schedule('* * * * * *', function () {  // 2 days prior notification of weekly and monthly plan ends.
+  // await Common.fireNotificationOnWeeklyAndMonthlyEvent();
+// });
 
 app.listen(port, () => {
   console.log(`https server running on port ${port}`);
