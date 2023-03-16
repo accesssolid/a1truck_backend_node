@@ -8,8 +8,11 @@ const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 const twiliophone = process.env.TWILIO_PHONE_NUMBER;
 const isValidId = (_id) => mongoose.Types.ObjectId.isValid(_id);
-const User = require('../../models/Users');
 const Notification = require('../../models/notification');
+const pdfkit = require('pdfkit');
+const path = require('path');
+const fs = require('fs');
+const nodemailer = require('nodemailer');
 
 const showResponse = (
   status,
@@ -311,6 +314,114 @@ const sendTwilioSMS = async (to, body) => {
   }
 };
 
+const sendBookingMailToUser = async (bookingData) => {
+  let { user_name, email, booking_creation_time, total_cost, slot_type, slot_number, pdf_fileName } = bookingData;
+  try {
+    let transporter = nodemailer.createTransport({
+      host: 'smtp.gmail.com',
+        port: 587,
+        secure: false,
+        auth: {
+          user: process.env.APP_EMAIL,
+            pass: process.env.APP_PASSWORD
+          },
+      });
+      await transporter.sendMail({
+        from : process.env.APP_EMAIL,
+        to : email,
+        subject: 'A1 Truck Booking',
+        html: `
+        <h4>Dear ${user_name},</h4>
+        <p>Thank you for booking a truck parking slot with us. We are pleased to confirm your reservation for the following :</p>
+        <p>Booking Details:</p>
+        <table cellspacing="25">
+          <tr>
+            <th style="text-align: left">Booking Date</th> <td>${booking_creation_time}</td>
+          </tr>
+          <tr>
+            <th style="text-align: left">Slot Number</th> <td>${slot_number}</td>
+          </tr>
+          <tr>
+            <th style="text-align: left">Parking Duration</th> <td>${slot_type}</td>
+          </tr>
+          <tr>
+            <th style="text-align: left">Total Cost</th> <td>${total_cost}</td>
+          </tr>
+        </table>
+        <br/>
+        <p>Please find attached the invoice for your reference.</p> <br/>
+        <h3>Parking Rules :</h3> <br/>
+        <p>Please note that your parking slot is reserved for the specified duration only. Additional charges will apply for overstaying.
+        <p>All vehicles must comply with our parking rules and regulations.</p> <br/>
+        <p>We are not responsible for any loss or damage to vehicles or their contents while parked on our premises.</p> </br>
+        <p>Please notify us if you need to cancel or change your booking at least 24 hours before the booking start time to avoid cancellation charges.</p> </br></br>
+        <p>Thank you for choosing our truck parking services. We look forward to serving you again.</p>
+        </p> </br> </br>
+        <p>Sincerely,</p>
+        <br/><label>A1 Truck Parking.</label>
+        `,
+        attachments: [
+          {
+            filename : 'invoice.pdf',
+            path : `${path.resolve('./server/uploads/booking_invoice/'+pdf_fileName)}`,
+            contentType: 'application/pdf'
+          }
+        ]
+      });
+    return showResponse(true, "Booking invoices send successfully thorugh mail", null, null, 200);
+
+  } catch (err) {
+    console.log(err)
+    return showResponse(false, "Error Occured, try again", null, null, 200);
+  }
+}
+
+const createBookingInvoicePDF = async(bookingData) => {
+  try{
+    let pdfDoc = new pdfkit;
+    let pdfFileName = 'booking_invoice.pdf_'+Date.now();
+    pdfDoc.pipe(fs.createWriteStream(path.resolve(`./server/uploads/booking_invoice/${pdfFileName}`)));
+    pdfDoc.image(path.resolve('./server/uploads/textlogo3.png'), 25, 20, { width: 140 });
+    pdfDoc.fontSize(10).font('Helvetica-Bold').fillColor('black').text("Invoice :", 35, 90);
+    pdfDoc.fontSize(10).font('Helvetica-Bold').fillColor('black').text("Invoice Number", 35, 105);
+    pdfDoc.fontSize(10).font('Helvetica').fillColor('black').text(bookingData.booking_reference_no, 160, 105);
+    pdfDoc.fontSize(10).font('Helvetica-Bold').fillColor('black').text("Invoice Date", 35, 120);
+    pdfDoc.fontSize(10).font('Helvetica').fillColor('black').text(bookingData.booking_creation_time, 160, 120);
+  
+    pdfDoc.fontSize(10).font('Helvetica-Bold').fillColor('black').text("Billing To :", 35, 150);
+    pdfDoc.fontSize(10).font('Helvetica-Bold').fillColor('black').text("Customer Name", 35, 165);
+    pdfDoc.fontSize(10).font('Helvetica').fillColor('black').text(bookingData.user_name, 160, 165);
+    pdfDoc.fontSize(10).font('Helvetica-Bold').fillColor('black').text("Email", 35, 180);
+    pdfDoc.fontSize(10).font('Helvetica').fillColor('black').text(bookingData.email, 160, 180);
+  
+    pdfDoc.fontSize(10).font('Helvetica-Bold').fillColor('black').text("Description", 35, 225);
+    pdfDoc.fontSize(10).font('Helvetica-Bold').fillColor('black').text("Booking Start Time", 200, 225);
+    pdfDoc.fontSize(10).font('Helvetica-Bold').fillColor('black').text("Booking End Time", 340, 225);
+    pdfDoc.fontSize(10).font('Helvetica-Bold').fillColor('black').text("Total Amount", 465, 225);
+    pdfDoc.lineJoin('round').rect(35, 240, 560, 0).lineWidth(0.1).stroke("#aaa");
+  
+    pdfDoc.fontSize(10).font('Helvetica-Bold').fillColor('black').text("Truck Parking Slot Booking", 35, 250);
+    pdfDoc.fontSize(10).font('Helvetica').fillColor('black').text(bookingData.booking_start_time, 200, 250);
+    pdfDoc.fontSize(10).font('Helvetica').fillColor('black').text(bookingData.booking_end_time, 340, 250);
+    pdfDoc.fontSize(10).font('Helvetica').fillColor('black').text('$'+bookingData.total_cost + '.00', 480, 250);
+  
+    pdfDoc.fontSize(10).font('Helvetica-Bold').fillColor('black').text("Tax :", 35, 300);
+    pdfDoc.fontSize(10).font('Helvetica-Bold').fillColor('black').text("Total :", 35, 315);
+  
+    pdfDoc.fontSize(10).font('Helvetica').fillColor('black').text('$0.00', 482, 302);
+    pdfDoc.fontSize(10).font('Helvetica').fillColor('black').text('$'+bookingData.total_cost + '.00', 482, 315);
+  
+    pdfDoc.fontSize(8).font('Helvetica').fillColor('black').text(`This is a computer generated statement hence no signature is required.`, 35, 345);
+    
+    pdfDoc.end();
+
+    return showResponse(true, 'successfully created pdf', pdfFileName, null, 200);
+
+  }catch(err){
+    return showResponse(false, 'Server Error, Pdf file did not created..', null, null, 200);
+  }
+}
+
 module.exports = {
   showResponse,
   showOutput,
@@ -329,4 +440,6 @@ module.exports = {
   localNotificationBooking,
   // sendTwilioSMS,
   isValidId,
+  sendBookingMailToUser,
+  createBookingInvoicePDF
 };

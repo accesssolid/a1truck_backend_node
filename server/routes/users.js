@@ -18,12 +18,15 @@ router.get('/profile',middleware.checkToken, AuthController.user_profile);
 router.patch('/update_profile',middleware.checkToken, AuthController.user_Updateprofile);
 router.delete('/delete_account',middleware.checkToken, AuthController.delete_account);
 router.post('/change_password',middleware.checkToken, AuthController.change_pass);
+router.post('/change_phoneno_send_otp', middleware.checkToken, AuthController.changeEmailSendOtp);
+router.post('/change_phoneno_verify_otp', middleware.checkToken, AuthController.changePhoneNoVerifyOtp);
 
 //Strip
 router.post('/add_card',middleware.checkToken, AuthController.addCard);
 router.get('/cards',middleware.checkToken, AuthController.listCards);
 router.delete('/cards',middleware.checkToken, AuthController.deleteCard);
 router.patch('/default_card',middleware.checkToken, AuthController.updateCustomer);
+router.post('/create_card_token', middleware.checkToken, AuthController.createCardToken);
 
 // Common Routes
 router.get('*',(req,res) => {res.status(405).json({status:false, message:"Invalid Get Request"})});

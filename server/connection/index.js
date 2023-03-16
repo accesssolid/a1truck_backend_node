@@ -10,3 +10,5 @@ var db = mongoose.connection;
 db.once('open', () => {
     console.log("connection established");
 });
+
+module.exports = db;

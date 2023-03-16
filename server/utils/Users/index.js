@@ -489,8 +489,7 @@ let UserUtils = {
   forgot_pass: async (data) => {
     try {
       let { country_code, phone_number } = data;
-      let query = [
-        {
+      let query = [ {
           $match: {
             phone_number: phone_number,
             country_code: country_code,
@@ -668,15 +667,9 @@ let UserUtils = {
   profile_update: async (data) => {
     try {
       let { _id } = data?.decoded;
-      let { username } = data?.body;
+      let { username, phone_no } = data?.body;
       if (!helpers.isValidId(_id)) {
-        return helpers.showResponse(
-          false,
-          Messages.NOT_VALIDID,
-          null,
-          null,
-          statusCodes.success
-        );
+        return helpers.showResponse(false, Messages.NOT_VALIDID, null, null, statusCodes.success);
       }
       if (username) {
         let result = await Users.aggregate([
@@ -690,36 +683,20 @@ let UserUtils = {
           { $project: { otp: 0, __v: 0 } },
         ]);
         if (result.length > 0) {
-          return helpers.showResponse(
-            false,
-            Messages.USER_NAME_EXISTS,
-            null,
-            null,
-            statusCodes.success
-          );
+          return helpers.showResponse(false, Messages.USER_NAME_EXISTS, null, null, statusCodes.success);
         }
-        let userdataresult = await updateData(
-          Users,
-          { username: username },
-          ObjectId(_id)
-        );
+        let updateObj = {
+          username : username
+        }
+        if(phone_no && phone_no != '' && phone_no != undefined){
+          updateObj.phone_number = phone_no;
+        }
+        let userdataresult = await updateData(Users, updateObj, ObjectId(_id));
 
         if (!userdataresult.status) {
-          return helpers.showResponse(
-            false,
-            userdataresult?.message,
-            null,
-            null,
-            statusCodes.success
-          );
+          return helpers.showResponse(false, userdataresult?.message, null, null, statusCodes.success);
         }
-        return helpers.showResponse(
-          true,
-          Messages.UPDATED_SUCCESS,
-          userdataresult.data,
-          null,
-          statusCodes.success
-        );
+        return helpers.showResponse(true, Messages.UPDATED_SUCCESS, userdataresult.data, null, statusCodes.success);
       } else {
         let query = [
           {
@@ -730,26 +707,12 @@ let UserUtils = {
           },
           { $project: { otp: 0, __v: 0 } },
         ];
-        {
-        }
 
         let userdataresult = await UserUtils.getUserDetail(query);
         if (!userdataresult.status) {
-          return helpers.showResponse(
-            false,
-            result.message,
-            null,
-            null,
-            result?.code
-          );
+          return helpers.showResponse(false, result.message, null, null, result?.code);
         }
-        return helpers.showResponse(
-          true,
-          Messages.UPDATED_SUCCESS,
-          userdataresult?.data,
-          null,
-          statusCodes.success
-        );
+        return helpers.showResponse(true, Messages.UPDATED_SUCCESS, userdataresult?.data, null, statusCodes.success);
       }
     } catch (err) {
       return helpers.showResponse(false, err.message, null, null, 200);

@@ -79,11 +79,7 @@ const authController = {
     let requiredFields = ["country_code", "phone_number"];
     let validator = helpers.validateParams(req, requiredFields);
     if (!validator.status) {
-      return helpers.showOutput(
-        res,
-        helpers.showResponse(false, validator.message),
-        203
-      );
+      return helpers.showOutput(res, helpers.showResponse(false, validator.message), 203);
     }
     let result = await Users.forgot_pass(req.body);
     return helpers.showOutput(res, result, result.code);
@@ -195,6 +191,43 @@ const authController = {
     }
     let result = await Stripcard.deleteCard(req);
     console.log(result);
+    return helpers.showOutput(res, result, result.code);
+  },
+
+  createCardToken : async(req, res, next) => {
+    let _id = req.decoded._id;
+    if(!_id){
+      return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_USER), 403);
+    }
+    let result = await Stripcard.createCardToken(req);
+    return helpers.showOutput(res, result, result.code);
+  },
+
+  changeEmailSendOtp : async(req, res, next) => {
+    let _id = req.decoded._id;
+    if(!_id){
+      return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_USER), 403);
+    }
+    let requiredFields = ["phone_no"];
+    let validator = helpers.validateParams(req, requiredFields);
+    if (!validator.status) {
+      return helpers.showOutput(res, helpers.showResponse(false, validator.message), 203);
+    }    
+    let result = await Stripcard.changeEmailSendOtp(_id, req.body);
+    return helpers.showOutput(res, result, result.code);
+  },
+
+  changePhoneNoVerifyOtp : async(req, res, next) => {
+    let _id = req.decoded._id;
+    if(!_id){
+      return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_USER), 403);
+    }
+    let requiredFields = ["otp"];
+    let validator = helpers.validateParams(req, requiredFields);
+    if (!validator.status) {
+      return helpers.showOutput(res, helpers.showResponse(false, validator.message), 203);
+    }
+    let result = await Stripcard.changePhoneNoVerifyOtp(_id, req.body);
     return helpers.showOutput(res, result, result.code);
   }
 

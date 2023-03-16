@@ -7,7 +7,6 @@ var middleware = require("../controllers/middleware");
 router.patch('/terms', commonController.AddTermsContent);
 router.get('/terms',middleware.checkToken, commonController.getTermsContent);
 
-
 // with admin token routes
 
 // with user token routes
@@ -23,13 +22,14 @@ router.get('/bookingType', middleware.checkToken,  commonController.getBookingTy
 router.get('/faq', middleware.checkToken, commonController.getAllfaq);
 
 // Fire notifications.
-// router.post('/fire_notification_on_daily_event', commonController.fireNotificationOnDailyEvents);
-// router.post('/fire_notification_on_upcoming_event', commonController.fireNotificationOnUpcomingEvent);
-// router.post('/fire_notification_on_weekly_and_monthly_event', commonController.fireNotificationOnWeeklyAndMonthlyEvent);
-
+router.post('/fire_notification_on_daily_event', commonController.fireNotificationOnDailyEvents);
+router.post('/fire_notification_on_upcoming_event', commonController.fireNotificationOnUpcomingEvent);
+router.post('/fire_notification_on_weekly_and_monthly_event', commonController.fireNotificationOnWeeklyAndMonthlyEvent);
 
 // get user notification.
 router.post('/get_user_notifications', middleware.checkToken, commonController.getUserNotifications);
+router.post('/is_read_notification', middleware.checkToken, commonController.isReadNotification);
+router.post('/enable_disable_notification', middleware.checkToken, commonController.enableDisableNotification);
 
 // Common Routes
 router.get('*',(req,res) => {res.status(405).json({status:false, message:"Invalid Get Request"})});

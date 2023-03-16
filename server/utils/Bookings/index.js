@@ -6,12 +6,12 @@ let Bookings = require("../../models/Bookings")
 const moment = require('moment-timezone');
 const stripe = require("stripe")(process.env.Stripe_Secret_Key);
 const VehicleType = require('../../models/VehicleType');
-// let nodemailer = require("nodemailer");
 
 let slots = {
   truck: 21,
   bobtail: 10
 }
+
 let prices = [
   {
     truck: {
@@ -28,7 +28,6 @@ let prices = [
     }
   }
 ]
-
 
 let BookingsUtils = {
 
@@ -119,7 +118,6 @@ let BookingsUtils = {
           resolve(helpers.showResponse(false, "You have already booked a parking lot for selected time and selected vehicle", null, null, 200));
           return false;
         }
-        console.log(selectedVehicleBookingResponse)
         let vehicleTypeResponse = await getSingleData(VehicleType, { _id: ObjectId(vehicle_type), status: { $ne: 2 } }, '');
         if (!vehicleTypeResponse?.status) {
           return helpers.showResponse(false, "Invalid vehicle type", null, null, 200);
@@ -168,9 +166,29 @@ let BookingsUtils = {
             booking_ref: helpers.randomStr(4, "0123498765"),
             booking_status: 1
           }
-          let bookingRef = new Bookings(newObj)
-          let response = await postData(bookingRef)
+          let bookingRef = new Bookings(newObj);
+          let response = await postData(bookingRef);
           if (response.status) {
+            const booking_creation_time = moment(moment(response.data.createdAt).tz(time_zone).format()).format('YYYY-MM-DD hh:mm:ss A Z');
+            const booking_start_time = moment(response.data.start_time).tz(time_zone).format();
+            const booking_end_time = moment(response.data.end_time).tz(time_zone).format();
+            const booking_start_time_formated = moment(booking_start_time).format("YYYY-MM-DD hh:mm:ss A Z");
+            const booking_end_time_formated = moment(booking_end_time).format("YYYY-MM-DD hh:mm:ss A Z");
+            let bookingData = {
+              user_name : userData.username,
+              email : userData.email,
+              booking_creation_time : booking_creation_time.split(' +')[0],
+              booking_start_time : booking_start_time_formated.split(' +')[0],
+              booking_end_time : booking_end_time_formated.split(' +')[0],
+              slot_type : response.data.slot_type,
+              total_cost : (response.data.payment_object.amount) / 100,
+              booking_reference_no :  response.data.booking_ref,
+              slot_number : response.data.slot_number
+            }
+            let pdfResponse = await helpers.createBookingInvoicePDF(bookingData);
+            pdfResponse.status == true ? bookingData.pdf_fileName = pdfResponse.data : bookingData.pdf_fileName = null;
+            await helpers.sendBookingMailToUser(bookingData);
+            // await helpers.sendBookingMailToAdmin(bookingData);
             resolve(helpers.showResponse(true, "Parking Lot has been assigned", response?.data, null, 200));
           }
           resolve(helpers.showResponse(false, "Booking Error !!! Please Try Again Later", null, null, 200));
@@ -206,38 +224,8 @@ let BookingsUtils = {
     let activeQuery = { user_id: ObjectId(user_id) ,$and:[{ end_time : { $gte: new Date(currentTimeZone).toISOString() } } , { start_time : { $lte: new Date(currentTimeZone).toISOString() }}]}
     let active_data = await getDataArray(Bookings, activeQuery, '', null, null, populate);
     response_data.active  = active_data?.status ? active_data?.data : [];
+
     return helpers.showResponse(true, 'Successfully fetched bookings', response_data, null, 200);
-    // if (result.status) {
-      // let newData = result.data;
-      // let parsedData = newData.map(item => {
-      //   return {
-      //     _id: item._id,
-      //     user_id: item.user_id,
-      //     vehicle_id: item.vehicle_id,
-      //     start_time: moment.utc(item.start_time).local().format('YYYY-MM-DDTHH:mm:ssZ'), // moment.utc(isoDate).local()  localDate.format('YYYY-MM-DDTHH:mm:ssZ');  ------> convert 2023-03-09T12:07:59.716+00:00 to 2023-03-09T18:34:45+05:30 using moment js
-      //     end_time: moment.utc(item.end_time).local().format('YYYY-MM-DDTHH:mm:ssZ'),
-      //     booking_type: item.slot_type,
-      //     vehicle_type: item.vehicle_type,
-          // payment_object: {
-          //   amount: JSON.parse(item.payment_object).amount / 100,
-          //   brand: JSON.parse(item.payment_object).payment_method_details.card.brand,
-          //   last4: JSON.parse(item.payment_object).payment_method_details.card.last4
-          // },
-      //     slot_number: item.slot_number,
-      //     booking_ref: item.booking_ref,
-      //     booking_status: item.booking_status,
-      //     createdAt: item.createdAt,
-      //     updatedAt: item.updatedAt
-      //   };
-      // });
-      // let upcoming_bookings = parsedData.filter(item => currentTimeZone < item.start_time);
-      // let active_bookings = parsedData.filter(item => (currentTimeZone >= item.start_time && currentTimeZone <= item.end_time));
-      // let completed_bookings = parsedData.filter(item => currentTimeZone > item.end_time);
-      // let bookings = {
-      //   upcoming_bookings,
-      //   active_bookings,
-      //   completed_bookings
-      // }
   },
 
   autoUpdateBooking : async() => {

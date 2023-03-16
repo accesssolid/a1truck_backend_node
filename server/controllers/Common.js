@@ -3,6 +3,7 @@ var Common = require("../utils/Common");
 var helpers = require("../services/helper");
 const upload = require("../services/helper/image-upload");
 const answerVideo = upload.single("answer_video");
+const moment = require('moment');
 
 const commonController = {
 // Booking type
@@ -94,20 +95,46 @@ getBookingType: async (req, res) => {
   },
 
   fireNotificationOnDailyEvents : async(req, res, next) => {
-    let query = { booking_status : { $ne : 2 }, slot_type : 'daily', end_time : { $gte : new Date(Date.now() - 2 * 60 * 60 * 1000) } }
-    let result = await Common.fireNotificationOnEvents(query);
+    const currentTime = moment();
+    const nextTwoHourTime = moment().add(2, 'hours');
+    let query = { booking_status : { $ne : 2 }, slot_type : 'daily', end_time : { $gte : currentTime.toDate(), $lt : nextTwoHourTime.toDate() } }
+    let bookingData = {
+      title : 'A1 Truck Booking',
+      body : 'Your truck parking time is about to expire in next 2 hours'
+    }
+    let result = await Common.fireNotificationOnEvents(bookingData, query);
     return helpers.showResponse(result.status, result.message, null, null, result.code);
   },
 
   fireNotificationOnUpcomingEvent : async() => {
-    let query = { booking_status : { $ne : 2 }, start_time : { $lt : new Date(Date.now() - 30 * 60 * 1000) } }
-    let result = await Common.fireNotificationOnEvents(query);
+    const currentTime = moment();
+    // const nextHalfHourTime = moment().add(3, 'days');
+    const nextHalfHourTime = moment().add(30, 'minutes');
+    let query = { booking_status : { $ne : 2 }, start_time : { $gte : currentTime.toDate(), $lt : nextHalfHourTime.toDate() } }
+    let bookingData = {
+      title : 'A1 Truck Booking',
+      body : 'You have an upcoming booking in 30 min, please pay attention'
+    }
+    let result = await Common.fireNotificationOnEvents(bookingData, query);
     return helpers.showResponse(result.status, result.message, null, null, result.code);
   },
 
   fireNotificationOnWeeklyAndMonthlyEvent : async() => {
-    let query = { booking_status : { $ne : 2 }, start_time : { $lt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000) } }
-    let result = await Common.fireNotificationOnEvents(query);
+    const currentTime = moment();
+    const nextTwoDayTime = moment().add(2, 'days');
+    let query = {
+      booking_status : { $ne : 2 },
+      end_time : { $gte : currentTime.toDate(), $lt : nextTwoDayTime.toDate() },
+      $or: [
+        { startTime: { $gte: moment().startOf('week').toDate() } },
+        { startTime: { $gte: moment().startOf('month').toDate() } }
+      ]
+    }
+    let bookingData = {
+      title : 'A1 Truck Booking',
+      body : 'Your booking subscription is about to expire in next 2 days'
+    }
+    let result = await Common.fireNotificationOnEvents(bookingData, query);
     return helpers.showResponse(result.status, result.message, null, null, result.code);
   },
 
@@ -117,6 +144,29 @@ getBookingType: async (req, res) => {
       return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_USER), 403);
     }
     let result = await Common.getUserNotifications(_id);
+    return helpers.showOutput(res, result, result.code);
+  },
+
+  isReadNotification : async(req, res, next) => {
+    let _id = req.decoded._id;
+    if(!_id){
+      return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_USER), 403);
+    }
+    let result = await Common.isReadNotification(_id);
+    return helpers.showOutput(res, result, result.code);
+  },
+
+  enableDisableNotification : async(req, res, next) => {
+    let _id = req.decoded._id;
+    if(!_id){
+      return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_USER), 403);
+    }
+    let requiredFields = ["noti_status"];   // 0 -> Disable and 1 -> Enable
+    let validator = helpers.validateParams(req, requiredFields);
+    if (!validator.status) {
+      return helpers.showOutput( res, helpers.showResponse(false, validator.message), 203 );
+    }
+    let result = await Common.enableDisableNotification(_id, req.body);
     return helpers.showOutput(res, result, result.code);
   }
 

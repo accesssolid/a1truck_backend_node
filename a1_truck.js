@@ -11,9 +11,78 @@ const cronJob = require('node-cron');
 const Bookings = require('./server/utils/Bookings/index');
 const Common = require('./server/controllers/Common');
 
+const expressWiston = require('express-winston');
+const { transports,format } = require('winston');
+require('winston-mongodb');
+const db = require('./server/connection/index');
+
 const app = express();
 
-app.use(compression())
+// **********Logging Start*********
+
+app.use(expressWiston.logger({
+  transports:[
+      new transports.Console(),
+      new transports.File({
+          level:'warn',
+          filename:'logs/logWarning.log'
+      }),
+      new transports.File({
+          level:'error',
+          filename:'logs/logError.log'
+      }),
+      new transports.File({
+          level:'info',
+          filename:'logs/logInfo.log'
+      }),
+      new transports.File({
+          level:'http',
+          filename:'logs/logHttp.log'
+      }),
+      new transports.File({
+          level:'verbose',
+          filename:'logs/logVerbose.log'
+      }),
+      new transports.File({
+          level:'debug',
+          filename:'logs/logDebug.log'
+      }),
+      new transports.File({
+          level:'silly',
+          filename:'logs/logSilly.log'
+      }),
+      new transports.MongoDB({
+        db : db,
+        collection: 'mylogs'
+      })
+  ],
+  format:format.combine(
+      format.json(),
+      format.timestamp(),
+      format.metadata(),
+      format.prettyPrint()
+  ),
+  statusLevels:true
+}))
+
+// for internal error logger 
+app.use(expressWiston.errorLogger({
+  transports:[
+      new transports.File({
+          level:'error',
+          filename:'logs//logInternalError.log'
+      }),      
+  ],
+  format:format.combine(
+      format.json(),
+      format.timestamp()
+  ),
+  statusLevels:true
+}))
+
+// **********Logging End*********
+
+app.use(compression());
 
 app.use(morgan("dev"));
 app.use(bodyParser.json());
@@ -45,17 +114,17 @@ app.use(process.env["API_V1"] + "bookings", bookings);
   // Bookings.autoUpdateBooking();
 // });
 
-// cronJob.schedule('* * * * * *', async function () {  // 2 hours prior booking ends.
-  // await Common.fireNotificationOnDailyEvents();
-// });
+cronJob.schedule('0 0 */2 * * *', async function () {  // 2 hours prior booking ends.
+  await Common.fireNotificationOnDailyEvents();
+});
 
-// cronJob.schedule('* * * * * *', function () {  // upcoming booking half an hour ago or 30 min before.
-  // await Common.fireNotificationOnUpcomingEvent();
-// });
+cronJob.schedule('0 */30 * * * *', async function () {  // upcoming booking half an hour ago or 30 min before.
+  await Common.fireNotificationOnUpcomingEvent();
+});
 
-// cronJob.schedule('* * * * * *', function () {  // 2 days prior notification of weekly and monthly plan ends.
-  // await Common.fireNotificationOnWeeklyAndMonthlyEvent();
-// });
+cronJob.schedule('0 0 0 */2 * *', async function () {  // 2 days prior notification of weekly and monthly plan ends.
+  await Common.fireNotificationOnWeeklyAndMonthlyEvent();
+});
 
 app.listen(port, () => {
   console.log(`https server running on port ${port}`);

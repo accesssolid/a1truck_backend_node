@@ -238,7 +238,8 @@ update_VehicleType:async(data) => {
     return helpers.showResponse(false, 'Data not found', null, null, 200);
   },
 
-  fireNotificationOnEvents : async(query) => {
+  fireNotificationOnEvents : async(bookingData, query) => {
+    const { title, body } = bookingData;
     let bookingResult = await getDataArray(Bookings, query, '-payment_object');
     if(bookingResult.status){
       let bookingsData = bookingResult.data;
@@ -247,7 +248,8 @@ update_VehicleType:async(data) => {
         let userResult = await getDataArray(User, { _id : { $in : userData }, user_status : { $ne : 2 } }, '-password -otp');
         if(userResult.status){
           let userResponse = userResult.data;
-          let fcm_tokens = userResponse.map(item => {
+          let usersWithNotificationOn = userResponse.filter(users => users.notification_status == 1);  // only to notification enable users.
+          let fcm_tokens = usersWithNotificationOn.map(item => {
             return item.fcm_token;
           });
           let tokens = fcm_tokens.filter(item => item !== '');
@@ -255,8 +257,8 @@ update_VehicleType:async(data) => {
             const message = {
               tokens,
               notification: {
-                title: "<-----------Booking Title ----------->",
-                body: "<------------Booking Body ------------>",
+                title: title,
+                body: body,
               },
               data: {},
               "apns": {
@@ -274,14 +276,14 @@ update_VehicleType:async(data) => {
           }
           let response = await fireBaseAdmin.messaging().sendMulticast(message);
           console.log(response);
-          let localnotiObj = {
-            title : message.notification.title,
-            message : message.notification.body,
-            status : 1,
-            notification_data : {}
-          }
-          await helpers.localNotificationBooking("user", userResponse, localnotiObj);
         }
+        let localnotiObj = {
+          title : title,
+          message : body,
+          status : 1,
+          notification_data : {}
+        }
+        await helpers.localNotificationBooking("user", userResponse, localnotiObj);
         return helpers.showResponse(true, 'Notification fired successfully', null, null, 200);
       }
       return helpers.showResponse(false, 'User not found', null, null, 200);
@@ -298,6 +300,36 @@ update_VehicleType:async(data) => {
       return helpers.showResponse(true, 'Notification found', result.data, null, 200);
     }
     return helpers.showResponse(false, 'No Notification Found', null, null, 200);
+  },
+
+  isReadNotification : async(_id) => {
+    let query = { user_id : ObjectId(_id), status : { $eq : 1 } };
+    let result = await updateByQuery(Notification, { is_read : 1 }, query);
+    if(result.status){
+      return helpers.showResponse(true, 'notification read successfully', null, null, 200);
+    }
+    return helpers.showResponse(false, 'No Notification Found', null, null, 200);
+  },
+
+  enableDisableNotification : async(_id, data) => {
+    const { noti_status } = data;
+    if(noti_status == '0'){
+      let response = await updateData(User, { notification_status : 0 }, ObjectId(_id));
+      if(response.status){
+        return helpers.showResponse(true, 'Successfully disabled user notification', null, null, 200);
+      }
+      return helpers.showResponse(false, 'Internal Server Error', null, null, 200);
+
+    }else if(noti_status == '1'){
+      let response = await updateData(User, { notification_status : 1 }, ObjectId(_id));
+      if(response.status){
+        return helpers.showResponse(true, 'Successfully enabled user notifcation', null, null, 200);
+      }
+      return helpers.showResponse(false, 'Internal Server Error', null, null, 200);
+
+    }else{
+      return helpers.showResponse(false, 'Invalid status type', null, null, 200);
+    }
   }
 
 };

@@ -4,6 +4,7 @@ const stripe = Stripe(process.env.Stripe_Secret_Key);
 const helpers = require('../../services/helper/index');
 const messages = require('../Users/messages');
 let ObjectId = require('mongodb').ObjectId
+
 const CardUtils = {
     listCards: async (data) => {
         let { _id } = data?.decoded;
@@ -144,21 +145,52 @@ const CardUtils = {
             return helpers.showResponse(false, err.message, null, null, 200);
         }
     },
-    // createStriptokens: async (user_id) => {
-    //     let params={
-    // card:{
-    //   number:"4242424242424242",
-    //   exp_month:2,
-    //   exp_year:2024,
-    //   cvc:"123"
-    // }
-    //     }
-    //     const striptoken = await stripe.tokens.create(params);
-    //     console.log('striptoken', striptoken)
-    //     return
-  
-    //   },
- 
+
+    createCardToken: async (user_id) => {
+        let params = {
+            card : {
+                number : "4242424242424242",
+                exp_month : 2,
+                exp_year : 2024,
+                cvc : "123"
+            }
+        }
+        try{
+            const striptoken = await stripe.tokens.create(params);
+            return helpers.showResponse(true, "generated stripe token", striptoken, null, 200);
+        }catch(err){
+            return helpers.showResponse(true, "stripe error", null, null, 200); 
+        }
+    },
+
+    changeEmailSendOtp : async(_id, bodydata) => {
+        const { phone_no } = bodydata;
+        let query = { phone_number : phone_no, user_status : { $ne : 2 } }
+        let isPhoneAlreadyExist = await getSingleData(Users, query, '');
+        if(isPhoneAlreadyExist.status){
+            return helpers.showResponse(false, 'Phone number already exist', null, null, 200);
+        }
+        let otp = helpers.randomStr(4, "123454354364576578678769889564564567890");
+        let dataObj = {
+            otp
+        }
+        let response = await updateData(Users, dataObj, ObjectId(_id));
+        if(response.status){
+            return helpers.showResponse(true, 'successfully send otp', otp, null, 200);
+        }
+        return helpers.showResponse(false, 'server error, try again', null, null, 200);
+    },
+
+    changePhoneNoVerifyOtp : async(_id, bodyData) => {
+        const { otp } = bodyData;
+        let query = { _id : ObjectId(_id), otp, user_status : { $ne: 2 } }
+        let result = await getSingleData(Users, query, '');
+        if (result.status) {
+            return helpers.showResponse(true, 'Valid otp', null, null, 200);
+        }
+        return helpers.showResponse(false, 'Invalid otp', null, null, 200);
+    }
+
 }
 module.exports = { ...CardUtils }
 // stripe_id
