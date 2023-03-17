@@ -235,21 +235,21 @@ const adminUtils = {
     return helpers.showResponse(true, 'List of dashboard data', dataArray, null, 200);
   },
 
-  getAllBookingsAdmin : async(data) => {
-    let populate = [{
-      path: 'vehicle_id'
-    }]
-    let result = await getDataArray(Bookings, {}, '-payment_object', null, null, populate);
-    if(result.status){
-        let newData = result.data;
-        return helpers.showResponse(true, 'Successfully fetched bookings', newData, null, 200);
-    }
-    return helpers.showResponse(false, 'Bookings not found', null, null, 200);
-},
+    getAllBookingsAdmin : async(data) => {
+        let populate = [{
+        path: 'vehicle_id'
+        }]
+        let result = await getDataArray(Bookings, {}, '-payment_object', null, null, populate);
+        if(result.status){
+            let newData = result.data;
+            return helpers.showResponse(true, 'Successfully fetched bookings', newData, null, 200);
+        }
+        return helpers.showResponse(false, 'Bookings not found', null, null, 200);
+    },
 
-  getDashBoardData : async(data) => {
-    
-  },
+    getDashBoardData : async(data) => {
+        
+    },
 
   contactToAdminByAdmin : async(data) => {
     let { email, message } = data;

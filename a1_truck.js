@@ -22,7 +22,7 @@ const app = express();
 
 app.use(expressWiston.logger({
   transports:[
-      new transports.Console(),
+      // new transports.Console(),
       new transports.File({
           level:'warn',
           filename:'logs/logWarning.log'
@@ -115,15 +115,16 @@ app.use(process.env["API_V1"] + "bookings", bookings);
 // });
 
 cronJob.schedule('0 0 */2 * * *', async function () {  // 2 hours prior booking ends.
-  await Common.fireNotificationOnDailyEvents();
+  // await Common.fireNotificationOnDailyEvents();
 });
 
-cronJob.schedule('0 */30 * * * *', async function () {  // upcoming booking half an hour ago or 30 min before.
+cronJob.schedule('0 */1 * * * *', async function () {  // upcoming booking half an hour ago or 30 min before.
+  console.log("fired")
   await Common.fireNotificationOnUpcomingEvent();
 });
 
 cronJob.schedule('0 0 0 */2 * *', async function () {  // 2 days prior notification of weekly and monthly plan ends.
-  await Common.fireNotificationOnWeeklyAndMonthlyEvent();
+  // await Common.fireNotificationOnWeeklyAndMonthlyEvent();
 });
 
 app.listen(port, () => {

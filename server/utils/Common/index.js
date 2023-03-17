@@ -252,7 +252,8 @@ update_VehicleType:async(data) => {
           let fcm_tokens = usersWithNotificationOn.map(item => {
             return item.fcm_token;
           });
-          let tokens = fcm_tokens.filter(item => item !== '');
+          let tokens = fcm_tokens.filter(item => item !== '' && fcm_tokens.indexOf(item) > -1);
+          console.log(tokens)
           if(tokens?.length > 0){
             const message = {
               tokens,

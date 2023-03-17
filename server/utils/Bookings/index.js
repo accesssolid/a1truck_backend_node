@@ -32,17 +32,15 @@ let prices = [
 let BookingsUtils = {
 
   getEmptySlotCount: async (data, user_id) => {
-
     return new Promise(async (resolve, reject) => {
       try {
-        let availableSlots = []
         let { startTime, endTime, vehicle_type, time_zone } = data;
         let  startTimeZone = moment(startTime).tz(time_zone).format();
         let  endTimeZone = moment(endTime).tz(time_zone).format();
-
         let vehicleTypeResponse = await getSingleData(VehicleType, { _id: ObjectId(vehicle_type), status: { $ne: 2 } }, '');
+        console.log(vehicleTypeResponse)
         if (!vehicleTypeResponse?.status) {
-          return helpers.showResponse(false, "Invalid vehicle type", null, null, 200);
+          resolve(helpers.showResponse(false, "Invalid vehicle type", null, null, 200));
         }
         let total_slots = vehicleTypeResponse?.data?.slots;
         let vehicleTypeData = vehicleTypeResponse?.data;

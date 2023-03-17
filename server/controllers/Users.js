@@ -6,7 +6,6 @@ const upload = require("../services/helper/image-upload");
 const singleUpload = upload.single("user_profile");
 
 const authController = {
-
   register: async (req, res) => {
     const { login_source } = req.body;
     let requiredFields = ["login_source"];
@@ -61,6 +60,20 @@ const authController = {
     return helpers.showOutput(res, result, result.code);
   },
 
+  logout: async (req, res, next) => {
+    let requiredFields = ["user_id"];
+    let validator = helpers.validateParams(req, requiredFields);
+    if (!validator.status) {
+      return helpers.showOutput(
+        res,
+        helpers.showResponse(false, validator.message),
+        203
+      );
+    }
+    let result = await Users.logout(req.body);
+    return helpers.showOutput(res, result, result.code);
+  },
+
   Otp_verification: async (req, res) => {
     let requiredFields = ["UserId", "otp"];
     let validator = helpers.validateParams(req, requiredFields);
@@ -79,7 +92,11 @@ const authController = {
     let requiredFields = ["country_code", "phone_number"];
     let validator = helpers.validateParams(req, requiredFields);
     if (!validator.status) {
-      return helpers.showOutput(res, helpers.showResponse(false, validator.message), 203);
+      return helpers.showOutput(
+        res,
+        helpers.showResponse(false, validator.message),
+        203
+      );
     }
     let result = await Users.forgot_pass(req.body);
     return helpers.showOutput(res, result, result.code);
@@ -157,7 +174,7 @@ const authController = {
     console.log(result);
     return helpers.showOutput(res, result, result.code);
   },
-  
+
   listCards: async (req, res) => {
     let result = await Stripcard.listCards(req);
     console.log(result);
@@ -194,44 +211,63 @@ const authController = {
     return helpers.showOutput(res, result, result.code);
   },
 
-  createCardToken : async(req, res, next) => {
+  createCardToken: async (req, res, next) => {
     let _id = req.decoded._id;
-    if(!_id){
-      return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_USER), 403);
+    if (!_id) {
+      return helpers.showOutput(
+        res,
+        helpers.showResponse(false, ControllerMessages.INVALID_USER),
+        403
+      );
     }
     let result = await Stripcard.createCardToken(req);
     return helpers.showOutput(res, result, result.code);
   },
 
-  changeEmailSendOtp : async(req, res, next) => {
+  changeEmailSendOtp: async (req, res, next) => {
     let _id = req.decoded._id;
-    if(!_id){
-      return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_USER), 403);
+    if (!_id) {
+      return helpers.showOutput(
+        res,
+        helpers.showResponse(false, ControllerMessages.INVALID_USER),
+        403
+      );
     }
     let requiredFields = ["phone_no"];
     let validator = helpers.validateParams(req, requiredFields);
     if (!validator.status) {
-      return helpers.showOutput(res, helpers.showResponse(false, validator.message), 203);
-    }    
+      return helpers.showOutput(
+        res,
+        helpers.showResponse(false, validator.message),
+        203
+      );
+    }
     let result = await Stripcard.changeEmailSendOtp(_id, req.body);
     return helpers.showOutput(res, result, result.code);
   },
 
-  changePhoneNoVerifyOtp : async(req, res, next) => {
+  changePhoneNoVerifyOtp: async (req, res, next) => {
     let _id = req.decoded._id;
-    if(!_id){
-      return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_USER), 403);
+    if (!_id) {
+      return helpers.showOutput(
+        res,
+        helpers.showResponse(false, ControllerMessages.INVALID_USER),
+        403
+      );
     }
     let requiredFields = ["otp"];
     let validator = helpers.validateParams(req, requiredFields);
     if (!validator.status) {
-      return helpers.showOutput(res, helpers.showResponse(false, validator.message), 203);
+      return helpers.showOutput(
+        res,
+        helpers.showResponse(false, validator.message),
+        203
+      );
     }
     let result = await Stripcard.changePhoneNoVerifyOtp(_id, req.body);
     return helpers.showOutput(res, result, result.code);
-  }
-
-}
+  },
+};
 
 module.exports = {
   ...authController,

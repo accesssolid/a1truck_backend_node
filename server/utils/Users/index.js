@@ -2,19 +2,18 @@ require("../../db_functions");
 let md5 = require("md5");
 
 let Users = require("../../models/Users");
-let Bookings = require('../../models/Bookings');
+let Bookings = require("../../models/Bookings");
 let ObjectId = require("mongodb").ObjectID;
 var Messages = require("./messages");
 let jwt = require("jsonwebtoken");
 let helpers = require("../../services/helper");
-let moment = require('moment-timezone');
+let moment = require("moment-timezone");
 let nodemailer = require("nodemailer");
 let { constValues, statusCodes } = require("../../services/helper/constants");
 const stripe = require("stripe")(process.env.Stripe_Secret_Key);
 
 let UserUtils = {
   login: async (data) => {
-
     try {
       let { email, password, fcm_token } = data;
       let query1 = [
@@ -127,7 +126,7 @@ let UserUtils = {
           statusCodes.success
         );
       }
-    
+
       let updatefcm = await updateData(
         Users,
         { is_verified: constValues.User_verified },
@@ -142,8 +141,8 @@ let UserUtils = {
           statusCodes.success
         );
       }
-      await UserUtils.createAccount(UserId)
-      
+      await UserUtils.createAccount(UserId);
+
       return helpers.showResponse(
         true,
         Messages.OTP_VERIFY,
@@ -171,20 +170,29 @@ let UserUtils = {
       // email signup
       if (login_source == "email") {
         // let otp = helpers.randomStr(4, "1234567890");
-        let otp = 1234
-        let finduser = await Users.aggregate([{
-          $match: {
-            $or: [{ 
-              username: username 
-            }, { 
-              email: email 
-            }, { 
-              phone_number: phone_number 
-            }],
-            user_status: { $ne: constValues.user_delete },
-          }
-        }]);
-        if( finduser.length > 0 && finduser[0]?.is_verified == constValues.User_verified) {
+        let otp = 1234;
+        let finduser = await Users.aggregate([
+          {
+            $match: {
+              $or: [
+                {
+                  username: username,
+                },
+                {
+                  email: email,
+                },
+                {
+                  phone_number: phone_number,
+                },
+              ],
+              user_status: { $ne: constValues.user_delete },
+            },
+          },
+        ]);
+        if (
+          finduser.length > 0 &&
+          finduser[0]?.is_verified == constValues.User_verified
+        ) {
           let resmessage;
           if (finduser[0]?.username == username) {
             resmessage = Messages.USER_NAME_EXISTS;
@@ -202,7 +210,10 @@ let UserUtils = {
           );
         }
         //Delete all similar unverified users
-        if(finduser.length > 0 && finduser[0]?.is_verified == constValues.User_unverified) {
+        if (
+          finduser.length > 0 &&
+          finduser[0]?.is_verified == constValues.User_unverified
+        ) {
           let allids = finduser.map((i) => i?._id);
           let query = { _id: { $in: allids } };
           await deleteData(Users, query);
@@ -216,11 +227,15 @@ let UserUtils = {
           password: md5(password),
           fcm_token,
           login_source,
-          otp
+          otp,
         };
         let user = new Users(obj);
         let result = await postData(user);
-        let token = jwt.sign({ email: result?.data?.email, _id: result?.data?._id }, process.env.PRIVATE_KEY, { expiresIn: process.env.TOKEN_EXPIRE });
+        let token = jwt.sign(
+          { email: result?.data?.email, _id: result?.data?._id },
+          process.env.PRIVATE_KEY,
+          { expiresIn: process.env.TOKEN_EXPIRE }
+        );
         if (!token) {
           return helpers.showResponse(
             false,
@@ -242,15 +257,21 @@ let UserUtils = {
       }
       // apple signup
       if (login_source == "apple") {
-        let finduser = await Users.aggregate([{
-          $match: {
-            auth_token: auth_token,
-            user_status: { $ne: constValues.user_delete },
-          }
-        }]);
-        if(finduser.length > 0) {
+        let finduser = await Users.aggregate([
+          {
+            $match: {
+              auth_token: auth_token,
+              user_status: { $ne: constValues.user_delete },
+            },
+          },
+        ]);
+        if (finduser.length > 0) {
           // user already exits
-          let updatefcm = await updateData(Users, { fcm_token: fcm_token }, ObjectId(finduser[0]?._id));
+          let updatefcm = await updateData(
+            Users,
+            { fcm_token: fcm_token },
+            ObjectId(finduser[0]?._id)
+          );
           if (!updatefcm.status) {
             return helpers.showResponse(
               false,
@@ -261,8 +282,12 @@ let UserUtils = {
             );
           }
           //generate Token
-          await UserUtils.createAccount(finduser[0]?._id)
-          let token = jwt.sign({ email: finduser[0]?.email, _id: finduser[0]?._id }, process.env.PRIVATE_KEY, { expiresIn: process.env.TOKEN_EXPIRE });
+          await UserUtils.createAccount(finduser[0]?._id);
+          let token = jwt.sign(
+            { email: finduser[0]?.email, _id: finduser[0]?._id },
+            process.env.PRIVATE_KEY,
+            { expiresIn: process.env.TOKEN_EXPIRE }
+          );
           if (!token) {
             return helpers.showResponse(
               false,
@@ -325,7 +350,7 @@ let UserUtils = {
               statusCodes.success
             );
           }
-          await UserUtils.createAccount(result?.data?._id)
+          await UserUtils.createAccount(result?.data?._id);
           // generate token
           let token = jwt.sign(
             { email: result?.data?.email, _id: result?.data?._id },
@@ -384,7 +409,7 @@ let UserUtils = {
             );
           }
           //generate Token
-          await UserUtils.createAccount(finduser[0]?._id)
+          await UserUtils.createAccount(finduser[0]?._id);
           let token = jwt.sign(
             { email: finduser[0]?.email, _id: finduser[0]?._id },
             process.env.PRIVATE_KEY,
@@ -451,7 +476,7 @@ let UserUtils = {
             );
           }
           // generate token
-          await UserUtils.createAccount(result?.data?._id )
+          await UserUtils.createAccount(result?.data?._id);
           let token = jwt.sign(
             { email: result?.data?.email, _id: result?.data?._id },
             process.env.PRIVATE_KEY,
@@ -489,7 +514,8 @@ let UserUtils = {
   forgot_pass: async (data) => {
     try {
       let { country_code, phone_number } = data;
-      let query = [ {
+      let query = [
+        {
           $match: {
             phone_number: phone_number,
             country_code: country_code,
@@ -660,7 +686,7 @@ let UserUtils = {
         statusCodes.success
       );
     } catch (err) {
-      console.log(err)
+      console.log(err);
       return helpers.showResponse(false, err.message, null, null, 200);
     }
   },
@@ -669,7 +695,13 @@ let UserUtils = {
       let { _id } = data?.decoded;
       let { username, phone_no } = data?.body;
       if (!helpers.isValidId(_id)) {
-        return helpers.showResponse(false, Messages.NOT_VALIDID, null, null, statusCodes.success);
+        return helpers.showResponse(
+          false,
+          Messages.NOT_VALIDID,
+          null,
+          null,
+          statusCodes.success
+        );
       }
       if (username) {
         let result = await Users.aggregate([
@@ -683,19 +715,37 @@ let UserUtils = {
           { $project: { otp: 0, __v: 0 } },
         ]);
         if (result.length > 0) {
-          return helpers.showResponse(false, Messages.USER_NAME_EXISTS, null, null, statusCodes.success);
+          return helpers.showResponse(
+            false,
+            Messages.USER_NAME_EXISTS,
+            null,
+            null,
+            statusCodes.success
+          );
         }
         let updateObj = {
-          username : username
-        }
-        if(phone_no && phone_no != '' && phone_no != undefined){
+          username: username,
+        };
+        if (phone_no && phone_no != "" && phone_no != undefined) {
           updateObj.phone_number = phone_no;
         }
         let userdataresult = await updateData(Users, updateObj, ObjectId(_id));
         if (!userdataresult.status) {
-          return helpers.showResponse(false, userdataresult?.message, null, null, statusCodes.success);
+          return helpers.showResponse(
+            false,
+            userdataresult?.message,
+            null,
+            null,
+            statusCodes.success
+          );
         }
-        return helpers.showResponse(true, Messages.UPDATED_SUCCESS, userdataresult.data, null, statusCodes.success);
+        return helpers.showResponse(
+          true,
+          Messages.UPDATED_SUCCESS,
+          userdataresult.data,
+          null,
+          statusCodes.success
+        );
       } else {
         let query = [
           {
@@ -708,14 +758,40 @@ let UserUtils = {
         ];
         let userdataresult = await UserUtils.getUserDetail(query);
         if (!userdataresult.status) {
-          return helpers.showResponse(false, result.message, null, null, result?.code);
+          return helpers.showResponse(
+            false,
+            result.message,
+            null,
+            null,
+            result?.code
+          );
         }
-        return helpers.showResponse(true, Messages.UPDATED_SUCCESS, userdataresult?.data, null, statusCodes.success);
+        return helpers.showResponse(
+          true,
+          Messages.UPDATED_SUCCESS,
+          userdataresult?.data,
+          null,
+          statusCodes.success
+        );
       }
     } catch (err) {
       return helpers.showResponse(false, err.message, null, null, 200);
     }
   },
+
+  logout: async (bodyData) => {
+    let { user_id } = bodyData;
+    let editObj = {
+      fcm_token: "",
+      updated_on: moment().unix()
+    };
+    let response = await updateData(Users, editObj, ObjectId(user_id));
+    if (response.status) {
+      return helpers.showResponse(true, "Logout Success", null, null, 200);
+    }
+    return helpers.showResponse(false, "Logout Error", null, null, 200);
+  },
+
   Delete_account: async (data) => {
     try {
       let { _id } = data?.decoded;
@@ -817,7 +893,7 @@ let UserUtils = {
     try {
       let { country_code, phone_number, userid } = data;
       // let otp = helpers.randomStr(4, "1234567890");
-      let otp = 1234
+      let otp = 1234;
       let query = [
         {
           $match: {
@@ -932,17 +1008,15 @@ let UserUtils = {
       ""
     );
     if (res.stripe_id === "") {
-      const deleted = await stripe.customers.del(
-        res.stripe_id
-      );
+      const deleted = await stripe.customers.del(res.stripe_id);
       if (deleted) {
-          return helpers.showResponse(
-            true,
-            "Strip account deleted",
-            null,
-            null,
-            200
-          );
+        return helpers.showResponse(
+          true,
+          "Strip account deleted",
+          null,
+          null,
+          200
+        );
       }
       return helpers.showResponse(
         false,
@@ -960,8 +1034,7 @@ let UserUtils = {
         304
       );
     }
-  }
-
+  },
 };
 
 module.exports = {

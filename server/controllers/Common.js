@@ -107,10 +107,12 @@ getBookingType: async (req, res) => {
   },
 
   fireNotificationOnUpcomingEvent : async() => {
-    const currentTime = moment();
-    // const nextHalfHourTime = moment().add(3, 'days');
-    const nextHalfHourTime = moment().add(30, 'minutes');
-    let query = { booking_status : { $ne : 2 }, start_time : { $gte : currentTime.toDate(), $lt : nextHalfHourTime.toDate() } }
+    const nextHalfHourTime = moment().add(30, 'minutes').toDate();
+    const next29MinTime = moment().add(29, 'minutes').toDate();
+    let query = { 
+      booking_status : { $ne : 2 }, 
+      $and: [{ start_time : { $gte : next29MinTime} }, { start_time : { $lte : nextHalfHourTime } }]
+    }
     let bookingData = {
       title : 'A1 Truck Booking',
       body : 'You have an upcoming booking in 30 min, please pay attention'

@@ -8,6 +8,7 @@ const vehicleControllers = require("../controllers/Vehicles");
 router.post('/refresh', middleware.refreshToken);
 router.post('/signup', AuthController.register);
 router.post('/login', AuthController.login);
+router.post('/logout', AuthController.logout);
 router.post('/otp_verification', AuthController.Otp_verification);
 router.post('/forgot_password', AuthController.forgot_pass);
 router.post('/new_password', AuthController.new_password);
