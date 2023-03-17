@@ -170,7 +170,8 @@ const CardUtils = {
         if(isPhoneAlreadyExist.status){
             return helpers.showResponse(false, 'Phone number already exist', null, null, 200);
         }
-        let otp = helpers.randomStr(4, "123454354364576578678769889564564567890");
+        // let otp = helpers.randomStr(4, "123454354364576578678769889564564567890");
+        let otp = 1234;
         let dataObj = {
             otp
         }

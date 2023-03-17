@@ -422,6 +422,38 @@ const createBookingInvoicePDF = async(bookingData) => {
   }
 }
 
+const sendBookingMailToAdmin = async(bookingData) => {
+  let { user_name, slot_number, slot_type, vehicle_type, booking_start_time, booking_end_time } = bookingData;
+  try {
+    let transporter = nodemailer.createTransport({
+      host: 'smtp.gmail.com',
+        port: 587,
+        secure: false,
+        auth: {
+          user: process.env.APP_EMAIL,
+            pass: process.env.APP_PASSWORD
+          },
+      });
+      await transporter.sendMail({
+        from : process.env.APP_EMAIL,
+        to : 'anak@solidappmaker.com',
+        subject : 'A1 Truck Booking',
+        html : `
+        <h4>Hello, Administrator</h4>
+        <p>There is a new ${slot_type} booking of ${vehicle_type} from ${user_name} from ${booking_start_time} to ${booking_end_time}. </br>
+        and slot number allocated to this user is ${slot_number}.<br/> so please contact to user if any type of concern.
+        </p>
+        <br/><label>A1 Truck Parking.</label>
+        `
+      });
+    return showResponse(true, "successfully send booking mail to admin", null, null, 200);
+
+  } catch (err) {
+    console.log(err)
+    return showResponse(false, "Error Occured, try again", null, null, 200);
+  }
+}
+
 module.exports = {
   showResponse,
   showOutput,
@@ -441,5 +473,6 @@ module.exports = {
   // sendTwilioSMS,
   isValidId,
   sendBookingMailToUser,
-  createBookingInvoicePDF
+  createBookingInvoicePDF,
+  sendBookingMailToAdmin
 };

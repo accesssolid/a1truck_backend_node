@@ -183,12 +183,13 @@ let BookingsUtils = {
               slot_type : response.data.slot_type,
               total_cost : (response.data.payment_object.amount) / 100,
               booking_reference_no :  response.data.booking_ref,
-              slot_number : response.data.slot_number
+              slot_number : response.data.slot_number,
+              vehicle_type : vehicleTypeData.vehicle_Type
             }
             let pdfResponse = await helpers.createBookingInvoicePDF(bookingData);
             pdfResponse.status == true ? bookingData.pdf_fileName = pdfResponse.data : bookingData.pdf_fileName = null;
             await helpers.sendBookingMailToUser(bookingData);
-            // await helpers.sendBookingMailToAdmin(bookingData);
+            await helpers.sendBookingMailToAdmin(bookingData);
             resolve(helpers.showResponse(true, "Parking Lot has been assigned", response?.data, null, 200));
           }
           resolve(helpers.showResponse(false, "Booking Error !!! Please Try Again Later", null, null, 200));

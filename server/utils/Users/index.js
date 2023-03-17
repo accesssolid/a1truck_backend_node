@@ -692,7 +692,6 @@ let UserUtils = {
           updateObj.phone_number = phone_no;
         }
         let userdataresult = await updateData(Users, updateObj, ObjectId(_id));
-
         if (!userdataresult.status) {
           return helpers.showResponse(false, userdataresult?.message, null, null, statusCodes.success);
         }
@@ -707,7 +706,6 @@ let UserUtils = {
           },
           { $project: { otp: 0, __v: 0 } },
         ];
-
         let userdataresult = await UserUtils.getUserDetail(query);
         if (!userdataresult.status) {
           return helpers.showResponse(false, result.message, null, null, result?.code);

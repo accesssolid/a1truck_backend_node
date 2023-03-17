@@ -387,3 +387,32 @@
     timestamp: '2023-03-16T12:56:24.776Z'
   }
 }
+{
+  level: 'warn',
+  message: 'HTTP PATCH /api/v1/user/update_profile',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/user/update_profile',
+        headers: {
+          authorization: '{{TOKEN}}',
+          'content-type': 'application/json',
+          'user-agent': 'PostmanRuntime/7.31.1',
+          accept: '*/*',
+          'postman-token': '5fdd3dd3-8841-4d50-826f-41aa8cc13504',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '22'
+        },
+        method: 'PATCH',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/user/update_profile',
+        query: {}
+      },
+      res: { statusCode: 401 },
+      responseTime: 18
+    },
+    timestamp: '2023-03-17T07:36:41.566Z'
+  }
+}

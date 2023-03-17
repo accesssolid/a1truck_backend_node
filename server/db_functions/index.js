@@ -114,7 +114,7 @@ module.export = updateData = (Model, DataObject, _id) => {
     Model.findByIdAndUpdate(
       _id,
       { $set: DataObject },
-      { new: true },
+      { new : true },
       (err, updatedData) => {
         if (err) {
           let response = helpers.showResponse(false, err);

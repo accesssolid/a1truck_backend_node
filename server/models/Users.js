@@ -14,8 +14,7 @@ var userSchema = new Schema({
     phone_number: {
       type: String,
       default: "",
-      immutable: true,
-    
+      // immutable: true,
     },
     country_code: {
       type: String,
