@@ -4723,3 +4723,31 @@
     timestamp: '2023-03-22T11:37:25.238Z'
   }
 }
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/admin/login',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/login',
+        headers: {
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': 'a6336d91-b658-45c2-8244-3a07ca54676c',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-type': 'application/x-www-form-urlencoded',
+          'content-length': '45'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/login',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 334
+    },
+    timestamp: '2023-03-22T14:17:22.149Z'
+  }
+}

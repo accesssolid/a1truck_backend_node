@@ -274,26 +274,23 @@ const adminUtils = {
         if(startOf != null && endOf != null){
             let startOfData = new Date(startOf)
             let endOfData = new Date(endOf)
-            
             let vehicleTypeResult = await getDataArray(VehicleType, { status : { $eq : 1 } }, '');
             if(vehicleTypeResult.status){
                 let vehiclePriceData = vehicleTypeResult.data;
-                // let query =  { $and : [ { createdAt : { $gte : startOfData, $lte : endOfData } } ] }
+                let query =  { $and : [ { createdAt : { $gte : startOfData, $lte : endOfData } } ] }
                 // let bookingResult = await getDataArray(Bookings, query, '-payment_object');
-                // console.log(bookingResult);
+                // console.log(bookingResult)
                 // if(bookingResult.status){
                 //     let bookingData = bookingResult.data;
                 //     let dailybookings = bookingData.filter(data => data.slot_type == 'daily');
                 //     let weeklybookings = bookingData.filter(data => data.slot_type == 'weekly');
                 //     let monthlybookings = bookingData.filter(data => data.slot_type == 'monthly');
                 // }
-
-                console.log(startOfData);
-                console.log(endOfData);
-                // let bookingResult_1 = await Bookings.aggregate([
-                //     { $match : { $and : [ { createdAt : { $gte : startOfData, $lte : endOfData } } ] } }
-                // ])
-                // console.log(bookingResult_1)
+                let bookingResult = await Bookings.aggregate([
+                    { $match : { $and : [ { createdAt : { $gte : startOfData, $lte : endOfData } } ] } },
+                    { $project : { payment_object : 0 } }
+                ])
+                console.log(bookingResult)
             }
 
         }
