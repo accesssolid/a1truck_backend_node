@@ -672,3 +672,595 @@
     timestamp: '2023-03-17T12:20:20.098Z'
   }
 }
+{
+  level: 'warn',
+  message: 'HTTP POST /api/v1/admin/get_dashboard_data_by_admin',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/get_dashboard_data_by_admin',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Impvbm55MTIzNEBnbWFpbC5jb20iLCJfaWQiOiI2NDE0NDY1MTEzNjU5NDcyYjdhOWM2MzEiLCJpYXQiOjE2NzkwNTkwNjksImV4cCI6MTcxMDU5NTA2OX0.5lRbug4GEv-NgKO5O9YjXW8bB0R3bxwSXURJaG-0ksQ',
+          'content-type': 'application/json',
+          'user-agent': 'PostmanRuntime/7.31.1',
+          accept: '*/*',
+          'postman-token': '4efc474c-0c4d-4b8e-9488-a3e5f3271c8d',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '342'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/get_dashboard_data_by_admin',
+        query: {}
+      },
+      res: { statusCode: 400 },
+      responseTime: 25
+    },
+    timestamp: '2023-03-20T05:55:09.565Z'
+  }
+}
+{
+  level: 'warn',
+  message: 'HTTP POST /api/v1/admin/get_dashboard_data_by_admin',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/get_dashboard_data_by_admin',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Impvbm55MTIzNEBnbWFpbC5jb20iLCJfaWQiOiI2NDE0NDY1MTEzNjU5NDcyYjdhOWM2MzEiLCJpYXQiOjE2NzkwNTkwNjksImV4cCI6MTcxMDU5NTA2OX0.5lRbug4GEv-NgKO5O9YjXW8bB0R3bxwSXURJaG-0ksQ',
+          'content-type': 'application/json',
+          'user-agent': 'PostmanRuntime/7.31.1',
+          accept: '*/*',
+          'postman-token': '71841e23-404c-46a0-ab18-7c4412727376',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '520'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/get_dashboard_data_by_admin',
+        query: {}
+      },
+      res: { statusCode: 451 },
+      responseTime: 365
+    },
+    timestamp: '2023-03-20T06:12:25.311Z'
+  }
+}
+{
+  level: 'warn',
+  message: 'HTTP POST /api/v1/user/login',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/user/login',
+        headers: {
+          'content-type': 'application/json',
+          'user-agent': 'PostmanRuntime/7.31.1',
+          accept: '*/*',
+          'postman-token': '969fcd1a-6cab-4fda-8f48-5ad664d9e9ea',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '88'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/user/login',
+        query: {}
+      },
+      res: { statusCode: 404 },
+      responseTime: 338
+    },
+    timestamp: '2023-03-20T13:00:17.336Z'
+  }
+}
+{
+  level: 'warn',
+  message: 'HTTP POST /api/v1/user/login',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/user/login',
+        headers: {
+          'content-type': 'application/json',
+          'user-agent': 'PostmanRuntime/7.31.1',
+          accept: '*/*',
+          'postman-token': '6454ea31-5c45-42b6-80e4-698a60243481',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '93'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/user/login',
+        query: {}
+      },
+      res: { statusCode: 404 },
+      responseTime: 319
+    },
+    timestamp: '2023-03-20T13:00:53.833Z'
+  }
+}
+{
+  level: 'warn',
+  message: 'HTTP POST /api/v1/user/login',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/user/login',
+        headers: {
+          'content-type': 'application/json',
+          'user-agent': 'PostmanRuntime/7.31.1',
+          accept: '*/*',
+          'postman-token': '6d187805-6386-49ac-aaca-0b3eea52909a',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '94'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/user/login',
+        query: {}
+      },
+      res: { statusCode: 404 },
+      responseTime: 318
+    },
+    timestamp: '2023-03-20T13:00:58.140Z'
+  }
+}
+{
+  level: 'warn',
+  message: 'HTTP POST /api/v1/user/login',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/user/login',
+        headers: {
+          'content-type': 'application/json',
+          'user-agent': 'PostmanRuntime/7.31.1',
+          accept: '*/*',
+          'postman-token': '87d17288-0158-46b0-b261-843a8b3cb66e',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '93'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/user/login',
+        query: {}
+      },
+      res: { statusCode: 404 },
+      responseTime: 319
+    },
+    timestamp: '2023-03-20T13:01:01.777Z'
+  }
+}
+{
+  level: 'warn',
+  message: 'HTTP POST /api/v1/user/login',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/user/login',
+        headers: {
+          'content-type': 'application/json',
+          'user-agent': 'PostmanRuntime/7.31.1',
+          accept: '*/*',
+          'postman-token': 'e88c77a2-1818-404c-b76b-f15df1d0e072',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '92'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/user/login',
+        query: {}
+      },
+      res: { statusCode: 404 },
+      responseTime: 317
+    },
+    timestamp: '2023-03-20T13:01:04.646Z'
+  }
+}
+{
+  level: 'warn',
+  message: 'HTTP POST /api/v1/user/login',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/user/login',
+        headers: {
+          'content-type': 'application/json',
+          'user-agent': 'PostmanRuntime/7.31.1',
+          accept: '*/*',
+          'postman-token': '827e7774-f63d-49a8-8142-e5e7037192ff',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '91'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/user/login',
+        query: {}
+      },
+      res: { statusCode: 404 },
+      responseTime: 316
+    },
+    timestamp: '2023-03-20T13:01:08.346Z'
+  }
+}
+{
+  level: 'warn',
+  message: 'HTTP POST /api/v1/user/login',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/user/login',
+        headers: {
+          'content-type': 'application/json',
+          'user-agent': 'PostmanRuntime/7.31.1',
+          accept: '*/*',
+          'postman-token': 'ada1d04c-597f-4b10-bc9d-d9f1d10a712b',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '90'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/user/login',
+        query: {}
+      },
+      res: { statusCode: 404 },
+      responseTime: 317
+    },
+    timestamp: '2023-03-20T13:01:11.419Z'
+  }
+}
+{
+  level: 'warn',
+  message: 'HTTP POST /api/v1/user/login',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/user/login',
+        headers: {
+          'content-type': 'application/json',
+          'user-agent': 'PostmanRuntime/7.31.1',
+          accept: '*/*',
+          'postman-token': 'f46e1a83-3119-466b-afef-0ad50ac38416',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '89'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/user/login',
+        query: {}
+      },
+      res: { statusCode: 404 },
+      responseTime: 319
+    },
+    timestamp: '2023-03-20T13:01:16.189Z'
+  }
+}
+{
+  level: 'warn',
+  message: 'HTTP POST /api/v1/user/login',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/user/login',
+        headers: {
+          'content-type': 'application/json',
+          'user-agent': 'PostmanRuntime/7.31.1',
+          accept: '*/*',
+          'postman-token': '81eed4e1-0f3c-493a-983d-4ca06eb9cbc6',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '120'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/user/login',
+        query: {}
+      },
+      res: { statusCode: 404 },
+      responseTime: 319
+    },
+    timestamp: '2023-03-20T13:01:58.314Z'
+  }
+}
+{
+  level: 'warn',
+  message: 'HTTP POST /api/v1/user/login',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/user/login',
+        headers: {
+          'content-type': 'application/json',
+          'user-agent': 'PostmanRuntime/7.31.1',
+          accept: '*/*',
+          'postman-token': '18a0dbea-debb-43fe-8a04-e75d60e53d61',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '37'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/user/login',
+        query: {}
+      },
+      res: { statusCode: 400 },
+      responseTime: 19
+    },
+    timestamp: '2023-03-20T13:02:45.289Z'
+  }
+}
+{
+  level: 'warn',
+  message: 'HTTP POST /api/v1/user/login',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/user/login',
+        headers: {
+          'content-type': 'application/json',
+          'user-agent': 'PostmanRuntime/7.31.1',
+          accept: '*/*',
+          'postman-token': '34c37fd2-14a5-4f3d-87e1-8db603ba92d5',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '89'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/user/login',
+        query: {}
+      },
+      res: { statusCode: 404 },
+      responseTime: 327
+    },
+    timestamp: '2023-03-20T13:02:55.699Z'
+  }
+}
+{
+  level: 'warn',
+  message: 'HTTP POST /api/v1/user/login',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/user/login',
+        headers: {
+          'content-type': 'application/json',
+          'user-agent': 'PostmanRuntime/7.31.1',
+          accept: '*/*',
+          'postman-token': '4027cd0d-57e1-4fc3-a0b1-1414ea933367',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '90'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/user/login',
+        query: {}
+      },
+      res: { statusCode: 404 },
+      responseTime: 319
+    },
+    timestamp: '2023-03-20T13:03:05.736Z'
+  }
+}
+{
+  level: 'warn',
+  message: 'HTTP POST /api/v1/user/login',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/user/login',
+        headers: {
+          'content-type': 'application/json',
+          'user-agent': 'PostmanRuntime/7.31.1',
+          accept: '*/*',
+          'postman-token': 'a395e03c-05b4-4822-900e-3d9a27e85db5',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '91'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/user/login',
+        query: {}
+      },
+      res: { statusCode: 404 },
+      responseTime: 317
+    },
+    timestamp: '2023-03-20T13:03:09.406Z'
+  }
+}
+{
+  level: 'warn',
+  message: 'HTTP POST /api/v1/vehicle/add_vehicle',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/vehicle/add_vehicle',
+        headers: {
+          authorization: '{{TOKEN}}',
+          'content-type': 'application/json',
+          'user-agent': 'PostmanRuntime/7.31.1',
+          accept: '*/*',
+          'postman-token': '52e161f2-282d-4426-85df-e80e77ed111b',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '181'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/vehicle/add_vehicle',
+        query: {}
+      },
+      res: { statusCode: 401 },
+      responseTime: 17
+    },
+    timestamp: '2023-03-20T13:21:11.750Z'
+  }
+}
+{
+  level: 'warn',
+  message: 'HTTP POST /api/v1/common/get_vehicle_price_data',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/common/get_vehicle_price_data',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5hbW5lZXQxNjlAZ21haWwuY29tIiwiX2lkIjoiNjNlNGMwYmVkZWY1ZTJjMzRjYTliOWY1IiwiaWF0IjoxNjc4MTk3NTk2LCJleHAiOjE3MDk3MzM1OTZ9.yaBRdRTluqHVuYMR2bcLmpxbONwDP2iAHIm6RJqMmYw',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '7a7aef93-138e-4674-985f-ed58ae90f3d4',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '0'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/common/get_vehicle_price_data',
+        query: {}
+      },
+      res: { statusCode: 423 },
+      responseTime: 334
+    },
+    timestamp: '2023-03-22T11:14:43.468Z'
+  }
+}
+{
+  level: 'warn',
+  message: 'HTTP POST /api/v1/user/login',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/user/login',
+        headers: {
+          'content-type': 'application/json',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '733ebadf-0f81-413a-af06-1d94b0b381a2',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '87'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/user/login',
+        query: {}
+      },
+      res: { statusCode: 404 },
+      responseTime: 336
+    },
+    timestamp: '2023-03-22T11:14:58.219Z'
+  }
+}
+{
+  level: 'warn',
+  message: 'HTTP POST /api/v1/common/get_vehicle_price_data',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/common/get_vehicle_price_data',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5hbW5lZXQxNjlAZ21haWwuY29tIiwiX2lkIjoiNjNlNGMwYmVkZWY1ZTJjMzRjYTliOWY1IiwiaWF0IjoxNjc4MTk3NTk2LCJleHAiOjE3MDk3MzM1OTZ9.yaBRdRTluqHVuYMR2bcLmpxbONwDP2iAHIm6RJqMmYw',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '74452859-c4e7-43fc-972d-0f7c9998b56b',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '0'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/common/get_vehicle_price_data',
+        query: {}
+      },
+      res: { statusCode: 423 },
+      responseTime: 322
+    },
+    timestamp: '2023-03-22T11:16:18.346Z'
+  }
+}
+{
+  level: 'warn',
+  message: 'HTTP POST /api/v1/common/get_vehicle_price_data',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/common/get_vehicle_price_data',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5hbW5lZXQxNjlAZ21haWwuY29tIiwiX2lkIjoiNjNlNGMwYmVkZWY1ZTJjMzRjYTliOWY1IiwiaWF0IjoxNjc4MTk3NTk2LCJleHAiOjE3MDk3MzM1OTZ9.yaBRdRTluqHVuYMR2bcLmpxbONwDP2iAHIm6RJqMmYw',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': 'ac4904be-5307-4832-a855-4ab58b9f1c2c',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '0'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/common/get_vehicle_price_data',
+        query: {}
+      },
+      res: { statusCode: 423 },
+      responseTime: 322
+    },
+    timestamp: '2023-03-22T11:16:20.618Z'
+  }
+}
+{
+  level: 'warn',
+  message: 'HTTP POST /api/v1/admin/update_prices_and_slots',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/update_prices_and_slots',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InlvZ2VzaEB5b3BtYWlsLmNvbSIsIl9pZCI6IjY0MTk0NmI5ZTJiYTg5MzFiMjJjMjgxOSIsImlhdCI6MTY3OTQ4Mzc3MCwiZXhwIjoxNzExMDE5NzcwfQ.HaIK1u2b91g_wFRc5Km10HxCo4rflhEzwCfntX6eHxk',
+          'content-type': 'application/json',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '495efc23-1d96-471d-8358-8a914f555bdd',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '208'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/update_prices_and_slots',
+        query: {}
+      },
+      res: { statusCode: 451 },
+      responseTime: 356
+    },
+    timestamp: '2023-03-22T11:21:57.608Z'
+  }
+}

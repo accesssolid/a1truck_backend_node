@@ -11,39 +11,12 @@ const VehicleUtils = {
     try {
       let { _id } = data?.decoded;
       if (!helpers.isValidId(_id)) {
-        return helpers.showResponse(
-          false,
-          Messages.NOT_VALIDID,
-          null,
-          null,
-          statusCodes.success
-        );
+        return helpers.showResponse(false, Messages.NOT_VALIDID, null, null, statusCodes.success);
       }
-      let {
-        license_plate,
-        us_dot,
-        truck_makes,
-        company_name,
-        Truck_color,
-        vehicle_pics,
-      } = data?.body;
-      let checkVehicleExistance = await getSingleData(
-        Vehicle,
-        {
-          license_plate,
-          created_by: ObjectId(_id),
-          status: { $ne: constValues.vehicle_delete },
-        },
-        ""
-      );
+      let { license_plate, us_dot, truck_makes, company_name, Truck_color, vehicle_pics } = data?.body;
+      let checkVehicleExistance = await getSingleData(Vehicle, { license_plate, created_by: ObjectId(_id), status: { $ne: constValues.vehicle_delete } }, "");
       if (checkVehicleExistance.status) {
-        return helpers.showResponse(
-          false,
-          "Vehicle is already added in your profile",
-          null,
-          null,
-          200
-        );
+        return helpers.showResponse( false, "Vehicle is already added in your profile", null, null, 200);
       }
       let newObj = {
         license_plate,
@@ -53,7 +26,7 @@ const VehicleUtils = {
         Truck_color,
         created_by: _id,
         vehicle_pics,
-      };
+      }
     
       if ("default_vehicle" in data.body && Boolean(data.body.default_vehicle) == true) {
         newObj.default_vehicle = true;
@@ -67,34 +40,18 @@ const VehicleUtils = {
       let vehRef = new Vehicle(newObj);
       let result = await postData(vehRef);
       if (result.status) {
-        return helpers.showResponse(
-          true,
-          "New Vehicle added successfully",
-          null,
-          null,
-          200
-        );
+        return helpers.showResponse(true, "New Vehicle added successfully", null, null, 200);
       }
-      return helpers.showResponse(
-        false,
-        "Unable to add new vehicle",
-        null,
-        null,
-        200
-      );
+      return helpers.showResponse(false, "Unable to add new vehicle", null, null, 200);
     } catch (err) {
       return helpers.showResponse(false, err.message, null, null, 200);
     }
   },
+
   deleteVehilclepics: async (data) => {
     try {
       let { _id } = data?.decoded;
-
-      let {
-        vehicleId,
-
-        deleted_picIds,
-      } = data?.body;
+      let { vehicleId, deleted_picIds } = data?.body;
       if (!helpers.isValidId(vehicleId)) {
         return helpers.showResponse(
           false,

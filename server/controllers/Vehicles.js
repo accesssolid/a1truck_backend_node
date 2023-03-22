@@ -11,35 +11,20 @@ const singleUploadProfile = upload.fields([
 const vehicleController = {
   addVehicle: async (req, res) => {
     singleUploadProfile(req, res, async (err) => {
- 
-      let requiredFields = [
-        "license_plate",
-        "us_dot",
-        "truck_makes",
-        "company_name",
-        "Truck_color",
-        "default_vehicle",
+      let requiredFields = ["license_plate", "us_dot", "truck_makes", "company_name", "Truck_color", "default_vehicle",
       ];
       let validator = helpers.validateParams(req, requiredFields);
       if (!validator.status) {
-        return helpers.showOutput(
-          res,
-          helpers.showResponse(false, validator.message),
-          203
-        );
+        return helpers.showOutput(res, helpers.showResponse(false, validator.message), 203);
       }
       if (req.files) {
         let key = "vehicle_pic";
         let imagesArray = [];
         let arrreq_image = req.files.vehicle_pic;
-
         for (let index = 0; index < arrreq_image?.length; index++) {
-          let mime_type = arrreq_image[index]?.mimetype.split("/");
-          mime_type = mime_type[0];
+          let mime_type = arrreq_image[index]?.mimetype.split("/")[0];
           if (arrreq_image && mime_type == "image") {
-            let converted_image = await sharpfile.convertImageToWebp(
-              arrreq_image[index]
-            );
+            let converted_image = await sharpfile.convertImageToWebp(arrreq_image[index]);
             if (converted_image.status) {
               imagesArray.push({
                 value: converted_image?.data?.key,
@@ -47,12 +32,10 @@ const vehicleController = {
             }
           }
         }
-        if (await imagesArray) {
+        if (imagesArray.length > 0) {
           req.body.vehicle_pics = imagesArray;
         }
       }
-
-      
       let result = await Vehicles.addVehicle(req);
       return helpers.showOutput(res, result, result.code);
     });

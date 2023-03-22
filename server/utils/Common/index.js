@@ -317,14 +317,14 @@ update_VehicleType:async(data) => {
     if(noti_status == '0'){
       let response = await updateData(User, { notification_status : 0 }, ObjectId(_id));
       if(response.status){
-        return helpers.showResponse(true, 'Successfully disabled user notification', null, null, 200);
+        return helpers.showResponse(true, 'User notifications are successfully disabled now', null, null, 200);
       }
       return helpers.showResponse(false, 'Internal Server Error', null, null, 200);
 
     }else if(noti_status == '1'){
       let response = await updateData(User, { notification_status : 1 }, ObjectId(_id));
       if(response.status){
-        return helpers.showResponse(true, 'Successfully enabled user notifcation', null, null, 200);
+        return helpers.showResponse(true, 'User notifications are successfully enabled now', null, null, 200);
       }
       return helpers.showResponse(false, 'Internal Server Error', null, null, 200);
 

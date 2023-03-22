@@ -247,7 +247,56 @@ const adminUtils = {
         return helpers.showResponse(false, 'Bookings not found', null, null, 200);
     },
 
-    getDashBoardData : async(data) => {
+    getDashBoardData : async(bodyData) => {
+        const { date_time_type } = bodyData;
+        let startOf = null;
+        let endOf = null;
+        if(date_time_type == 'day'){
+            startOf = moment().startOf('day').format();
+            endOf = moment().endOf('day').format();
+
+        }else if(date_time_type == 'week'){
+            startOf = moment().startOf('week').format();
+            endOf = moment().endOf('week').format();
+
+        }else if(date_time_type == 'month'){
+            startOf = moment().startOf('month').format();
+            endOf = moment().endOf('month').format();
+
+        }else if(date_time_type == 'year'){
+            startOf = moment().startOf('year').format();
+            endOf = moment().endOf('year').format();
+
+        }else{
+            return helpers.showResponse(false, 'Invalid date time', null, null, 200);
+        }
+
+        if(startOf != null && endOf != null){
+            let startOfData = new Date(startOf)
+            let endOfData = new Date(endOf)
+            
+            let vehicleTypeResult = await getDataArray(VehicleType, { status : { $eq : 1 } }, '');
+            if(vehicleTypeResult.status){
+                let vehiclePriceData = vehicleTypeResult.data;
+                // let query =  { $and : [ { createdAt : { $gte : startOfData, $lte : endOfData } } ] }
+                // let bookingResult = await getDataArray(Bookings, query, '-payment_object');
+                // console.log(bookingResult);
+                // if(bookingResult.status){
+                //     let bookingData = bookingResult.data;
+                //     let dailybookings = bookingData.filter(data => data.slot_type == 'daily');
+                //     let weeklybookings = bookingData.filter(data => data.slot_type == 'weekly');
+                //     let monthlybookings = bookingData.filter(data => data.slot_type == 'monthly');
+                // }
+
+                console.log(startOfData);
+                console.log(endOfData);
+                // let bookingResult_1 = await Bookings.aggregate([
+                //     { $match : { $and : [ { createdAt : { $gte : startOfData, $lte : endOfData } } ] } }
+                // ])
+                // console.log(bookingResult_1)
+            }
+
+        }
         
     },
 
@@ -349,9 +398,11 @@ const adminUtils = {
             let response = null;
                 for(let item of price){
                     let price = {
-                        daily : item.daily != '' ? item.daily : '0',
-                        weekly : item.weekly!= '' ? item.weekly : '0',
-                        monthly : item.monthly != '' ? item.monthly : '0'
+                        daily : item.daily != '' ? item.daily : 0,
+                        weekly : item.weekly!= '' ? item.weekly : 0,
+                        monthly : item.monthly != '' ? item.monthly : 0,
+                        half_yearly : item.monthly != '' ? Number(item.monthly * 5) : 0,
+                        yearly : item.monthly != '' ? Number(item.monthly * 11) : 0
                     }
                     let query = { _id : ObjectId(item._id), status : { $ne : 2 } }
                     response = await updateSingleData(VehicleType, query, { price : price }, { new: true, upsert : true });

@@ -397,21 +397,21 @@ const createBookingInvoicePDF = async(bookingData) => {
     pdfDoc.fontSize(10).font('Helvetica-Bold').fillColor('black').text("Description", 35, 225);
     pdfDoc.fontSize(10).font('Helvetica-Bold').fillColor('black').text("Booking Start Time", 200, 225);
     pdfDoc.fontSize(10).font('Helvetica-Bold').fillColor('black').text("Booking End Time", 340, 225);
-    pdfDoc.fontSize(10).font('Helvetica-Bold').fillColor('black').text("Total Amount", 465, 225);
+    pdfDoc.fontSize(10).font('Helvetica-Bold').fillColor('black').text("Total Amount", 475, 225);
     pdfDoc.lineJoin('round').rect(35, 240, 560, 0).lineWidth(0.1).stroke("#aaa");
   
     pdfDoc.fontSize(10).font('Helvetica-Bold').fillColor('black').text("Truck Parking Slot Booking", 35, 250);
     pdfDoc.fontSize(10).font('Helvetica').fillColor('black').text(bookingData.booking_start_time, 200, 250);
     pdfDoc.fontSize(10).font('Helvetica').fillColor('black').text(bookingData.booking_end_time, 340, 250);
-    pdfDoc.fontSize(10).font('Helvetica').fillColor('black').text('$'+bookingData.total_cost + '.00', 480, 250);
+    pdfDoc.fontSize(10).font('Helvetica').fillColor('black').text('$'+bookingData.total_cost + '.00', 485, 250);
   
     pdfDoc.fontSize(10).font('Helvetica-Bold').fillColor('black').text("Tax :", 35, 300);
     pdfDoc.fontSize(10).font('Helvetica-Bold').fillColor('black').text("Total :", 35, 315);
   
-    pdfDoc.fontSize(10).font('Helvetica').fillColor('black').text('$0.00', 482, 302);
-    pdfDoc.fontSize(10).font('Helvetica').fillColor('black').text('$'+bookingData.total_cost + '.00', 482, 315);
+    pdfDoc.fontSize(10).font('Helvetica').fillColor('black').text('$0.00', 485, 301);
+    pdfDoc.fontSize(10).font('Helvetica').fillColor('black').text('$'+bookingData.total_cost + '.00', 485, 316);
   
-    pdfDoc.fontSize(8).font('Helvetica').fillColor('black').text(`This is a computer generated statement hence no signature is required.`, 35, 345);
+    pdfDoc.fontSize(8).font('Helvetica').fillColor('black').text(`This is a computer generated statement hence no signature is required.`, 35, 346);
     
     pdfDoc.end();
 

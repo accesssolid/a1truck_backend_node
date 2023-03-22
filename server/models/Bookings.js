@@ -18,7 +18,7 @@ var Bookings = new Schema({
     type: Date,
     required: true
   },
-  slot_type: {
+  slot_type: {  // daily, weekly, monthly, half_yearly, yearly
     type: String,
     default: ""
   },

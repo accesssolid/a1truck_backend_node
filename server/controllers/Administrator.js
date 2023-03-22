@@ -158,11 +158,11 @@ const adminController = {
     if (!admin_id) {
       return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_ADMIN), 403);
     }
-    let requiredFields = ['booking_data'];
-      let validator = helpers.validateParams(req, requiredFields);
-      if (!validator.status) {
-        return helpers.showOutput(res, helpers.showResponse(false, validator.message), 203);
-      }
+    let requiredFields = ['date_time_type'];  // day, week, month, year.
+    let validator = helpers.validateParams(req, requiredFields);
+    if (!validator.status) {
+      return helpers.showOutput(res, helpers.showResponse(false, validator.message), 203);
+    }
     let result = await AdministrationUtils.getDashBoardData(req.body);
     // return helpers.showOutput(res, result, result.code);
   },

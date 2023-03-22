@@ -95,9 +95,13 @@ getBookingType: async (req, res) => {
   },
 
   fireNotificationOnDailyEvents : async(req, res, next) => {
-    const currentTime = moment();
-    const nextTwoHourTime = moment().add(2, 'hours');
-    let query = { booking_status : { $ne : 2 }, slot_type : 'daily', end_time : { $gte : currentTime.toDate(), $lt : nextTwoHourTime.toDate() } }
+    const next120MinTime = moment().add(120, 'minutes').toDate();
+    const next119MinTime = moment().add(119, 'minutes').toDate();
+    let query = { 
+      booking_status : { $ne : 2 }, 
+      slot_type : 'daily', 
+      $and: [{ end_time : { $gte : next119MinTime }}, { end_time: {$lte : next120MinTime } }]
+    }
     let bookingData = {
       title : 'A1 Truck Booking',
       body : 'Your truck parking time is about to expire in next 2 hours'
@@ -122,15 +126,16 @@ getBookingType: async (req, res) => {
   },
 
   fireNotificationOnWeeklyAndMonthlyEvent : async() => {
-    const currentTime = moment();
-    const nextTwoDayTime = moment().add(2, 'days');
+    const next48HoursTime = moment().add(48, 'hours').toDate();
+    const next47HoursTime = moment().add(47, 'hours').toDate();
     let query = {
       booking_status : { $ne : 2 },
-      end_time : { $gte : currentTime.toDate(), $lt : nextTwoDayTime.toDate() },
-      $or: [
-        { startTime: { $gte: moment().startOf('week').toDate() } },
-        { startTime: { $gte: moment().startOf('month').toDate() } }
-      ]
+      $or:[{
+        slot_type : 'weekly'
+      }, {
+        slot_type : 'monthly'
+      }], 
+      $and: [{ end_time : { $gte : next47HoursTime }}, { end_time: {$lte : next48HoursTime } }]
     }
     let bookingData = {
       title : 'A1 Truck Booking',

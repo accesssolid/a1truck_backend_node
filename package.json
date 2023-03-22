@@ -29,6 +29,7 @@
     "node-cron": "^3.0.2",
     "nodemailer": "^6.9.1",
     "pdfkit": "^0.13.0",
+    "sharp": "^0.31.3",
     "stripe": "^11.10.0",
     "twilio": "^3.84.1",
     "winston": "^3.8.2",

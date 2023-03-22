@@ -12,16 +12,24 @@ const VehiclTypeSchema=mongoose.Schema({
     },
     price: {
         daily : {
-            type: String,
-            default: '',
+            type: Number,
+            default: 0,
         },
         weekly : {
-            type: String,
-            default: '',
+            type: Number,
+            default: 0,
         },
         monthly : {
-            type: String,
-            default: '',
+            type: Number,
+            default: 0,
+        },
+        half_yearly : {
+            type : Number,
+            default : 0
+        },
+        yearly : {
+            type : Number,
+            default : 0
         }
     },
     slots : {

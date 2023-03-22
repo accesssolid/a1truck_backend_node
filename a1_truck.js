@@ -110,21 +110,20 @@ app.use(process.env["API_V1"] + "common", common);
 app.use(process.env["API_V1"] + "appdata", appdata);
 app.use(process.env["API_V1"] + "bookings", bookings);
 
-// cronJob.schedule('* * * * * *', function () {
-  // Bookings.autoUpdateBooking();
-// });
+cronJob.schedule('0 */1 * * * *', async function () {
+  await Bookings.autoUpdateBooking();
+});
 
-cronJob.schedule('0 0 */2 * * *', async function () {  // 2 hours prior booking ends.
-  // await Common.fireNotificationOnDailyEvents();
+cronJob.schedule('0 */1 * * * *', async function () {  // 2 hours prior booking ends.
+  await Common.fireNotificationOnDailyEvents();
 });
 
 cronJob.schedule('0 */1 * * * *', async function () {  // upcoming booking half an hour ago or 30 min before.
-  console.log("fired")
   await Common.fireNotificationOnUpcomingEvent();
 });
 
-cronJob.schedule('0 0 0 */2 * *', async function () {  // 2 days prior notification of weekly and monthly plan ends.
-  // await Common.fireNotificationOnWeeklyAndMonthlyEvent();
+cronJob.schedule('0 13 */1 * * *', async function () {  // 2 days prior notification of weekly and monthly plan ends.
+  await Common.fireNotificationOnWeeklyAndMonthlyEvent();
 });
 
 app.listen(port, () => {
