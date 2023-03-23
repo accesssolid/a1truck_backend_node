@@ -29,7 +29,7 @@ const boookingsController = {
       return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_USER), 403);
     }
     if(req.body.type == "renew"){
-      let requiredFields = ["old_booking_id"];
+      let requiredFields = ["old_booking_id", "slot_required"]; // 1 - same slot, 0 - different slot.
       let validator = helpers.validateParams(req, requiredFields);
       if (!validator.status) {
         return helpers.showOutput(res, helpers.showResponse(false, validator.message), 203);

@@ -422,6 +422,38 @@ const createBookingInvoicePDF = async(bookingData) => {
   }
 }
 
+const changeTimeZoneSettings = async(time_zone, createdAt, start_time, end_time) => {
+  let booking_creation_time = moment(createdAt).tz(time_zone).format('YYYY-MM-DD hh:mm:ss A Z');
+  let booking_start_time = moment(start_time).tz(time_zone).format('YYYY-MM-DD hh:mm:ss A Z');
+  let booking_end_time = moment(end_time).tz(time_zone).format('YYYY-MM-DD hh:mm:ss A Z');
+
+  if(booking_creation_time.indexOf(' -') >= 0){
+    booking_creation_time = booking_creation_time.split(' -')[0];
+  }else{
+    booking_creation_time = booking_creation_time.split(' +')[0];
+  }
+
+  if(booking_start_time.indexOf(' -') >= 0){
+    booking_start_time = booking_start_time.split(' -')[0];
+  }else{
+    booking_start_time = booking_start_time.split(' +')[0];
+  }
+
+  if(booking_end_time.indexOf(' -') >= 0){
+    booking_end_time = booking_end_time.split(' -')[0];
+  }else{
+    booking_end_time = booking_end_time.split(' +')[0]
+  }
+
+  let timeData =  {
+    booking_creation_time,
+    booking_start_time,
+    booking_end_time
+  }
+
+  return showResponse(true, 'successfully change time', timeData, null, 200); 
+}
+
 const sendBookingMailToAdmin = async(bookingData) => {
   let { user_name, slot_number, slot_type, vehicle_type, booking_start_time, booking_end_time } = bookingData;
   try {
@@ -441,6 +473,38 @@ const sendBookingMailToAdmin = async(bookingData) => {
         html : `
         <h4>Hello, Administrator</h4>
         <p>There is a new ${slot_type} booking of ${vehicle_type} from ${user_name} from ${booking_start_time} to ${booking_end_time}. </br>
+        and slot number allocated to this user is ${slot_number}.<br/> so please contact to user if any type of concern.
+        </p>
+        <br/><label>A1 Truck Parking.</label>
+        `
+      });
+    return showResponse(true, "successfully send booking mail to admin", null, null, 200);
+
+  } catch (err) {
+    console.log(err)
+    return showResponse(false, "Error Occured, try again", null, null, 200);
+  }
+}
+
+const sendRenewedBookingMailToAdmin = async(RenewBookingData) => {
+  let { user_name, booking_creation_time, booking_start_time, booking_end_time, slot_type, booking_reference_no, slot_number, vehicle_type } = RenewBookingData;
+  try {
+    let transporter = nodemailer.createTransport({
+      host: 'smtp.gmail.com',
+        port: 587,
+        secure: false,
+        auth: {
+          user: process.env.APP_EMAIL,
+            pass: process.env.APP_PASSWORD
+          },
+      });
+      await transporter.sendMail({
+        from : process.env.APP_EMAIL,
+        to : 'anak@solidappmaker.com',
+        subject : 'A1 Truck Booking',
+        html : `
+        <h4>Hello, Administrator</h4>
+        <p>There is a renewed ${slot_type} booking of ${vehicle_type} from ${user_name} from ${booking_start_time} to ${booking_end_time}. </br>
         and slot number allocated to this user is ${slot_number}.<br/> so please contact to user if any type of concern.
         </p>
         <br/><label>A1 Truck Parking.</label>
@@ -474,5 +538,7 @@ module.exports = {
   isValidId,
   sendBookingMailToUser,
   createBookingInvoicePDF,
-  sendBookingMailToAdmin
+  sendBookingMailToAdmin,
+  sendRenewedBookingMailToAdmin,
+  changeTimeZoneSettings
 };

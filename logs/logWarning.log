@@ -1264,3 +1264,31 @@
     timestamp: '2023-03-22T11:21:57.608Z'
   }
 }
+{
+  level: 'warn',
+  message: 'HTTP POST /api/v1/common/get_vehicle_price_data',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/common/get_vehicle_price_data',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjYzYWMzNDliMjE4OTk0NTYyZjdhNTY3NSIsImlhdCI6MTY3OTU1ODI3OCwiZXhwIjoxNzExMDk0Mjc4fQ.UlkIvqGj7tJMcM17x84Sc7CSwbSNP4SThyQBbabClrA',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '97c8d018-263b-43bb-94b7-70655a1063dd',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '0'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/common/get_vehicle_price_data',
+        query: {}
+      },
+      res: { statusCode: 423 },
+      responseTime: 313
+    },
+    timestamp: '2023-03-23T07:58:48.255Z'
+  }
+}

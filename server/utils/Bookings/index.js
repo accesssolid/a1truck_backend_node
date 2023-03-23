@@ -6,6 +6,7 @@ let Bookings = require("../../models/Bookings");
 const moment = require("moment-timezone");
 const stripe = require("stripe")(process.env.Stripe_Secret_Key);
 const VehicleType = require("../../models/VehicleType");
+const RenewedBookings = require('../../models/RenewedBookings');
 
 // let slots = {
 //   truck: 21,
@@ -92,7 +93,7 @@ let BookingsUtils = {
   checkSlotAvailabilty: async (data, user_id) => {
     return new Promise(async (resolve, reject) => {
       try {
-        let { startTime, endTime, slot_type, vehicle_type, card_id, vehicle_id, time_zone, total_amount, type } = data;
+        let { startTime, endTime, slot_type, vehicle_type, card_id, vehicle_id, time_zone, total_amount, type, slot_required } = data;
         startTime = new Date(startTime);
         endTime = new Date(endTime);
         let userResponse = await getSingleData(Users, { _id: ObjectId(user_id), status: { $ne: 2 } }, "");
@@ -112,6 +113,7 @@ let BookingsUtils = {
           oldBookinData = oldBookingResponse?.data;
           slot_number = oldBookinData?.slot_number;
         }
+
         let where = {
           vehicle_id: ObjectId(vehicle_id),
           $or: [
@@ -131,7 +133,7 @@ let BookingsUtils = {
           return helpers.showResponse(false, "Invalid vehicle type", null, null, 200);
         }
         let vehicleTypeData = vehicleTypeResponse.data;
-        if (oldBookinData) {
+        if (oldBookinData && slot_required == '1') {
           let conflictingBookingsQuery = {
             vehicle_type: ObjectId(vehicle_type),
             booking_status : { $ne: 2 },
@@ -142,10 +144,38 @@ let BookingsUtils = {
               { end_time: { $gt: startTime, $lte: endTime } }, // booking ends during another booking
             ],
           };
-          let conflictingBookingsResponse = await getDataArray(Bookings, conflictingBookingsQuery, "");
+          let conflictingBookingsResponse = await getDataArray(Bookings, conflictingBookingsQuery, '');
           if (!conflictingBookingsResponse?.status) {
-            slot_number
+            slot_number;
+          } else {
+            // request to Admin if booking already available to requested slot.
+            let newObj =  {
+              user_id : ObjectId(user_id),
+              old_booking_id : ObjectId(old_booking_id),
+              start_time : startTime,
+              end_time : endTime
+            }
+            let RenewedBookingRef = new RenewedBookings(newObj);
+            let RenewedBookingResult = await postData(RenewedBookingRef);
+            if(RenewedBookingResult.status){
+              let RenewedData = RenewedBookingResult.data;
+              let timeData = await helpers.changeTimeZoneSettings(time_zone, RenewedData.createdAt, RenewedData.start_time, RenewedData.end_time);
+              let renewedBookingData = {
+                user_name : userData.username,
+                booking_creation_time : timeData.booking_creation_time,
+                booking_start_time : timeData.booking_start_time,
+                booking_end_time : timeData.booking_end_time,
+                slot_type : oldBookinData.slot_type,
+                booking_reference_no : oldBookinData.booking_ref,
+                slot_number : oldBookinData.slot_number,
+                vehicle_type : vehicleTypeData.vehicle_Type,
+              }
+              await helpers.sendRenewedBookingMailToAdmin(renewedBookingData);
+              return helpers.showResponse(true, "Renewed booking request has sent to admin", null, null, 200);
+            }
+            return helpers.showResponse(false, "Server Error, Failed to renew booking.", null, null, 200);
           }
+
         } else {
           for (let i = 1; i <= vehicleTypeData.slots; i++) {
             // check conflicts of slot
@@ -166,9 +196,11 @@ let BookingsUtils = {
             }
           }
         }
+
         if (slot_number == 0) {
           return helpers.showResponse(false, "No slots found", null, null, 200);
         }
+
         // make payment
         let payObj = {
           amount: Number(total_amount) * 100, // amount received from appside
@@ -191,46 +223,27 @@ let BookingsUtils = {
             payment_object: charge,
             slot_number,
             time_zone,
-            booking_ref: oldBookinData?oldBookinData?.booking_ref:helpers.randomStr(4, "0123498765"),
+            booking_ref: oldBookinData ? oldBookinData?.booking_ref : helpers.randomStr(4, "0123498765"),
             booking_status: 1,
           };
+          
           let bookingRef = new Bookings(newObj);
           let response = await postData(bookingRef);
           if (response.status) {
-            let booking_creation_time = moment(response.data.createdAt).tz(time_zone).format('YYYY-MM-DD hh:mm:ss A Z');
-            let booking_start_time = moment(response.data.start_time).tz(time_zone).format('YYYY-MM-DD hh:mm:ss A Z');
-            let booking_end_time = moment(response.data.end_time).tz(time_zone).format('YYYY-MM-DD hh:mm:ss A Z');
-
-            if(booking_creation_time.indexOf(' -') >= 0){
-              booking_creation_time = booking_creation_time.split(' -')[0];
-            }else{
-              booking_creation_time = booking_creation_time.split(' +')[0];
-            }
-
-            if(booking_start_time.indexOf(' -') >= 0){
-              booking_start_time = booking_start_time.split(' -')[0];
-            }else{
-              booking_start_time = booking_start_time.split(' +')[0];
-            }
-
-            if(booking_end_time.indexOf(' -') >= 0){
-              booking_end_time = booking_end_time.split(' -')[0];
-            }else{
-              booking_end_time = booking_end_time.split(' +')[0]
-            }
-
+            let bookingResponseData = response.data;
+            let timeData = await helpers.changeTimeZoneSettings(time_zone, bookingResponseData.createdAt, bookingResponseData.start_time, bookingResponseData.end_time);
             let bookingData = {
               user_name: userData.username,
               email: userData.email,
-              booking_creation_time: booking_creation_time.split(" +")[0],
-              booking_start_time: booking_start_time.split(" +")[0],
-              booking_end_time: booking_end_time.split(" +")[0],
-              slot_type: response.data.slot_type,
-              total_cost: response.data.payment_object.amount / 100,
-              booking_reference_no: response.data.booking_ref,
-              slot_number: response.data.slot_number,
-              vehicle_type: vehicleTypeData.vehicle_Type,
-            };
+              booking_creation_time : timeData.data.booking_creation_time,
+              booking_start_time : timeData.data.booking_start_time,
+              booking_end_time : timeData.data.booking_end_time,
+              slot_type : response.data.slot_type,
+              total_cost : response.data.payment_object.amount / 100,
+              booking_reference_no : response.data.booking_ref,
+              slot_number : response.data.slot_number,
+              vehicle_type : vehicleTypeData.vehicle_Type,
+            }
             let pdfResponse = await helpers.createBookingInvoicePDF(bookingData);
             pdfResponse.status == true ? (bookingData.pdf_fileName = pdfResponse.data) : (bookingData.pdf_fileName = null);
             await helpers.sendBookingMailToUser(bookingData);

@@ -399,7 +399,7 @@ const adminUtils = {
                         weekly : item.weekly!= '' ? item.weekly : 0,
                         monthly : item.monthly != '' ? item.monthly : 0,
                         half_yearly : item.monthly != '' ? Number(item.monthly * 5) : 0,
-                        yearly : item.monthly != '' ? Number(item.monthly * 11) : 0
+                        full_yearly : item.monthly != '' ? Number(item.monthly * 11) : 0
                     }
                     let query = { _id : ObjectId(item._id), status : { $ne : 2 } }
                     response = await updateSingleData(VehicleType, query, { price : price }, { new: true, upsert : true });

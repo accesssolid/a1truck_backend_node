@@ -4751,3 +4751,823 @@
     timestamp: '2023-03-22T14:17:22.149Z'
   }
 }
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/user/login',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/user/login',
+        headers: {
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '6c04448f-3099-4de1-b5ba-336bbe6fc80f',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-type': 'application/x-www-form-urlencoded',
+          'content-length': '48'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/user/login',
+        query: {}
+      },
+      res: { statusCode: 203 },
+      responseTime: 22
+    },
+    timestamp: '2023-03-23T06:37:39.988Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/user/login',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/user/login',
+        headers: {
+          'content-type': 'application/json',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '213490ab-485c-417e-ab79-b29676e8edd3',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '87'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/user/login',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 958
+    },
+    timestamp: '2023-03-23T06:38:05.800Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/admin/login',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/login',
+        headers: {
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': 'be1de19e-d89f-4771-8a6d-2c409799f481',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-type': 'application/x-www-form-urlencoded',
+          'content-length': '45'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/login',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 336
+    },
+    timestamp: '2023-03-23T06:52:03.854Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/admin/login',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/login',
+        headers: {
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '4f54adcd-5a22-47bb-b77b-f071f17320f8',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-type': 'application/x-www-form-urlencoded',
+          'content-length': '44'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/login',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 312
+    },
+    timestamp: '2023-03-23T06:52:09.745Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/admin/login',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/login',
+        headers: {
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': 'ebc81a7a-e637-49b1-b485-90b75012ac55',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-type': 'application/x-www-form-urlencoded',
+          'content-length': '45'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/login',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 311
+    },
+    timestamp: '2023-03-23T06:52:13.342Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/admin/login',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/login',
+        headers: {
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '3748fcb4-4380-4ec2-b129-48b1490abdd7',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-type': 'application/x-www-form-urlencoded',
+          'content-length': '46'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/login',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 308
+    },
+    timestamp: '2023-03-23T06:52:17.424Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/admin/login',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/login',
+        headers: {
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': 'ac8a4150-6185-4fb1-b278-2912e469dc80',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-type': 'application/x-www-form-urlencoded',
+          'content-length': '40'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/login',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 310
+    },
+    timestamp: '2023-03-23T06:52:21.241Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/admin/login',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/login',
+        headers: {
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': 'd2e1622a-ac01-4358-a7b2-18ee3211dd1e',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-type': 'application/x-www-form-urlencoded',
+          'content-length': '41'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/login',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 309
+    },
+    timestamp: '2023-03-23T06:52:23.561Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/admin/login',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/login',
+        headers: {
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '43c424bf-b77d-4387-a346-17b990dea226',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-type': 'application/x-www-form-urlencoded',
+          'content-length': '42'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/login',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 320
+    },
+    timestamp: '2023-03-23T06:52:26.166Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/admin/update_prices_and_slots',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/update_prices_and_slots',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjYzYWMzNDliMjE4OTk0NTYyZjdhNTY3NSIsImlhdCI6MTY3OTU1NDM0NiwiZXhwIjoxNzExMDkwMzQ2fQ.d0HWvZeHlYnA3ullBHqyXJlZfcAULuuERspXAsMgRXE',
+          'content-type': 'application/json',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '9a937287-0bb5-42e9-ba3e-f4567aa98074',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '204'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/update_prices_and_slots',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 665
+    },
+    timestamp: '2023-03-23T06:54:14.599Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/admin/update_prices_and_slots',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/update_prices_and_slots',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjYzYWMzNDliMjE4OTk0NTYyZjdhNTY3NSIsImlhdCI6MTY3OTU1NDM0NiwiZXhwIjoxNzExMDkwMzQ2fQ.d0HWvZeHlYnA3ullBHqyXJlZfcAULuuERspXAsMgRXE',
+          'content-type': 'application/json',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '93d95c19-5560-4743-92b3-ba37bc32039d',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '203'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/update_prices_and_slots',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 729
+    },
+    timestamp: '2023-03-23T06:55:03.236Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/user/login',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/user/login',
+        headers: {
+          'content-type': 'application/json',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': 'e421c119-80ac-4e40-86a2-d31f1b546f09',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '87'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/user/login',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 972
+    },
+    timestamp: '2023-03-23T07:45:44.051Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/bookings/check_slot_availability',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/bookings/check_slot_availability',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InlvZ2VzaEB5b3BtYWlsLmNvbSIsIl9pZCI6IjY0MTk0NmI5ZTJiYTg5MzFiMjJjMjgxOSIsImlhdCI6MTY3OTU1NzU0MywiZXhwIjoxNzExMDkzNTQzfQ.tYFlc0HZcaGv5rtWle3gEmiNA7SVbnQx35U6vTUPUOQ',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': 'cede5156-abcc-46c9-b86f-876b707d5829',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-type': 'application/x-www-form-urlencoded',
+          'content-length': '280'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/bookings/check_slot_availability',
+        query: {}
+      },
+      res: { statusCode: 203 },
+      responseTime: 342
+    },
+    timestamp: '2023-03-23T07:47:45.995Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/bookings/check_slot_availability',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/bookings/check_slot_availability',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InlvZ2VzaEB5b3BtYWlsLmNvbSIsIl9pZCI6IjY0MTk0NmI5ZTJiYTg5MzFiMjJjMjgxOSIsImlhdCI6MTY3OTU1NzU0MywiZXhwIjoxNzExMDkzNTQzfQ.tYFlc0HZcaGv5rtWle3gEmiNA7SVbnQx35U6vTUPUOQ',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '3913df99-f54e-4ccb-ad45-d96176165b97',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-type': 'application/x-www-form-urlencoded',
+          'content-length': '320'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/bookings/check_slot_availability',
+        query: {}
+      },
+      res: { statusCode: 203 },
+      responseTime: 338
+    },
+    timestamp: '2023-03-23T07:52:55.312Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/common/get_vehicle_price_data',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/common/get_vehicle_price_data',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InlvZ2VzaEB5b3BtYWlsLmNvbSIsIl9pZCI6IjY0MTk0NmI5ZTJiYTg5MzFiMjJjMjgxOSIsImlhdCI6MTY3OTU1NzU0MywiZXhwIjoxNzExMDkzNTQzfQ.tYFlc0HZcaGv5rtWle3gEmiNA7SVbnQx35U6vTUPUOQ',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '5c572bbe-c19c-4527-9c04-5c29bd34f564',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '0'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/common/get_vehicle_price_data',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 648
+    },
+    timestamp: '2023-03-23T07:56:17.155Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/common/get_vehicle_price_data',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/common/get_vehicle_price_data',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InlvZ2VzaEB5b3BtYWlsLmNvbSIsIl9pZCI6IjY0MTk0NmI5ZTJiYTg5MzFiMjJjMjgxOSIsImlhdCI6MTY3OTU1NzU0MywiZXhwIjoxNzExMDkzNTQzfQ.tYFlc0HZcaGv5rtWle3gEmiNA7SVbnQx35U6vTUPUOQ',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': 'e9332d3a-c6c5-46bb-8e4c-541b03b6977a',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '0'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/common/get_vehicle_price_data',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 651
+    },
+    timestamp: '2023-03-23T07:57:38.305Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/admin/login',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/login',
+        headers: {
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '7c3a22de-6cf3-433c-ab90-bd6e12595fda',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-type': 'application/x-www-form-urlencoded',
+          'content-length': '42'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/login',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 356
+    },
+    timestamp: '2023-03-23T07:57:58.880Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/admin/update_prices_and_slots',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/update_prices_and_slots',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjYzYWMzNDliMjE4OTk0NTYyZjdhNTY3NSIsImlhdCI6MTY3OTU1ODI3OCwiZXhwIjoxNzExMDk0Mjc4fQ.UlkIvqGj7tJMcM17x84Sc7CSwbSNP4SThyQBbabClrA',
+          'content-type': 'application/json',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': 'd184c7a8-ed76-4522-abb7-9149b8acfe52',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '203'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/update_prices_and_slots',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 668
+    },
+    timestamp: '2023-03-23T07:58:12.964Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/admin/update_prices_and_slots',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/update_prices_and_slots',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjYzYWMzNDliMjE4OTk0NTYyZjdhNTY3NSIsImlhdCI6MTY3OTU1ODI3OCwiZXhwIjoxNzExMDk0Mjc4fQ.UlkIvqGj7tJMcM17x84Sc7CSwbSNP4SThyQBbabClrA',
+          'content-type': 'application/json',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '88a1dde6-bc75-458c-9445-30aa85051186',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '204'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/update_prices_and_slots',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 626
+    },
+    timestamp: '2023-03-23T07:58:38.895Z'
+  }
+}
+{
+  level: 'warn',
+  message: 'HTTP POST /api/v1/common/get_vehicle_price_data',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/common/get_vehicle_price_data',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjYzYWMzNDliMjE4OTk0NTYyZjdhNTY3NSIsImlhdCI6MTY3OTU1ODI3OCwiZXhwIjoxNzExMDk0Mjc4fQ.UlkIvqGj7tJMcM17x84Sc7CSwbSNP4SThyQBbabClrA',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '97c8d018-263b-43bb-94b7-70655a1063dd',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '0'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/common/get_vehicle_price_data',
+        query: {}
+      },
+      res: { statusCode: 423 },
+      responseTime: 313
+    },
+    timestamp: '2023-03-23T07:58:48.255Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/user/login',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/user/login',
+        headers: {
+          'content-type': 'application/json',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '62ec1d3c-f663-49c4-a6f4-69bcba831e93',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '87'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/user/login',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 932
+    },
+    timestamp: '2023-03-23T07:59:01.158Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/common/get_vehicle_price_data',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/common/get_vehicle_price_data',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InlvZ2VzaEB5b3BtYWlsLmNvbSIsIl9pZCI6IjY0MTk0NmI5ZTJiYTg5MzFiMjJjMjgxOSIsImlhdCI6MTY3OTU1ODM0MCwiZXhwIjoxNzExMDk0MzQwfQ.gJXD4ECaUehwmMGauWnWD2rdETY5Pjdp6GywMXTnzps',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '63905937-000b-41ad-9165-d7ca463112e2',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '0'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/common/get_vehicle_price_data',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 619
+    },
+    timestamp: '2023-03-23T07:59:04.798Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/admin/login',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/login',
+        headers: {
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '72e3a9ae-1a8d-46de-a3d8-9bb2a9b487bc',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-type': 'application/x-www-form-urlencoded',
+          'content-length': '42'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/login',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 346
+    },
+    timestamp: '2023-03-23T08:02:06.983Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/admin/get_all_users_details_admin',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/get_all_users_details_admin',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjYzYWMzNDliMjE4OTk0NTYyZjdhNTY3NSIsImlhdCI6MTY3OTU1ODUyNiwiZXhwIjoxNzExMDk0NTI2fQ.BCgKFZXZggl-ecPoMzafaQCUgH61Q_YkfRW-g5JbA54',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '6b986194-0412-4d5f-ae53-c91f7c0e8825',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '0'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/get_all_users_details_admin',
+        query: {}
+      },
+      res: { statusCode: 203 },
+      responseTime: 318
+    },
+    timestamp: '2023-03-23T08:02:19.005Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/user/login',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/user/login',
+        headers: {
+          'content-type': 'application/json',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': 'dfe5fe15-c245-490a-86f3-0333d774e8d5',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '87'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/user/login',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 935
+    },
+    timestamp: '2023-03-23T08:02:28.042Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/bookings/check_slot_availability',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/bookings/check_slot_availability',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InlvZ2VzaEB5b3BtYWlsLmNvbSIsIl9pZCI6IjY0MTk0NmI5ZTJiYTg5MzFiMjJjMjgxOSIsImlhdCI6MTY3OTU1ODU0NywiZXhwIjoxNzExMDk0NTQ3fQ.4yZtdzLY1ZHVUllOTBr2VI5V_YOtJTP0Zg1VOmJF5MY',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '7f15258e-45a5-4d03-bbb0-c00569316832',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-type': 'application/x-www-form-urlencoded',
+          'content-length': '320'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/bookings/check_slot_availability',
+        query: {}
+      },
+      res: { statusCode: 203 },
+      responseTime: 342
+    },
+    timestamp: '2023-03-23T08:03:32.529Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/bookings/check_slot_availability',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/bookings/check_slot_availability',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InlvZ2VzaEB5b3BtYWlsLmNvbSIsIl9pZCI6IjY0MTk0NmI5ZTJiYTg5MzFiMjJjMjgxOSIsImlhdCI6MTY3OTU1ODU0NywiZXhwIjoxNzExMDk0NTQ3fQ.4yZtdzLY1ZHVUllOTBr2VI5V_YOtJTP0Zg1VOmJF5MY',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '1bf69895-a2b0-4120-ac81-90c638f95614',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-type': 'application/x-www-form-urlencoded',
+          'content-length': '336'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/bookings/check_slot_availability',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 2500
+    },
+    timestamp: '2023-03-23T08:33:19.122Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP GET /api/v1/user/cards',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/user/cards',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InlvZ2VzaEB5b3BtYWlsLmNvbSIsIl9pZCI6IjY0MTk0NmI5ZTJiYTg5MzFiMjJjMjgxOSIsImlhdCI6MTY3OTU1ODU0NywiZXhwIjoxNzExMDk0NTQ3fQ.4yZtdzLY1ZHVUllOTBr2VI5V_YOtJTP0Zg1VOmJF5MY',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': 'bcf1c3b6-0395-4f64-8399-0382f9cf83a2',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive'
+        },
+        method: 'GET',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/user/cards',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 938
+    },
+    timestamp: '2023-03-23T08:33:31.937Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/bookings/check_slot_availability',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/bookings/check_slot_availability',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InlvZ2VzaEB5b3BtYWlsLmNvbSIsIl9pZCI6IjY0MTk0NmI5ZTJiYTg5MzFiMjJjMjgxOSIsImlhdCI6MTY3OTU1ODU0NywiZXhwIjoxNzExMDk0NTQ3fQ.4yZtdzLY1ZHVUllOTBr2VI5V_YOtJTP0Zg1VOmJF5MY',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '680061b4-e5a3-43d2-8810-bc060c1fc468',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-type': 'application/x-www-form-urlencoded',
+          'content-length': '336'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/bookings/check_slot_availability',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 1911
+    },
+    timestamp: '2023-03-23T09:24:50.150Z'
+  }
+}
