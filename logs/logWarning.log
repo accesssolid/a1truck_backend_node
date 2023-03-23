@@ -1292,3 +1292,32 @@
     timestamp: '2023-03-23T07:58:48.255Z'
   }
 }
+{
+  level: 'warn',
+  message: 'HTTP POST /api/v1/admin/get_dashboard_data_by_admin',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/get_dashboard_data_by_admin',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InlvZ2VzaEB5b3BtYWlsLmNvbSIsIl9pZCI6IjY0MTk0NmI5ZTJiYTg5MzFiMjJjMjgxOSIsImlhdCI6MTY3OTU3NTg3NiwiZXhwIjoxNzExMTExODc2fQ.naBWh1VAuDR7tJhSo57arQmLksoZZOwItHfYaQ7BWqY',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': 'e9649da9-4b7c-474d-935a-28b3155c927a',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-type': 'application/x-www-form-urlencoded',
+          'content-length': '18'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/get_dashboard_data_by_admin',
+        query: {}
+      },
+      res: { statusCode: 451 },
+      responseTime: 3410
+    },
+    timestamp: '2023-03-23T13:23:45.615Z'
+  }
+}

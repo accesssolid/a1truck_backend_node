@@ -13,6 +13,7 @@ let Bookings = require('../../models/Bookings');
 const { constValues, statusCodes } = require("../../services/helper/constants");
 const CommonContent = require('../../models/CommonContent');
 const VehicleType = require('../../models/VehicleType');
+const { Console } = require("winston/lib/winston/transports");
 
 const adminUtils = {
     login : async(bodyData) => {
@@ -274,25 +275,13 @@ const adminUtils = {
         if(startOf != null && endOf != null){
             let startOfData = new Date(startOf)
             let endOfData = new Date(endOf)
-            let vehicleTypeResult = await getDataArray(VehicleType, { status : { $eq : 1 } }, '');
-            if(vehicleTypeResult.status){
-                let vehiclePriceData = vehicleTypeResult.data;
-                let query =  { $and : [ { createdAt : { $gte : startOfData, $lte : endOfData } } ] }
-                // let bookingResult = await getDataArray(Bookings, query, '-payment_object');
-                // console.log(bookingResult)
-                // if(bookingResult.status){
-                //     let bookingData = bookingResult.data;
-                //     let dailybookings = bookingData.filter(data => data.slot_type == 'daily');
-                //     let weeklybookings = bookingData.filter(data => data.slot_type == 'weekly');
-                //     let monthlybookings = bookingData.filter(data => data.slot_type == 'monthly');
-                // }
-                let bookingResult = await Bookings.aggregate([
-                    { $match : { $and : [ { createdAt : { $gte : startOfData, $lte : endOfData } } ] } },
-                    { $project : { payment_object : 0 } }
-                ])
-                console.log(bookingResult)
-            }
+            let bookingResult = await Bookings.aggregate([
+                { $match : { $and : [ { createdAt : { $gte : startOfData, $lte : endOfData } } ] } }
+            ])
+            console.log(bookingResult)
+            if(bookingResult.length > 0){
 
+            }
         }
         
     },

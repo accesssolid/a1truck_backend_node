@@ -209,6 +209,7 @@ let BookingsUtils = {
           description: `Book ${slot_type} slot for my ${vehicleTypeData.vehicle_Type}`,
           customer: userData.stripe_id,
         };
+
         const charge = await stripe.charges.create(payObj);
         if (charge.status === "succeeded") {
           // payment done
