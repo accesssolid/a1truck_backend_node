@@ -136,7 +136,7 @@ update_VehicleType:async(data) => {
   }
 },
 
-  // Terms and privacy and how its work 
+  // Terms and privacy and how its work
   AddTermsContent: async (data) => {
     try {
       let response = await updateSingleData(Common, {}, data, { new: true, upsert: true, });

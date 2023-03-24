@@ -2,17 +2,25 @@ var mongoose = require('mongoose');
 const { constValues } = require('../services/helper/constants');
 
 const contactSchema=mongoose.Schema({
-    created_by:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"userSchema"
+    name : {
+        type : String,
+        default : ''
     },
-    message: {
+    email : {
+        type : String,
+        default : ''
+    },
+    message : {
         type: String,
         default: ''
     },
-    status: {
+    status : {
         type: Number,
         default: 1
     },
-},{ timestamps: true })
+},
+{ 
+    timestamps: true
+});
+
 module.exports = mongoose.model('contact', contactSchema, 'contact');

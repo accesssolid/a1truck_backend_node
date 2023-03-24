@@ -1321,3 +1321,227 @@
     timestamp: '2023-03-23T13:23:45.615Z'
   }
 }
+{
+  level: 'warn',
+  message: 'HTTP GET /api/v1/common/faq',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/common/faq',
+        headers: {
+          authorization: '{{TOKEN}}',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': 'f5592816-3c9c-4e39-9ae9-1d28fe71d957',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive'
+        },
+        method: 'GET',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/common/faq',
+        query: {}
+      },
+      res: { statusCode: 401 },
+      responseTime: 12
+    },
+    timestamp: '2023-03-24T08:33:00.529Z'
+  }
+}
+{
+  level: 'warn',
+  message: 'HTTP POST /api/v1/appdata/about_us',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/appdata/about_us',
+        headers: {
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '03a13292-c20f-44e3-a277-139ef079c473',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '0'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/appdata/about_us',
+        query: {}
+      },
+      res: { statusCode: 401 },
+      responseTime: 5
+    },
+    timestamp: '2023-03-24T08:42:22.412Z'
+  }
+}
+{
+  level: 'warn',
+  message: 'HTTP POST /api/v1/appdata/about_us',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/appdata/about_us',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjYzYWMzNDliMjE4OTk0NTYyZjdhNTY3NSIsImlhdCI6MTY3OTU3NzgzMywiZXhwIjoxNzExMTEzODMzfQ.MCOBZIQXuwVKtKEarioNzahECkdhx_gP71Zk91oNxXA',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': 'c4c666d4-b3a3-4afe-8e4b-6679656eb54a',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '0'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/appdata/about_us',
+        query: {}
+      },
+      res: { statusCode: 423 },
+      responseTime: 329
+    },
+    timestamp: '2023-03-24T08:42:49.979Z'
+  }
+}
+{
+  level: 'warn',
+  message: 'HTTP POST /api/v1/appdata/why_a1_truck',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/appdata/why_a1_truck',
+        headers: {
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '8822de76-c833-473c-87d4-35a6c9f80786',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '0'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/appdata/why_a1_truck',
+        query: {}
+      },
+      res: { statusCode: 405 },
+      responseTime: 8
+    },
+    timestamp: '2023-03-24T08:50:01.354Z'
+  }
+}
+{
+  level: 'warn',
+  message: 'HTTP POST /api/v1/appdata/why_a1_truck',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/appdata/why_a1_truck',
+        headers: {
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': 'ace5235b-d1bf-4be3-9671-051b7f103edb',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '0'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/appdata/why_a1_truck',
+        query: {}
+      },
+      res: { statusCode: 401 },
+      responseTime: 5
+    },
+    timestamp: '2023-03-24T08:50:12.703Z'
+  }
+}
+{
+  level: 'warn',
+  message: 'HTTP GET /favicon.ico',
+  metadata: {
+    meta: {
+      req: {
+        url: '/favicon.ico',
+        headers: {
+          host: 'localhost:3001',
+          connection: 'keep-alive',
+          'sec-ch-ua': '"Chromium";v="110", "Not A(Brand";v="24", "Google Chrome";v="110"',
+          'sec-ch-ua-mobile': '?0',
+          'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36',
+          'sec-ch-ua-platform': '"Linux"',
+          accept: 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8',
+          'sec-fetch-site': 'same-origin',
+          'sec-fetch-mode': 'no-cors',
+          'sec-fetch-dest': 'image',
+          referer: 'http://localhost:3001/files/a1_truck_files/a1_truck_1.png',
+          'accept-encoding': 'gzip, deflate, br',
+          'accept-language': 'en-US,en;q=0.9'
+        },
+        method: 'GET',
+        httpVersion: '1.1',
+        originalUrl: '/favicon.ico',
+        query: {}
+      },
+      res: { statusCode: 404 },
+      responseTime: 3
+    },
+    timestamp: '2023-03-24T09:00:43.377Z'
+  }
+}
+{
+  level: 'warn',
+  message: 'HTTP POST /api/v1/admin/get_contact_us_admin',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/get_contact_us_admin',
+        headers: {
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '2491c91e-1a9f-49ff-80c0-cf6586784626',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '0'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/get_contact_us_admin',
+        query: {}
+      },
+      res: { statusCode: 401 },
+      responseTime: 9
+    },
+    timestamp: '2023-03-24T09:37:28.221Z'
+  }
+}
+{
+  level: 'warn',
+  message: 'HTTP POST /api/v1/admin/get_contact_us_admin',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/get_contact_us_admin',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InlvZ2VzaEB5b3BtYWlsLmNvbSIsIl9pZCI6IjY0MTk0NmI5ZTJiYTg5MzFiMjJjMjgxOSIsImlhdCI6MTY3OTY0NzM4OSwiZXhwIjoxNzExMTgzMzg5fQ.l_31IugGWBwNk-69JYu5GDZjqwGqlyYoCdNx5c6YYOs',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': 'ca7b4bc4-0bd7-4671-9482-522aa0feceeb',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '0'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/get_contact_us_admin',
+        query: {}
+      },
+      res: { statusCode: 451 },
+      responseTime: 319
+    },
+    timestamp: '2023-03-24T09:37:41.716Z'
+  }
+}

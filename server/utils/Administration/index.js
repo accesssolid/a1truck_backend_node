@@ -14,6 +14,7 @@ const { constValues, statusCodes } = require("../../services/helper/constants");
 const CommonContent = require('../../models/CommonContent');
 const VehicleType = require('../../models/VehicleType');
 const { Console } = require("winston/lib/winston/transports");
+const Contact = require('../../models/Contactus');
 
 const adminUtils = {
     login : async(bodyData) => {
@@ -155,22 +156,33 @@ const adminUtils = {
         return helpers.showResponse(false, 'Old password is invalid', null, null, 200);
     },
 
-    changeEmail : async(bodyData, admin_id) => {
-        const { email } = bodyData;
-        let query = { email, status : { $ne : 2 } }
-        let isEmailAlreadyRegistered = await getSingleData(Administration, query, '-otp');
-        if(isEmailAlreadyRegistered.status){
-            return helpers.showResponse(false, 'Email already exist, please use different email', null, null, 200);
-        }
+    updateProfile : async(bodyData, admin_id) => {
         let updateObj = {
-            email,
             updated_on : moment().unix()
         }
-        let response = await updateData(Administration, updateObj, ObjectId(admin_id));
-        if (response.status) {
-            return helpers.showResponse(true, 'Email Successfully changed', null, null, 200);
+        if (bodyData?.name && bodyData?.name !== '') {
+            updateObj.name = bodyData.name;
         }
-        return helpers.showResponse(false, 'Failed to update email', null, null, 200);
+        if (bodyData?.email && bodyData?.email !== '') {
+            updateObj.email = bodyData.email;
+        }
+        if (bodyData?.profile_pic && bodyData?.profile_pic !== '') {
+            updateObj.profile_pic = bodyData.profile_pic;
+        }
+        let response = await updateData(Administration, updateObj, ObjectId(admin_id));
+        if (!response.status) {
+            return helpers.showResponse(false, "Error occured!!, profile update failed", null, null, 200);
+        }
+        let adminData = response.data;
+        let newObj = {
+            _id : adminData._id, name : adminData.name,
+            email : adminData.email,
+            profile_pic : adminData.profile_pic,
+            status : adminData.status,
+            created_on : adminData.created_on,
+            updated_on : adminData.updated_on
+        }
+        return helpers.showResponse(true, "Admin Profile Update Success", newObj, null, 200);
     },
 
     getAllUsersDetailsAdmin : async(data) => {
@@ -276,11 +288,20 @@ const adminUtils = {
             let startOfData = new Date(startOf)
             let endOfData = new Date(endOf)
             let bookingResult = await Bookings.aggregate([
-                { $match : { $and : [ { createdAt : { $gte : startOfData, $lte : endOfData } } ] } }
+                { $match : { $and : [ { createdAt : { $gte : startOfData, $lte : endOfData } } ] } },
+                // { $project : { payment_object : 0 } }
             ])
-            console.log(bookingResult)
+            let dataObject = {};
+            const numbers = [1, 2, 3, 4, 5];
+            const sum = numbers.reduce((total, current) => total + current, 0);
+            console.log(sum); // Output: 15
             if(bookingResult.length > 0){
-
+                let dailyRevenue = bookingResult.filter(item => item.slot_type == 'daily');
+                let weeklyRevenue = bookingResult.filter(item => item.slot_type == 'weekly')
+                let monthlyRevenue = bookingResult.filter(item => item.slot_type == 'monthly');
+                let halfYearlyRevenue = bookingResult.filter(item => item.slot_type == 'half_yearly');
+                let fullYearlyRevenue = bookingResult.filter(item => item.slot_type == 'full_yearly');
+                console.log(dailyRevenue);
             }
         }
         
@@ -313,6 +334,14 @@ const adminUtils = {
             }
         }
         return helpers.showResponse(false, 'Mentioned email is not registered with us', null, null, 200);
+    },
+
+    getContactUsAdmin : async(data) => {
+        let result = await getDataArray(Contact, { status: { $ne: 2 }, }, '');
+        if(result.status){
+            return helpers.showResponse(true, 'successfully fetched data', result.data, null, 200);
+        }
+        return helpers.showResponse(false, 'No data found', null, null, 200);
     },
 
     addTruckMakeAndColorAdmin : async(data) => {

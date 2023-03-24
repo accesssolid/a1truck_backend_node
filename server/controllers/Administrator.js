@@ -3,6 +3,8 @@ var AdministrationUtils = require("../utils/Administration");
 const helpers = require("../services/helper");
 const upload = require("../services/helper/image-upload");
 const singleUpload = upload.single("admin_profile");
+const s3_upload = require('../services/helper/image-uploadAWS').single('admin_profile');
+const { convertImageToWebp } = require('../services/helper/image_convert');
 
 const adminController = {
   login: async (req, res, next) => {
@@ -64,20 +66,40 @@ const adminController = {
     return helpers.showOutput(res, result, result.code);
   },
 
+  // addProfilePicture : async(req, res, next) => {
+  //   let admin_id = req.decoded.admin_id;
+  //   if (!admin_id) {
+  //     return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_USER), 403);
+  //   }
+  //   singleUpload(req, res, async(err) => {
+  //     if(!req.file || err){
+  //       return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.NO_IMAGE), 203);
+  //     }
+  //     let fileName = req.file.filename;
+  //     let result = await AdministrationUtils.addProfilePicture(fileName, admin_id);
+  //     return helpers.showOutput(res, result, result.code);
+  //   });
+  // },
+
   addProfilePicture : async(req, res, next) => {
     let admin_id = req.decoded.admin_id;
     if (!admin_id) {
-      return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_USER), 403);
+        return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_USER), 403);
     }
-    singleUpload(req, res, async(err) => {
-      if(!req.file || err){
-        return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.NO_IMAGE), 203);
-      }
-      let fileName = req.file.filename;
-      let result = await AdministrationUtils.addProfilePicture(fileName, admin_id);
-      return helpers.showOutput(res, result, result.code);
+    s3_upload(req, res, async(err) => {
+        if(!req.file || err){
+            return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.NO_IMAGE), 203);
+        }
+        let fileObj = req.file;
+        let uploadResponseFromAws = await convertImageToWebp(fileObj);
+        if(!uploadResponseFromAws.status){
+          return helpers.showResponse(false, "AWS Error!!, Upload Failed", null, null, 200);
+        }
+        let fileName = uploadResponseFromAws.data.key;
+        let result = await AdministrationUtils.addProfilePicture(fileName, admin_id);
+        return helpers.showOutput(res, result, result.code);
     });
-  },
+},
 
   changePassword : async(req, res, next) => {
     let admin_id = req.decoded.admin_id;
@@ -93,18 +115,48 @@ const adminController = {
     return helpers.showOutput(res, result, result.code);
   },
   
-  changeEmail : async(req, res, next) => {
+  // updateProfile : async(req, res, next) => {
+  //   let admin_id = req.decoded.admin_id;
+  //   if (!admin_id) {
+  //       return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_USER), 403);
+  //   }
+  //   singleUpload(req, res, async(err) => {
+  //     let dataObj = {};
+  //     if(req.file){
+  //       let fileName = req.file.filename;
+  //       dataObj.profile_pic = fileName;
+  //     }
+  //     if(Object.keys(req.body).length !== 0){
+  //       dataObj = { ...dataObj, ...req.body }
+  //     }
+  //     let result = await AdministrationUtils.updateProfile(dataObj, admin_id);
+  //     return helpers.showOutput(res, result, result.code);
+  //   });
+  // },
+
+  updateProfile : async(req, res, next) => {
     let admin_id = req.decoded.admin_id;
     if (!admin_id) {
         return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_USER), 403);
     }
-    let requiredFields = ['email'];
-    let validator = helpers.validateParams(req, requiredFields);
-    if (!validator.status) {
-        return helpers.showOutput(res, helpers.showResponse(false, validator.message), 203);
-    }
-    let result = await AdministrationUtils.changeEmail(req.body, admin_id);
-    return helpers.showOutput(res, result, result.code);
+    s3_upload(req, res, async(err) => {
+      let dataObj = {};
+      if(req.file){
+        let fileObj = req.file;
+        let uploadResponseFromAws = await convertImageToWebp(fileObj);
+        if(!uploadResponseFromAws.status){
+          return helpers.showResponse(false, "AWS Error!!, Upload Failed", null, null, 200);
+        } else {
+          let fileName = uploadResponseFromAws.data.key; 
+          dataObj.profile_pic = fileName;
+        }
+      }
+      if(Object.keys(req.body).length !== 0){
+        dataObj = { ...dataObj, ...req.body }
+      }
+      let result = await AdministrationUtils.updateProfile(dataObj, admin_id);
+      return helpers.showOutput(res, result, result.code);
+    });
   },
 
   getAllUsersDetailsAdmin : async(req, res) => {
@@ -178,6 +230,15 @@ const adminController = {
       return helpers.showOutput(res, helpers.showResponse(false, validator.message), 203);
     }
     let result = await AdministrationUtils.contactToAdminByAdmin(req.body);
+    return helpers.showOutput(res, result, result.code);
+  },
+
+  getContactUsAdmin : async(req, res, next) => {
+    let admin_id = req.decoded.admin_id;
+    if (!admin_id) {
+        return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_ADMIN), 403);
+    }
+    let result = await AdministrationUtils.getContactUsAdmin(req.body);
     return helpers.showOutput(res, result, result.code);
   },
 

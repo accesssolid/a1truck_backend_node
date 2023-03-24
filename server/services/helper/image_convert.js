@@ -23,7 +23,7 @@ const convertImageToWebp = (data) => {
 
 const uploadToS3 = async (file, bufferImage) => {
     return new Promise((resolve, reject) => {
-        let fileName = Date.now().toString() + ".webp"
+        let fileName = Date.now().toString() + ".webp";
         let path = "";
         switch (file.fieldname) {
             case "vehicle_pic":
@@ -38,7 +38,7 @@ const uploadToS3 = async (file, bufferImage) => {
             Key: path,
             Body: bufferImage,
         }
-
+        
         s3.upload(params, async (error, data) => {
             if (error) {
                 console.log('bucketerror', error)

@@ -14,7 +14,7 @@ router.post('/logout', AdministratorController.logout);
 router.get('/get_admin_detail', middleware.checkAdminToken, AdministratorController.getAdminDetail);
 router.post('/add_profile_pic', middleware.checkAdminToken, AdministratorController.addProfilePicture);
 router.post('/change_password', middleware.checkAdminToken, AdministratorController.changePassword);
-router.post('/change_email', middleware.checkAdminToken, AdministratorController.changeEmail);
+router.post('/update_profile', middleware.checkAdminToken, AdministratorController.updateProfile);
 
 
 // Admin Routes with Token
@@ -42,6 +42,7 @@ router.post('/get_all_users_details_admin', middleware.checkAdminToken, Administ
 router.post('/delete_user_by_admin', middleware.checkAdminToken, AdministratorController.deleteUserByAdmin);
 router.post('/get_admin_dashboard_count', middleware.checkAdminToken, AdministratorController.getAdminDashboardCount);
 router.post('/get_all_bookings_admin', middleware.checkAdminToken, AdministratorController.getAllBookingsAdmin);
+router.post('/get_contact_us_admin', middleware.checkAdminToken, AdministratorController.getContactUsAdmin);
 router.post('/contact_to_user_by_admin', middleware.checkAdminToken, AdministratorController.contactToAdminByAdmin);
 router.post('/add_truck_make_and_color_admin', middleware.checkAdminToken, AdministratorController.addTruckMakeAndColorAdmin);
 router.post('/delete_truck_make_and_color', middleware.checkAdminToken, AdministratorController.deleteTruckMakeAndColor);

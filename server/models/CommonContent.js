@@ -28,6 +28,10 @@ const commanSchema=mongoose.Schema({
     about_truck_parking : {
         type : String,
         default : ''
+    },
+    services_and_amenities : {
+        type : String,
+        default : ''
     }
 
 },{ timestamps: true })
