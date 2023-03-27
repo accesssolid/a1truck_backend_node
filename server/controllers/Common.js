@@ -60,7 +60,7 @@ getBookingType: async (req, res) => {
   },
 
    // Faq Apis
-   Addfaq: async (req, res) => {
+  Addfaq: async (req, res) => {
     let requiredFields = ["question", "answer"];
     let validator = helpers.validateParams(req, requiredFields);
     if (!validator.status) {
@@ -94,17 +94,17 @@ getBookingType: async (req, res) => {
     return helpers.showOutput(res, result, result.code);
   },
 
-  fireNotificationOnDailyEvents : async(req, res, next) => {
+  fireNotificationOnDailyEvents : async() => {
     const next120MinTime = moment().add(120, 'minutes').toDate();
     const next119MinTime = moment().add(119, 'minutes').toDate();
-    let query = { 
-      booking_status : { $ne : 2 }, 
+    let query = {
+      booking_status : { $ne : 2 },
       slot_type : 'daily', 
       $and: [{ end_time : { $gte : next119MinTime }}, { end_time: {$lte : next120MinTime } }]
     }
     let bookingData = {
       title : 'A1 Truck Booking',
-      body : 'Your truck parking time is about to expire in next 2 hours'
+      body : 'Your truck parking time is about to expire in next 2 hours.'
     }
     let result = await Common.fireNotificationOnEvents(bookingData, query);
     return helpers.showResponse(result.status, result.message, null, null, result.code);
@@ -113,13 +113,13 @@ getBookingType: async (req, res) => {
   fireNotificationOnUpcomingEvent : async() => {
     const nextHalfHourTime = moment().add(30, 'minutes').toDate();
     const next29MinTime = moment().add(29, 'minutes').toDate();
-    let query = { 
+    let query = {
       booking_status : { $ne : 2 }, 
       $and: [{ start_time : { $gte : next29MinTime} }, { start_time : { $lte : nextHalfHourTime } }]
     }
     let bookingData = {
       title : 'A1 Truck Booking',
-      body : 'You have an upcoming booking in 30 min, please pay attention'
+      body : 'You have an upcoming booking in 30 min, please pay attention.'
     }
     let result = await Common.fireNotificationOnEvents(bookingData, query);
     return helpers.showResponse(result.status, result.message, null, null, result.code);
@@ -139,7 +139,7 @@ getBookingType: async (req, res) => {
     }
     let bookingData = {
       title : 'A1 Truck Booking',
-      body : 'Your booking subscription is about to expire in next 2 days'
+      body : 'Your booking subscription is about to expire in next 2 days.'
     }
     let result = await Common.fireNotificationOnEvents(bookingData, query);
     return helpers.showResponse(result.status, result.message, null, null, result.code);

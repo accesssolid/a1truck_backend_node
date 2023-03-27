@@ -256,30 +256,32 @@ const localNotification = async (role, _id, data) => {
   return helpers.showResponse(false, "Invalid Identifier", null, null, 200);
 };
 
-  const localNotificationBooking = async (role, userData, data) => {
+  const localNotificationBooking = async (role, bookingData, data) => {
     let { title, message, status, notification_data } = data;
-    if(userData.length > 0){
+    if(bookingData.length > 0){
       let usersNotification = [];
-      for(let i = 0; i < userData.length; i++){
-        let _id = ObjectId(userData[i]._id);
+      for(let i = 0; i < bookingData.length; i++){
+        let _id = ObjectId(bookingData[i].user_id);
+        let booking_ref = bookingData[i].booking_ref;
         let notiObject = {
           user_id : _id,
           title,
-          message,
+          message : message + ' ' + `booking ref : #${booking_ref}` ,
           notification_type : "normal",
           status,
           is_read : 0,
+          booking_no : '#'+booking_ref,
           notification_data : notification_data ? notification_data : {}
         }
         usersNotification.push(notiObject);
       }
       let insertResult = await insertMany(Notification, usersNotification);
       if(insertResult.status){
-        return showResponse(true, 'notification send', null, null, 200);
+        return showResponse(true, 'Notification send successfully', null, null, 200);
       }
       return showResponse(false, 'Internal server error', null, null, 200);
     }
-    return showResponse(false, 'No users has booking notification yet', null, null, 200);
+    return showResponse(false, 'No bookings found!!', null, null, 200);
   }
 
 const sendFcmNotificationMultiple = (to, data, show) => {

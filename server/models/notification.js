@@ -24,6 +24,10 @@ var NotificationSchema = new Schema({
         type : Number,
         default : 0
     },
+    booking_no : {
+        type : String,
+        default : ''
+    },
     notification_data : {}
 },
     { timestamps: true }

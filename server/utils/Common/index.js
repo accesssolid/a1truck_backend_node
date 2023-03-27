@@ -253,7 +253,6 @@ update_VehicleType:async(data) => {
             return item.fcm_token;
           });
           let tokens = fcm_tokens.filter(item => item !== '' && fcm_tokens.indexOf(item) > -1);
-          console.log(tokens)
           if(tokens?.length > 0){
             const message = {
               tokens,
@@ -284,7 +283,7 @@ update_VehicleType:async(data) => {
           status : 1,
           notification_data : {}
         }
-        await helpers.localNotificationBooking("user", userResponse, localnotiObj);
+        await helpers.localNotificationBooking("user", bookingsData, localnotiObj);
         return helpers.showResponse(true, 'Notification fired successfully', null, null, 200);
       }
       return helpers.showResponse(false, 'User not found', null, null, 200);

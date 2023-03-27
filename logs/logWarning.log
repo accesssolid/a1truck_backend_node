@@ -1574,3 +1574,58 @@
     timestamp: '2023-03-27T09:22:38.675Z'
   }
 }
+{
+  level: 'warn',
+  message: 'HTTP POST /api/v1/admin/fire_custom_notification',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/fire_custom_notification',
+        headers: {
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '0c31318b-e0b6-4e4d-8800-0d76a8cd74a8',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '0'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/fire_custom_notification',
+        query: {}
+      },
+      res: { statusCode: 401 },
+      responseTime: 6
+    },
+    timestamp: '2023-03-27T12:43:21.820Z'
+  }
+}
+{
+  level: 'warn',
+  message: 'HTTP POST /api/v1/admin/fire_custom_notification',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/fire_custom_notification',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InlvZ2VzaEB5b3BtYWlsLmNvbSIsIl9pZCI6IjY0MTk0NmI5ZTJiYTg5MzFiMjJjMjgxOSIsImlhdCI6MTY3OTkwOTY0NSwiZXhwIjoxNzExNDQ1NjQ1fQ.jvdlgTcZ8gTUnpR7yrL-_-N-WaapleVkRkYtFRwpkzc',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '377c9b08-60e2-4685-b760-2cc9dcb96c74',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '0'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/fire_custom_notification',
+        query: {}
+      },
+      res: { statusCode: 451 },
+      responseTime: 348
+    },
+    timestamp: '2023-03-27T12:43:36.981Z'
+  }
+}

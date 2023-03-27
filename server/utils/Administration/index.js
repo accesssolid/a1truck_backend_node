@@ -15,6 +15,7 @@ const CommonContent = require('../../models/CommonContent');
 const VehicleType = require('../../models/VehicleType');
 const { Console } = require("winston/lib/winston/transports");
 const Contact = require('../../models/Contactus');
+const fireBaseAdmin = require('../../services/helper/firebaseAdmin');
 
 const adminUtils = {
     login : async(bodyData) => {
@@ -483,7 +484,40 @@ contactToAdminByAdmin : async(data) => {
     },
 
     customNotification : async(bodyData) => {
-        
+        const { text } = bodyData;
+        let result = await getDataArray(Users, { status : { $eq : 1 }, notification_status : { $ne : 0 } }, '-notification');
+        if(result.status){
+            let userData = result.data;
+            let fcm_tokens = userData.map(item => item.fcm_token);
+            let tokens = fcm_tokens.filter(item => item !== '' && fcm_tokens.indexOf(item) > -1);
+            if(tokens?.length > 0){
+                const message = {
+                    tokens,
+                    notification: {
+                        title : 'A1 Truck Parking',
+                        body : text,
+                    },
+                    data: {},
+                    "apns": {
+                    "headers": {
+                        "apns-priority": "10"
+                    },
+                    "payload": {
+                        "aps": {
+                            "sound": "default"
+                        }
+                    }
+                    },
+                    contentAvailable: true,
+                    priority: 'high',
+                }
+                let response = await fireBaseAdmin.messaging().sendMulticast(message);
+                console.log(response);
+            }
+            return helpers.showResponse(true, 'Notification fired successfully', null, null, 200);
+        }
+        return helpers.showResponse(false, 'User not found', null, null, 200);
+
     }
 
 }

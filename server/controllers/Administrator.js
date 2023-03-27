@@ -350,7 +350,7 @@ const adminController = {
     if (!admin_id) {
       return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_ADMIN), 403);
     }
-    let requiredFields = ['type'];
+    let requiredFields = ['text'];
     let validator = helpers.validateParams(req, requiredFields);
     if (!validator.status) {
       return helpers.showOutput(res, helpers.showResponse(false, validator.message), 203);
