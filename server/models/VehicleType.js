@@ -27,7 +27,7 @@ const VehiclTypeSchema=mongoose.Schema({
             type : Number,
             default : 0
         },
-        full_yearly : {
+        yearly : {
             type : Number,
             default : 0
         }

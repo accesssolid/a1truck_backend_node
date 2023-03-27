@@ -236,6 +236,7 @@ let BookingsUtils = {
             let bookingData = {
               user_name: userData.username,
               email: userData.email,
+              phone_number : userData.phone_number,
               booking_creation_time : timeData.data.booking_creation_time,
               booking_start_time : timeData.data.booking_start_time,
               booking_end_time : timeData.data.booking_end_time,
@@ -243,7 +244,7 @@ let BookingsUtils = {
               total_cost : response.data.payment_object.amount / 100,
               booking_reference_no : response.data.booking_ref,
               slot_number : response.data.slot_number,
-              vehicle_type : vehicleTypeData.vehicle_Type,
+              vehicle_type : vehicleTypeData.vehicle_Type
             }
             let pdfResponse = await helpers.createBookingInvoicePDF(bookingData);
             pdfResponse.status == true ? (bookingData.pdf_fileName = pdfResponse.data) : (bookingData.pdf_fileName = null);

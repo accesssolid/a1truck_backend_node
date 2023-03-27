@@ -28,7 +28,7 @@ const boookingsController = {
     if (!user_id) {
       return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_USER), 403);
     }
-    if(req.body.type == "renew"){
+    if(req.body.type == "renew"){  // by default --> fresh.
       let requiredFields = ["old_booking_id", "slot_required"]; // 1 - same slot, 0 - different slot.
       let validator = helpers.validateParams(req, requiredFields);
       if (!validator.status) {

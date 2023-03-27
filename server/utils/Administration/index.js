@@ -280,34 +280,63 @@ const adminUtils = {
             startOf = moment().startOf('year').format();
             endOf = moment().endOf('year').format();
 
+        }else if(date_time_type == 'max'){
+            startOf = null;
+            endOf = null;
+
         }else{
             return helpers.showResponse(false, 'Invalid date time', null, null, 200);
         }
 
-        if(startOf != null && endOf != null){
-            let startOfData = new Date(startOf)
-            let endOfData = new Date(endOf)
-            let bookingResult = await Bookings.aggregate([
-                { $match : { $and : [ { createdAt : { $gte : startOfData, $lte : endOfData } } ] } },
-                // { $project : { payment_object : 0 } }
-            ])
-            let dataObject = {};
-            const numbers = [1, 2, 3, 4, 5];
-            const sum = numbers.reduce((total, current) => total + current, 0);
-            console.log(sum); // Output: 15
-            if(bookingResult.length > 0){
-                let dailyRevenue = bookingResult.filter(item => item.slot_type == 'daily');
-                let weeklyRevenue = bookingResult.filter(item => item.slot_type == 'weekly')
-                let monthlyRevenue = bookingResult.filter(item => item.slot_type == 'monthly');
-                let halfYearlyRevenue = bookingResult.filter(item => item.slot_type == 'half_yearly');
-                let fullYearlyRevenue = bookingResult.filter(item => item.slot_type == 'full_yearly');
-                console.log(dailyRevenue);
+        let bookingResult = null;
+        if(date_time_type != 'max' && startOf != null && endOf != null){
+            let startOfData = new Date(startOf);
+            let endOfData = new Date(endOf);
+            bookingResult = await Bookings.aggregate([
+                { $match : { $and : [ { createdAt : { $gte : startOfData, $lte : endOfData } } ] } }
+            ]);
+        }else if(date_time_type == 'max' && startOf == null && endOf == null){
+            bookingResult = await Bookings.find({});
+
+        }else{
+            return helpers.showResponse(false, 'Invalid date time', null, null, 200);
+        }
+
+        if(bookingResult != null && bookingResult.length != 0){
+            let dailyRevenue = bookingResult.filter(item => item.slot_type == 'daily')
+            .reduce((total, item) => total + (item.payment_object.amount / 100), 0);
+                
+            let weeklyRevenue = bookingResult.filter(item => item.slot_type == 'weekly')
+            .reduce((total, item) => total + (item.payment_object.amount / 100), 0);
+
+            let monthlyRevenue = bookingResult.filter(item => item.slot_type == 'monthly')
+            .reduce((total, item) => total + (item.payment_object.amount / 100), 0);
+
+            let halfYearlyRevenue = bookingResult.filter(item => item.slot_type == 'half_yearly')
+            .reduce((total, item) => total + (item.payment_object.amount / 100), 0);
+
+            let yearlyRevenue = bookingResult.filter(item => item.slot_type == 'yearly')
+            .reduce((total, item) => total + (item.payment_object.amount / 100), 0);
+
+            let total = 0;
+            let dataObject = {
+                daily_earning : dailyRevenue != 0 ? dailyRevenue.toFixed(2) : 0,
+                weekly_earning : weeklyRevenue != 0 ? weeklyRevenue.toFixed(2) : 0,
+                monthly_earning : monthlyRevenue != 0 ? monthlyRevenue.toFixed(2) : 0,
+                half_yearly_earning : halfYearlyRevenue != 0 ? halfYearlyRevenue.toFixed(2) : 0,
+                yearly_earning : yearlyRevenue != 0 ? yearlyRevenue.toFixed(2) : 0,
+                total_earning : (total + dailyRevenue + weeklyRevenue + monthlyRevenue + halfYearlyRevenue + yearlyRevenue).toFixed(2)
             }
+
+            return helpers.showResponse(true, 'successfully fetched dashboard data', dataObject, null, 200);
+
+        }else{
+            return helpers.showResponse(false, 'Data not found', null, null, 200);
         }
         
     },
 
-  contactToAdminByAdmin : async(data) => {
+contactToAdminByAdmin : async(data) => {
     let { email, message } = data;
     let response = await getSingleData(Users, { email, status : { $ne : 2 } });
     if(response.status){
@@ -417,7 +446,7 @@ const adminUtils = {
                         weekly : item.weekly!= '' ? item.weekly : 0,
                         monthly : item.monthly != '' ? item.monthly : 0,
                         half_yearly : item.monthly != '' ? Number(item.monthly * 5) : 0,
-                        full_yearly : item.monthly != '' ? Number(item.monthly * 11) : 0
+                        yearly : item.monthly != '' ? Number(item.monthly * 11) : 0
                     }
                     let query = { _id : ObjectId(item._id), status : { $ne : 2 } }
                     response = await updateSingleData(VehicleType, query, { price : price }, { new: true, upsert : true });
@@ -451,6 +480,10 @@ const adminUtils = {
             return helpers.showResponse( true, 'Successfully updated landing page data', null, null, 200);
         }
         return helpers.showResponse(false, err.message, null, null, 200);
+    },
+
+    customNotification : async(bodyData) => {
+        
     }
 
 }

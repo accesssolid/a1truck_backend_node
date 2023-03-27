@@ -339,7 +339,7 @@ const sendBookingMailToUser = async (bookingData) => {
             <th style="text-align: left">Booking Date</th> <td>${booking_creation_time}</td>
           </tr>
           <tr>
-            <th style="text-align: left">Slot Number</th> <td>${slot_number}</td>
+            <th style="text-align: left">Space Number</th> <td>${slot_number}</td>
           </tr>
           <tr>
             <th style="text-align: left">Parking Duration</th> <td>${slot_type}</td>
@@ -383,7 +383,7 @@ const createBookingInvoicePDF = async(bookingData) => {
     pdfDoc.pipe(fs.createWriteStream(path.resolve(`./server/uploads/booking_invoice/${pdfFileName}`)));
     pdfDoc.image(path.resolve('./server/uploads/textlogo3.png'), 25, 20, { width: 140 });
     pdfDoc.fontSize(10).font('Helvetica-Bold').fillColor('black').text("Invoice :", 35, 90);
-    pdfDoc.fontSize(10).font('Helvetica-Bold').fillColor('black').text("Invoice Number", 35, 105);
+    pdfDoc.fontSize(10).font('Helvetica-Bold').fillColor('black').text("Entry Code", 35, 105);
     pdfDoc.fontSize(10).font('Helvetica').fillColor('black').text(bookingData.booking_reference_no, 160, 105);
     pdfDoc.fontSize(10).font('Helvetica-Bold').fillColor('black').text("Invoice Date", 35, 120);
     pdfDoc.fontSize(10).font('Helvetica').fillColor('black').text(bookingData.booking_creation_time, 160, 120);
@@ -405,13 +405,13 @@ const createBookingInvoicePDF = async(bookingData) => {
     pdfDoc.fontSize(10).font('Helvetica').fillColor('black').text(bookingData.booking_end_time, 340, 250);
     pdfDoc.fontSize(10).font('Helvetica').fillColor('black').text('$'+bookingData.total_cost + '.00', 485, 250);
   
-    pdfDoc.fontSize(10).font('Helvetica-Bold').fillColor('black').text("Tax :", 35, 300);
-    pdfDoc.fontSize(10).font('Helvetica-Bold').fillColor('black').text("Total :", 35, 315);
+    pdfDoc.fontSize(10).font('Helvetica-Bold').fillColor('black').text("Tax :", 400, 301);
+    pdfDoc.fontSize(10).font('Helvetica-Bold').fillColor('black').text("Total :", 400, 317);
   
     pdfDoc.fontSize(10).font('Helvetica').fillColor('black').text('$0.00', 485, 301);
     pdfDoc.fontSize(10).font('Helvetica').fillColor('black').text('$'+bookingData.total_cost + '.00', 485, 316);
   
-    pdfDoc.fontSize(8).font('Helvetica').fillColor('black').text(`This is a computer generated statement hence no signature is required.`, 35, 346);
+    pdfDoc.fontSize(8).font('Helvetica').fillColor('black').text(`This is a computer generated statement hence no signature is required.`, 35, 330);
     
     pdfDoc.end();
 
@@ -455,7 +455,7 @@ const changeTimeZoneSettings = async(time_zone, createdAt, start_time, end_time)
 }
 
 const sendBookingMailToAdmin = async(bookingData) => {
-  let { user_name, slot_number, slot_type, vehicle_type, booking_start_time, booking_end_time } = bookingData;
+  let { user_name, slot_number, slot_type, vehicle_type, booking_start_time, booking_end_time, phone_number } = bookingData;
   try {
     let transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
@@ -472,9 +472,26 @@ const sendBookingMailToAdmin = async(bookingData) => {
         subject : 'A1 Truck Booking',
         html : `
         <h4>Hello, Administrator</h4>
-        <p>There is a new ${slot_type} booking of ${vehicle_type} from ${user_name} from ${booking_start_time} to ${booking_end_time}. </br>
-        and slot number allocated to this user is ${slot_number}.<br/> so please contact to user if any type of concern.
-        </p>
+        <p>There is a new ${slot_type} booking of ${vehicle_type} from ${user_name}.</br></p>
+        <table cellspacing="25">
+          <tr>
+            <th style="text-align: left">Booking Start Time</th> <td>${booking_start_time}</td>
+          </tr>
+          <tr>
+            <th style="text-align: left">Booking End Time</th> <td>${booking_end_time}</td>
+          </tr>
+          <tr>
+            <th style="text-align: left">Space Number</th> <td>${slot_number}</td>
+          </tr>
+          <tr>
+            <th style="text-align: left">Parking Duration</th> <td>${slot_type}</td>
+          </tr>
+          <tr>
+            <th style="text-align: left">Phone No</th> <td>${phone_number}</td>
+          </tr>
+        </table>
+        </br>
+        <p>So please contact to user if any type of concern.</p>
         <br/><label>A1 Truck Parking.</label>
         `
       });
@@ -487,7 +504,7 @@ const sendBookingMailToAdmin = async(bookingData) => {
 }
 
 const sendRenewedBookingMailToAdmin = async(RenewBookingData) => {
-  let { user_name, booking_creation_time, booking_start_time, booking_end_time, slot_type, booking_reference_no, slot_number, vehicle_type } = RenewBookingData;
+  let { user_name, booking_start_time, booking_end_time, slot_type, slot_number, vehicle_type, phone_number } = RenewBookingData;
   try {
     let transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
@@ -504,9 +521,25 @@ const sendRenewedBookingMailToAdmin = async(RenewBookingData) => {
         subject : 'A1 Truck Booking',
         html : `
         <h4>Hello, Administrator</h4>
-        <p>There is a renewed ${slot_type} booking of ${vehicle_type} from ${user_name} from ${booking_start_time} to ${booking_end_time}. </br>
-        and slot number allocated to this user is ${slot_number}.<br/> so please contact to user if any type of concern.
-        </p>
+        <p>There is a renewed ${slot_type} booking of ${vehicle_type} from ${user_name}.</br></p>
+        <table cellspacing="25">
+          <tr>
+            <th style="text-align: left">Booking Start Time</th> <td>${booking_start_time}</td>
+          </tr>
+          <tr>
+            <th style="text-align: left">Booking End Time</th> <td>${booking_end_time}</td>
+          </tr>
+          <tr>
+            <th style="text-align: left">Space Number</th> <td>${slot_number}</td>
+          </tr>
+          <tr>
+            <th style="text-align: left">Parking Duration</th> <td>${slot_type}</td>
+          </tr>
+          <tr>
+            <th style="text-align: left">Phone No</th> <td>${phone_number}</td>
+          </tr>
+        </table>
+        <p>So please contact to user if any type of concern.</p>
         <br/><label>A1 Truck Parking.</label>
         `
       });

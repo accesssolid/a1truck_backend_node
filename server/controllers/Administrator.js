@@ -210,13 +210,13 @@ const adminController = {
     if (!admin_id) {
       return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_ADMIN), 403);
     }
-    let requiredFields = ['date_time_type'];  // day, week, month, year.
+    let requiredFields = ['date_time_type'];  // day, week, month, year, max --> no need to pass date_time
     let validator = helpers.validateParams(req, requiredFields);
     if (!validator.status) {
       return helpers.showOutput(res, helpers.showResponse(false, validator.message), 203);
     }
     let result = await AdministrationUtils.getDashBoardData(req.body);
-    // return helpers.showOutput(res, result, result.code);
+    return helpers.showOutput(res, result, result.code);
   },
 
   contactToAdminByAdmin : async(req, res, next) => {
@@ -342,6 +342,20 @@ const adminController = {
         return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_ADMIN), 403);
     }
     let result = await AdministrationUtils.landingPageDataUpdate(req.body);
+    return helpers.showOutput(res, result, result.code);
+  },
+
+  customNotification : async(req, res, next) => {
+    let admin_id = req.decoded.admin_id;
+    if (!admin_id) {
+      return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_ADMIN), 403);
+    }
+    let requiredFields = ['type'];
+    let validator = helpers.validateParams(req, requiredFields);
+    if (!validator.status) {
+      return helpers.showOutput(res, helpers.showResponse(false, validator.message), 203);
+    }
+    let result = await AdministrationUtils.customNotification(req.body);
     return helpers.showOutput(res, result, result.code);
   }
 
