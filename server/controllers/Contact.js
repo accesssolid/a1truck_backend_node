@@ -1,6 +1,7 @@
 var Contact = require("../utils/Contactus");
 var helpers = require("../services/helper");
 var ControllerMessage = require("./controllerMessages");
+// const s3_upload = require('../services/helper/image-upload').single('file');
 
 const ContactController = {
   addcontact: async (req, res) => {
@@ -26,7 +27,7 @@ const ContactController = {
   servicesAndAmenities : async(req, res, next) => {
     let result = await Contact.servicesAndAmenities(req);
     return helpers.showOutput(res, result, result.code);
-  }
+  },
 
 }
 

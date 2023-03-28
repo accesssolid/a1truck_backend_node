@@ -173,6 +173,20 @@ const adminController = {
     return helpers.showOutput(res, result, result.code);
   },
 
+  getAllBookingsAdmin : async(req, res, next) => {
+    let admin_id = req.decoded.admin_id;
+    if (!admin_id) {
+        return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_ADMIN), 403);
+    }
+    let requiredFields = ['page', 'limit'];
+    let validator = helpers.validateParams(req, requiredFields);
+    if (!validator.status) {
+        return helpers.showOutput(res, helpers.showResponse(false, validator.message), 203);
+    }
+    let result = await AdministrationUtils.getAllBookingsAdmin(req.body);
+    return helpers.showOutput(res, result, result.code);
+  },
+
   deleteUserByAdmin : async(req, res) => {
     let admin_id = req.decoded.admin_id;
       if (!admin_id) {
@@ -193,15 +207,6 @@ const adminController = {
       return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_ADMIN), 403);
     }
     let result = await AdministrationUtils.getAdminDashboardCount(req.body);
-    return helpers.showOutput(res, result, result.code);
-  },
-
-  getAllBookingsAdmin : async(req, res, next) => {
-    let admin_id = req.decoded.admin_id;
-    if (!admin_id) {
-        return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_ADMIN), 403);
-    }
-    let result = await AdministrationUtils.getAllBookingsAdmin(req.body);
     return helpers.showOutput(res, result, result.code);
   },
 
@@ -357,6 +362,13 @@ const adminController = {
     }
     let result = await AdministrationUtils.customNotification(req.body);
     return helpers.showOutput(res, result, result.code);
+  },
+
+  searchUserByAdmin : async(req, res, next) => {
+    let admin_id = req.decoded.admin_id;
+    if (!admin_id) {
+      return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_ADMIN), 403);
+    }
   }
 
 };

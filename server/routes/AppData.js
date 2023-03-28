@@ -8,7 +8,7 @@ const middleware = require("../controllers/middleware");
 router.post("/contact_us", ContactControllers.addcontact);
 router.post('/about_us', ContactControllers.aboutUs);
 router.post('/why_a1_truck', ContactControllers.whyA1Truck);
-router.post('/services_and_amenities', ContactControllers.servicesAndAmenities)
+router.post('/services_and_amenities', ContactControllers.servicesAndAmenities);
 
 // App Rating
 router.post("/rating", middleware.checkToken, ratingAppController.addrating);

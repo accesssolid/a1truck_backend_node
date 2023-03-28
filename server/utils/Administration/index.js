@@ -205,50 +205,6 @@ const adminUtils = {
         return helpers.showResponse(false, 'No Users Found', null, null, 200);
     },
 
-    deleteUserByAdmin : async(data) => {
-    const{ user_id, type } = data;
-    let query = { _id : ObjectId(user_id), user_status : { $ne : 2 } }
-    let result = await getSingleData(Users, query, '-password -otp');
-    if(result.status){
-      let { data } = result;
-      if(type == 'enable'){
-        let response = await updateData(Users, { user_status : 1 }, ObjectId(data._id));
-        if(response.status){
-          return helpers.showResponse(true, 'Successfully enabled user account', null, null, 200);
-        }
-        return helpers.showResponse(false, 'Internal Server Error', null, null, 200);
-
-      }else if(type == 'disable'){
-        let response = await updateData(Users, { user_status : 0 }, ObjectId(data._id));
-        if(response.status){
-          return helpers.showResponse(true, 'Successfully disabled user account', null, null, 200);
-        }
-        return helpers.showResponse(false, 'Internal Server Error', null, null, 200);
-
-      }else if(type == 'delete'){
-        let response = await updateData(Users, { user_status : 2 }, ObjectId(data._id));
-        if(response.status){
-          return helpers.showResponse(true, 'Successfully deleted user account', null, null, 200);
-        }
-        return helpers.showResponse(false, 'Internal Server Error', null, null, 200);
-
-      }else{
-        return helpers.showResponse(false, 'Invalid Type', null, null, 200);
-      }
-    }
-    return helpers.showResponse(false, 'User not found', null, null, 200);
-  },
-
-  getAdminDashboardCount : async(data) => {
-    let result1 = await getCount(Users, { user_status : { $eq : 1 } });
-    let result2 = await getCount(Bookings, {});
-    let dataArray = {
-      user_count : result1.data,
-      bookings_count : result2.data
-    }
-    return helpers.showResponse(true, 'List of dashboard data', dataArray, null, 200);
-  },
-
     getAllBookingsAdmin : async(data) => {
         let populate = [{
         path: 'vehicle_id'
@@ -259,6 +215,50 @@ const adminUtils = {
             return helpers.showResponse(true, 'Successfully fetched bookings', newData, null, 200);
         }
         return helpers.showResponse(false, 'Bookings not found', null, null, 200);
+    },
+
+    deleteUserByAdmin : async(data) => {
+        const{ user_id, type } = data;
+        let query = { _id : ObjectId(user_id), user_status : { $ne : 2 } }
+        let result = await getSingleData(Users, query, '-password -otp');
+        if(result.status){
+            let { data } = result;
+            if(type == 'enable'){
+                let response = await updateData(Users, { user_status : 1 }, ObjectId(data._id));
+                if(response.status){
+                    return helpers.showResponse(true, 'Successfully enabled user account', null, null, 200);
+                }
+                return helpers.showResponse(false, 'Internal Server Error', null, null, 200);
+
+            }else if(type == 'disable'){
+                let response = await updateData(Users, { user_status : 0 }, ObjectId(data._id));
+                if(response.status){
+                    return helpers.showResponse(true, 'Successfully disabled user account', null, null, 200);
+                }
+            return helpers.showResponse(false, 'Internal Server Error', null, null, 200);
+
+        }else if(type == 'delete'){
+            let response = await updateData(Users, { user_status : 2 }, ObjectId(data._id));
+            if(response.status){
+                return helpers.showResponse(true, 'Successfully deleted user account', null, null, 200);
+            }
+            return helpers.showResponse(false, 'Internal Server Error', null, null, 200);
+
+        } else {
+            return helpers.showResponse(false, 'Invalid Type', null, null, 200);
+        }
+        }
+        return helpers.showResponse(false, 'User not found', null, null, 200);
+    },
+
+    getAdminDashboardCount : async(data) => {
+        let result1 = await getCount(Users, { user_status : { $eq : 1 } });
+        let result2 = await getCount(Bookings, {});
+        let dataArray = {
+            user_count : result1.data,
+            bookings_count : result2.data
+        }
+        return helpers.showResponse(true, 'List of dashboard data', dataArray, null, 200);
     },
 
     getDashBoardData : async(bodyData) => {
@@ -446,7 +446,7 @@ contactToAdminByAdmin : async(data) => {
                         daily : item.daily != '' ? item.daily : 0,
                         weekly : item.weekly!= '' ? item.weekly : 0,
                         monthly : item.monthly != '' ? item.monthly : 0,
-                        half_yearly : item.monthly != '' ? Number(item.monthly * 5) : 0,
+                        // half_yearly : item.monthly != '' ? Number(item.monthly * 5) : 0,
                         yearly : item.monthly != '' ? Number(item.monthly * 11) : 0
                     }
                     let query = { _id : ObjectId(item._id), status : { $ne : 2 } }

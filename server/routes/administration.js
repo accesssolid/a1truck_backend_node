@@ -50,8 +50,10 @@ router.post('/update_prices_and_slots', middleware.checkAdminToken, Administrato
 router.post('/landing_page_data_update', middleware.checkAdminToken, AdministratorController.landingPageDataUpdate);
 router.post('/get_dashboard_data_by_admin', middleware.checkAdminToken, AdministratorController.getDashBoardData);
 router.post('/fire_custom_notification', middleware.checkAdminToken, AdministratorController.customNotification);
+router.post('/search_user_admin', middleware.checkAdminToken, AdministratorController.searchUserByAdmin);
 
 // Common Routes
 router.get('*',(req, res) => {res.status(405).json({status:false, message:"Invalid Get Request"})});
 router.post('*',(req, res) => {res.status(405).json({status:false, message:"Invalid Post Request"})});
+
 module.exports = router;
