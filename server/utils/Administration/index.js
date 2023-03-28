@@ -199,20 +199,30 @@ const adminUtils = {
         let sort = { createdAt : -1 }
         let result = await getDataArray(Users, query, '-password -otp -stripe_id', paginate, sort);
         if(result.status){
-            totalCount = result.data.length;
+            let totalCount = result.data.length;
             return helpers.showResponse(true, 'Successfully fetched all users', result.data, totalCount, 200);
         }
         return helpers.showResponse(false, 'No Users Found', null, null, 200);
     },
 
     getAllBookingsAdmin : async(data) => {
+        const { page, limit } = data;
+        let currentPage = +(page ? page : 1);
+        let pageLimit = +(limit ? limit : 0);
+        let skip = (currentPage - 1) * pageLimit;
+        let paginate = {
+            skip,
+            limit : pageLimit * 1 || 0
+        }
+        let sort = { createdAt : -1 }
         let populate = [{
-        path: 'vehicle_id'
+            path: 'vehicle_id'
         }]
-        let result = await getDataArray(Bookings, {}, '-payment_object', null, null, populate);
+        let result = await getDataArray(Bookings, {}, '-payment_object', paginate, sort, populate);
         if(result.status){
             let newData = result.data;
-            return helpers.showResponse(true, 'Successfully fetched bookings', newData, null, 200);
+            let totalCount = newData.length;
+            return helpers.showResponse(true, 'Successfully fetched bookings', newData, totalCount, 200);
         }
         return helpers.showResponse(false, 'Bookings not found', null, null, 200);
     },
