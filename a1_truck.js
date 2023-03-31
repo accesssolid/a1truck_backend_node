@@ -126,6 +126,10 @@ cronJob.schedule('0 13 */1 * * *', async function () {  // 2 days prior notifica
   await Common.fireNotificationOnWeeklyAndMonthlyEvent();
 });
 
+cronJob.schedule('0 */5 * * * *', async function () { // notification fire every 5 min on active bookings.
+  await Common.fireNotificationOnActiveBookings();
+});
+
 app.listen(port, () => {
   console.log(`https server running on port ${port}`);
 });

@@ -6,7 +6,6 @@ let Bookings = require("../../models/Bookings");
 const moment = require("moment-timezone");
 const stripe = require("stripe")(process.env.Stripe_Secret_Key);
 const VehicleType = require("../../models/VehicleType");
-const RenewedBookings = require('../../models/RenewedBookings');
 
 let BookingsUtils = {
 
@@ -21,7 +20,6 @@ let BookingsUtils = {
           resolve(helpers.showResponse(false, "Invalid vehicle type", null, null, 200));
         }
         let total_slots = vehicleTypeResponse?.data?.slots;
-        let vehicleTypeData = vehicleTypeResponse?.data;
         let conflictingBookingsQuery = {
           vehicle_type,
           status: { $ne: 2 },
@@ -48,7 +46,7 @@ let BookingsUtils = {
   checkSlotAvailabilty: async (data, user_id) => {
     return new Promise(async (resolve, reject) => {
       try {
-        let { startTime, endTime, slot_type, vehicle_type, card_id, vehicle_id, time_zone, total_amount, type, slot_required } = data;
+        let { startTime, endTime, slot_type, vehicle_type, card_id, vehicle_id, time_zone, total_amount, type } = data;
         startTime = new Date(startTime);
         endTime = new Date(endTime);
         let userResponse = await getSingleData(Users, { _id: ObjectId(user_id), status: { $ne: 2 } }, "");
@@ -56,7 +54,6 @@ let BookingsUtils = {
           return helpers.showResponse(false, "Invalid User", null, null, 200);
         }
         let userData = userResponse?.data;
-        let slot_number = 0;
         let oldBookinData = null;
         if (type == "renew") {
           // get old booking_data
@@ -66,9 +63,7 @@ let BookingsUtils = {
             return helpers.showResponse(false, "Sorry !!! Invalid Booking Reference", null, null, 200);
           }
           oldBookinData = oldBookingResponse?.data;
-          slot_number = oldBookinData?.slot_number;
         }
-
         let where = {
           vehicle_id: ObjectId(vehicle_id),
           $or: [
@@ -88,74 +83,25 @@ let BookingsUtils = {
           return helpers.showResponse(false, "Invalid vehicle type", null, null, 200);
         }
         let vehicleTypeData = vehicleTypeResponse.data;
-        if (oldBookinData && slot_required == '1') {
-          let conflictingBookingsQuery = {
-            vehicle_type: ObjectId(vehicle_type),
-            booking_status : { $ne: 2 },
-            slot_number,
-            $or: [
-              { start_time: { $lt: endTime }, end_time: { $gt: startTime } }, // booking overlaps with another booking
-              { start_time: { $gte: startTime, $lt: endTime } }, // booking starts during another booking
-              { end_time: { $gt: startTime, $lte: endTime } }, // booking ends during another booking
-            ],
-          };
-          let conflictingBookingsResponse = await getDataArray(Bookings, conflictingBookingsQuery, '');
-          if (!conflictingBookingsResponse?.status) {
-            slot_number;
-          } else {
-            // request to Admin if booking already available to requested slot.
-            let newObj =  {
-              user_id : ObjectId(user_id),
-              old_booking_id : ObjectId(old_booking_id),
-              start_time : startTime,
-              end_time : endTime
-            }
-            let RenewedBookingRef = new RenewedBookings(newObj);
-            let RenewedBookingResult = await postData(RenewedBookingRef);
-            if(RenewedBookingResult.status){
-              let RenewedData = RenewedBookingResult.data;
-              let timeData = await helpers.changeTimeZoneSettings(time_zone, RenewedData.createdAt, RenewedData.start_time, RenewedData.end_time);
-              let renewedBookingData = {
-                user_name : userData.username,
-                booking_creation_time : timeData.booking_creation_time,
-                booking_start_time : timeData.booking_start_time,
-                booking_end_time : timeData.booking_end_time,
-                slot_type : oldBookinData.slot_type,
-                booking_reference_no : oldBookinData.booking_ref,
-                slot_number : oldBookinData.slot_number,
-                vehicle_type : vehicleTypeData.vehicle_Type,
-              }
-              await helpers.sendRenewedBookingMailToAdmin(renewedBookingData);
-              return helpers.showResponse(true, "Renewed booking request has sent to admin", null, null, 200);
-            }
-            return helpers.showResponse(false, "Server Error, Failed to renew booking.", null, null, 200);
-          }
-
-        } else {
-          for (let i = 1; i <= vehicleTypeData.slots; i++) {
-            // check conflicts of slot
-            let conflictingBookingsQuery = {
-              vehicle_type: ObjectId(vehicle_type),
-              booking_status : { $ne: 2 },
-              slot_number: i,
-              $or: [
-                { start_time: { $lt: endTime }, end_time: { $gt: startTime } }, // booking overlaps with another booking
-                { start_time: { $gte: startTime, $lt: endTime } }, // booking starts during another booking
-                { end_time: { $gt: startTime, $lte: endTime } }, // booking ends during another booking
-              ],
-            };
-            let conflictingBookingsResponse = await getDataArray(Bookings, conflictingBookingsQuery, "");
-            if (!conflictingBookingsResponse?.status) {
-              slot_number = i;
-              break;
-            }
-          }
+        let total_slots = vehicleTypeData?.slots;
+        let conflictingBookingsQuery = {
+          vehicle_type,
+          status: { $ne: 2 },
+          $or: [
+            { start_time: { $lt: endTime },end_time: { $gt: startTime } }, // booking overlaps with another booking
+            { start_time: { $gte: startTime, $lt: endTime } }, // booking starts during another booking
+            { end_time: { $gt: startTime, $lte: endTime } }, // booking ends during another booking
+          ],
+        };
+        let total_booked_slot = 0;
+        let conflictingBookingsResponse = await getDataArray(Bookings, conflictingBookingsQuery, "");
+        if (conflictingBookingsResponse?.status) {
+          total_booked_slot = conflictingBookingsResponse?.data?.length;
         }
-
-        if (slot_number == 0) {
-          return helpers.showResponse(false, "No slots found", null, null, 200);
+        let total_available_slot = total_slots - total_booked_slot;
+        if(total_available_slot<=0){
+          return helpers.showResponse(false, "Sorry !!! No empty space for parking", null, null, 200);
         }
-
         // make payment
         let payObj = {
           amount: Number(total_amount) * 100, // amount received from appside
@@ -164,7 +110,6 @@ let BookingsUtils = {
           description: `Book ${slot_type} slot for my ${vehicleTypeData.vehicle_Type}`,
           customer: userData.stripe_id,
         };
-
         const charge = await stripe.charges.create(payObj);
         if (charge.status === "succeeded") {
           // payment done
@@ -177,12 +122,10 @@ let BookingsUtils = {
             vehicle_type: ObjectId(vehicle_type),
             vehicle_type_key: vehicleTypeData.vehicle_type_key,
             payment_object: charge,
-            slot_number,
             time_zone,
             booking_ref: oldBookinData ? oldBookinData?.booking_ref : helpers.randomStr(4, "0123498765"),
             booking_status: 1,
           };
-          
           let bookingRef = new Bookings(newObj);
           let response = await postData(bookingRef);
           if (response.status) {
@@ -198,7 +141,6 @@ let BookingsUtils = {
               slot_type : response.data.slot_type,
               total_cost : response.data.payment_object.amount / 100,
               booking_reference_no : response.data.booking_ref,
-              slot_number : response.data.slot_number,
               vehicle_type : vehicleTypeData.vehicle_Type
             }
             let pdfResponse = await helpers.createBookingInvoicePDF(bookingData);
@@ -259,6 +201,43 @@ let BookingsUtils = {
       return helpers.showResponse(true, "successfully updated", null, null, 200);
     }
     return helpers.showResponse(false, "Failed to update", null, null, 200);
+  },
+
+  addBookingSpaceNumber : async(data) => {
+    let { slot_number, booking_id } = data;
+    let allBookingsResult = await getDataArray(Bookings, { booking_status : { $eq : 1 } });
+    if(!allBookingsResult.status){
+      return helpers.showResponse(false, "No bookings found yet", null, null, 200);
+    }
+    let allBookingsData = allBookingsResult.data;
+    let isExsit = false;
+    for (let i = 0; i < allBookingsData.length; i++) {
+      if (allBookingsData[i].slot_number == slot_number) {
+        isExsit = true;
+      }
+    }
+    if(isExsit){
+      return helpers.showResponse(false, "This slot is already is use, please choose other space for parking your truck", null, null, 200);
+    }
+    let query = { _id : ObjectId(booking_id), booking_status : { $ne : 2 } }
+    let bookingResult = await getSingleData(Bookings, query, '');
+    if(!bookingResult.status){
+      return helpers.showResponse(false, "No active booking found", null, null, 200);
+    }
+    let vehicle_type = bookingResult.data.vehicle_type;
+    let vehicleResult = await getSingleData(VehicleType, { _id : ObjectId(vehicle_type), status : { $ne : 0 } }, '');
+    if(!vehicleResult.status){
+      return helpers.showResponse(false, "Invalid Vehicle", null, null, 200);
+    }
+    let vehicleTotalSlots = vehicleResult.data.slots;
+    if(slot_number == 0 ||  slot_number > vehicleTotalSlots){
+      return helpers.showResponse(false, "Entered slot is unavailable!!", null, null, 200);
+    }
+    let result = await updateData(Bookings, { slot_number : slot_number }, ObjectId(booking_id));
+    if(result.status){
+      return helpers.showResponse(true, "successfully updated slot number", null, null, 200);
+    }
+    return helpers.showResponse(false, "Server Error!! Failed to update slot number", null, null, 200);
   }
   
 }

@@ -1,0 +1,134 @@
+{
+  level: 'warn',
+  message: 'HTTP POST /api/v1/bookings/update_booking_number',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/bookings/update_booking_number',
+        headers: {
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '240c41ca-a65d-4868-bf3d-5120dbddd428',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '0'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/bookings/update_booking_number',
+        query: {}
+      },
+      res: { statusCode: 401 },
+      responseTime: 13
+    },
+    timestamp: '2023-03-31T10:59:49.220Z'
+  }
+}
+{
+  level: 'warn',
+  message: 'HTTP POST /api/v1/bookings/update_booking_number',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/bookings/update_booking_number',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjYzYWMzNDliMjE4OTk0NTYyZjdhNTY3NSIsImlhdCI6MTY4MDE3MTM5OCwiZXhwIjoxNzExNzA3Mzk4fQ.Y_yllG_VXuC90cgcYxXdoFHRt0vyAABf87pMklxskVA',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '1d3f3b55-dea9-45ef-84ab-16ac80b6229a',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '0'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/bookings/update_booking_number',
+        query: {}
+      },
+      res: { statusCode: 423 },
+      responseTime: 342
+    },
+    timestamp: '2023-03-31T10:59:58.134Z'
+  }
+}
+{
+  level: 'warn',
+  message: 'HTTP GET /api/v1/admin/get_prices_and_slots_admin',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/get_prices_and_slots_admin',
+        headers: {
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '9488fba5-14eb-454e-bb02-8add05af8f22',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive'
+        },
+        method: 'GET',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/get_prices_and_slots_admin',
+        query: {}
+      },
+      res: { statusCode: 401 },
+      responseTime: 8
+    },
+    timestamp: '2023-03-31T14:09:45.085Z'
+  }
+}
+{
+  level: 'warn',
+  message: 'HTTP GET /api/v1/admin/get_prices_and_slots_admin',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/get_prices_and_slots_admin',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InlvZ2VzaEB5b3BtYWlsLmNvbSIsIl9pZCI6IjY0MTk0NmI5ZTJiYTg5MzFiMjJjMjgxOSIsImlhdCI6MTY4MDI2NjUzOSwiZXhwIjoxNzExODAyNTM5fQ.dyDzsb_pHZjB7gp-jEBdTnkX56w1OmRLhFquuyg-Zac',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '343abb1d-9954-4efc-9d4b-9201074ab0a0',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive'
+        },
+        method: 'GET',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/get_prices_and_slots_admin',
+        query: {}
+      },
+      res: { statusCode: 451 },
+      responseTime: 329
+    },
+    timestamp: '2023-03-31T14:09:52.921Z'
+  }
+}
+{
+  level: 'warn',
+  message: 'HTTP GET /api/v1/admin/get_truck_make_and_color',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/get_truck_make_and_color',
+        headers: {
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '07c32736-106d-4895-88ef-a0f1972019cd',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive'
+        },
+        method: 'GET',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/get_truck_make_and_color',
+        query: {}
+      },
+      res: { statusCode: 401 },
+      responseTime: 12
+    },
+    timestamp: '2023-03-31T14:14:47.514Z'
+  }
+}

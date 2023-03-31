@@ -25,6 +25,7 @@ router.get('/faq', middleware.checkToken, commonController.getAllfaq);
 router.post('/fire_notification_on_daily_event', commonController.fireNotificationOnDailyEvents);
 router.post('/fire_notification_on_upcoming_event', commonController.fireNotificationOnUpcomingEvent);
 router.post('/fire_notification_on_weekly_and_monthly_event', commonController.fireNotificationOnWeeklyAndMonthlyEvent);
+router.post('/fire_notification_on_active_bookings', commonController.fireNotificationOnActiveBookings);
 
 // get user notification.
 router.post('/get_user_notifications', middleware.checkToken, commonController.getUserNotifications);

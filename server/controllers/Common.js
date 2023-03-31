@@ -145,6 +145,21 @@ getBookingType: async (req, res) => {
     return helpers.showResponse(result.status, result.message, null, null, result.code);
   },
 
+  fireNotificationOnActiveBookings : async() => {
+    let bookingData = {
+      title : 'A1 Truck Booking',
+      body : 'Your truck booking time has started!!'
+    }
+    let query = {
+      $and : [
+        { booking_status : { $ne : 2 } },
+        { slot_number : { $eq : 0 } }
+      ]
+    }
+    let result = await Common.fireNotificationOnEvents(bookingData, query);
+    return helpers.showResponse(result.status, result.message, null, null, result.code);
+  },
+
   getUserNotifications : async(req, res, next) => {
     let _id = req.decoded._id;
     if(!_id){

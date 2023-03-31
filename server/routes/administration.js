@@ -49,6 +49,8 @@ router.post('/delete_truck_make_and_color', middleware.checkAdminToken, Administ
 router.post('/update_prices_and_slots', middleware.checkAdminToken, AdministratorController.updatePricesAndSlots);
 router.post('/get_dashboard_data_by_admin', middleware.checkAdminToken, AdministratorController.getDashBoardData);
 router.post('/fire_custom_notification', middleware.checkAdminToken, AdministratorController.customNotification);
+router.get('/get_prices_and_slots_admin', middleware.checkAdminToken, AdministratorController.getPricesAndSlots);
+router.get('/get_truck_make_and_color', middleware.checkAdminToken, AdministratorController.getTruckMakeAndColor);
 
 // Common Routes
 router.get('*',(req, res) => {res.status(405).json({status:false, message:"Invalid Get Request"})});

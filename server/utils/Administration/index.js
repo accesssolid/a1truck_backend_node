@@ -187,25 +187,25 @@ const adminUtils = {
     },
 
     getAllUsersDetailsAdmin : async(data) => {
-        const { page, limit, name, email } = data;
-        let currentPage = +(page ? page : 1);
-        let pageLimit = +(limit ? limit : 0);
-        let skip = (currentPage - 1) * pageLimit;
-        let paginate = {
-            skip,
-            limit : pageLimit * 1 || 0
-        }
+        // const { page, limit, name, email } = data;
+        // let currentPage = +(page ? page : 1);
+        // let pageLimit = +(limit ? limit : 0);
+        // let skip = (currentPage - 1) * pageLimit;
+        // let paginate = {
+            // skip,
+            // limit : pageLimit * 1 || 0
+        // }
         let query = { user_status : { $ne : 2 } }
-        if(name && name != '' && name != undefined){
-            paginate = null;
-            query.username = { $regex : new RegExp(`^${name}`), $options : 'i' }
-        }
-        if(email && email != '' && email != undefined){
-            paginate = null;
-            query.email = { $regex : new RegExp(`^${email}`), $options : 'i' }
-        }
+        // if(name && name != '' && name != undefined){
+            // paginate = null;
+            // query.username = { $regex : new RegExp(`^${name}`), $options : 'i' }
+        // }
+        // if(email && email != '' && email != undefined){
+            // paginate = null;
+            // query.email = { $regex : new RegExp(`^${email}`), $options : 'i' }
+        // }
         let sort = { createdAt : -1 }
-        let result = await getDataArray(Users, query, '-password -otp -stripe_id', paginate, sort);
+        let result = await getDataArray(Users, query, '-password -otp -stripe_id', null, sort);
         if(result.status){
             let totalCount = result.data.length;
             return helpers.showResponse(true, 'Successfully fetched all users', result.data, totalCount, 200);
@@ -214,19 +214,19 @@ const adminUtils = {
     },
 
     getAllBookingsAdmin : async(data) => {
-        const { page, limit } = data;
-        let currentPage = +(page ? page : 1);
-        let pageLimit = +(limit ? limit : 0);
-        let skip = (currentPage - 1) * pageLimit;
-        let paginate = {
-            skip,
-            limit : pageLimit * 1 || 0
-        }
+        // const { page, limit } = data;
+        // let currentPage = +(page ? page : 1);
+        // let pageLimit = +(limit ? limit : 0);
+        // let skip = (currentPage - 1) * pageLimit;
+        // let paginate = {
+        //     skip,
+        //     limit : pageLimit * 1 || 0
+        // }
         let sort = { createdAt : -1 }
         let populate = [{
             path: 'vehicle_id'
         }]
-        let result = await getDataArray(Bookings, {}, '-payment_object', paginate, sort, populate);
+        let result = await getDataArray(Bookings, {}, '-payment_object', null, sort, populate);
         if(result.status){
             let newData = result.data;
             let totalCount = newData.length;
@@ -531,7 +531,25 @@ contactToAdminByAdmin : async(data) => {
             return helpers.showResponse(true, 'Notification fired successfully', null, null, 200);
         }
         return helpers.showResponse(false, 'User not found', null, null, 200);
+    },
 
+    getPricesAndSlots : async() => {
+        let query = { status : { $ne : 2 } }
+        let result = await getDataArray(VehicleType, query, '');
+        if(result.status){
+            let vehicleTypeData = result.data;
+            return helpers.showResponse(true, 'Vehicle type data fetched!!', vehicleTypeData, null, 200);
+        }
+        return helpers.showResponse(true, 'Server Error!! failed to fetch', null, null, 200);
+    },
+
+    getTruckMakeAndColor : async() => {
+        let result = await getDataArray(CommonContent, {}, 'truck_makes truck_colors');
+        if(result.status){
+            let truckMakesData = result.data;
+            return helpers.showResponse(true, 'Truck makes and truck color data fetched!!', truckMakesData, null, 200);
+        }
+        return helpers.showResponse(true, 'Server Error!! failed to fetch', null, null, 200);
     }
 
 }

@@ -131,11 +131,11 @@ const adminController = {
     if (!admin_id) {
       return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_ADMIN), 403);
     }
-    let requiredFields = ['page', 'limit'];
-    let validator = helpers.validateParams(req, requiredFields);
-    if (!validator.status) {
-      return helpers.showOutput(res, helpers.showResponse(false, validator.message), 203);
-    }
+    // let requiredFields = ['page', 'limit'];
+    // let validator = helpers.validateParams(req, requiredFields);
+    // if (!validator.status) {
+    //   return helpers.showOutput(res, helpers.showResponse(false, validator.message), 203);
+    // }
     let result = await AdministrationUtils.getAllUsersDetailsAdmin(req.body);
     return helpers.showOutput(res, result, result.code);
   },
@@ -145,11 +145,11 @@ const adminController = {
     if (!admin_id) {
       return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_ADMIN), 403);
     }
-    let requiredFields = ['page', 'limit'];
-    let validator = helpers.validateParams(req, requiredFields);
-    if (!validator.status) {
-      return helpers.showOutput(res, helpers.showResponse(false, validator.message), 203);
-    }
+    // let requiredFields = ['page', 'limit'];
+    // let validator = helpers.validateParams(req, requiredFields);
+    // if (!validator.status) {
+    //   return helpers.showOutput(res, helpers.showResponse(false, validator.message), 203);
+    // }
     let result = await AdministrationUtils.getAllBookingsAdmin(req.body);
     return helpers.showOutput(res, result, result.code);
   },
@@ -319,6 +319,24 @@ const adminController = {
       return helpers.showOutput(res, helpers.showResponse(false, validator.message), 203);
     }
     let result = await AdministrationUtils.customNotification(req.body);
+    return helpers.showOutput(res, result, result.code);
+  },
+
+  getPricesAndSlots : async(req, res, next) => {
+    let admin_id = req.decoded.admin_id;
+    if (!admin_id) {
+      return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_ADMIN), 403);
+    }
+    let result = await AdministrationUtils.getPricesAndSlots(req.body);
+    return helpers.showOutput(res, result, result.code);
+  },
+
+  getTruckMakeAndColor : async(req, res, next) => {
+    let admin_id = req.decoded.admin_id;
+    if (!admin_id) {
+      return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_ADMIN), 403);
+    }
+    let result = await AdministrationUtils.getTruckMakeAndColor();
     return helpers.showOutput(res, result, result.code);
   }
 

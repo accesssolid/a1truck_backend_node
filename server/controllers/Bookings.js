@@ -29,7 +29,7 @@ const boookingsController = {
       return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_USER), 403);
     }
     if(req.body.type == "renew"){  // by default --> fresh.
-      let requiredFields = ["old_booking_id", "slot_required"]; // 1 - same slot, 0 - different slot.
+      let requiredFields = ["old_booking_id"]
       let validator = helpers.validateParams(req, requiredFields);
       if (!validator.status) {
         return helpers.showOutput(res, helpers.showResponse(false, validator.message), 203);
@@ -55,6 +55,20 @@ const boookingsController = {
 
   autoUpdateBooking : async(req, res, next) => {
     let result = await Bookings.autoUpdateBooking();
+    return helpers.showOutput(res, result, result.code);
+  },
+
+  addBookingSpaceNumber : async(req, res, next) => {
+    let user_id = req.decoded._id;
+    if (!user_id) {
+      return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_USER), 403);
+    }
+    let requiredFields = ['slot_number', 'booking_id'];
+    let validator = helpers.validateParams(req, requiredFields);
+    if (!validator.status) {
+      return helpers.showOutput(res, helpers.showResponse(false, validator.message), 203);
+    }
+    let result = await Bookings.addBookingSpaceNumber(req.body, user_id);
     return helpers.showOutput(res, result, result.code);
   }
 
