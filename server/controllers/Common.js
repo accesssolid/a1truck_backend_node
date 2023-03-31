@@ -107,7 +107,7 @@ getBookingType: async (req, res) => {
       body : 'Your truck parking time is about to expire in next 2 hours.'
     }
     let result = await Common.fireNotificationOnEvents(bookingData, query);
-    // return helpers.showResponse(result.status, result.message, null, null, result.code);
+    return helpers.showResponse(result.status, result.message, null, null, result.code);
   },
 
   fireNotificationOnUpcomingEvent : async() => {

@@ -241,9 +241,6 @@ update_VehicleType:async(data) => {
   fireNotificationOnEvents : async(bookingData, query) => {
     const { title, body } = bookingData;
     let bookingResult = await getDataArray(Bookings, query, '-payment_object');
-    console.log(bookingResult);
-    return;
-    
     if(bookingResult.status){
       let bookingsData = bookingResult.data;
       let userData = bookingsData.map(item => item.user_id);
