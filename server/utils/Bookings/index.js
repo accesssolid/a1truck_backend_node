@@ -8,29 +8,8 @@ const stripe = require("stripe")(process.env.Stripe_Secret_Key);
 const VehicleType = require("../../models/VehicleType");
 const RenewedBookings = require('../../models/RenewedBookings');
 
-// let slots = {
-//   truck: 21,
-//   bobtail: 10
-// }
-
-// let prices = [
-//   {
-//     truck: {
-//       daily: 50,
-//       weekly: 100,
-//       monthly: 200,
-//     }
-//   },
-//   {
-//     bobtail: {
-//       daily: 70,
-//       weekly: 120,
-//       monthly: 220,
-//     }
-//   }
-// ]
-
 let BookingsUtils = {
+
   getEmptySlotCount: async (data, user_id) => {
     return new Promise(async (resolve, reject) => {
       try {
@@ -53,34 +32,10 @@ let BookingsUtils = {
           ],
         };
         let total_booked_slot = 0;
-        let conflictingBookingsResponse = await getDataArray(
-          Bookings,
-          conflictingBookingsQuery,
-          ""
-        );
+        let conflictingBookingsResponse = await getDataArray(Bookings, conflictingBookingsQuery, "");
         if (conflictingBookingsResponse?.status) {
           total_booked_slot = conflictingBookingsResponse?.data?.length;
         }
-        // for (let i = 1; i <= vehicleTypeData.slots; i++) {
-        //   // check conflicts of slot
-        //   let conflictingBookingsQuery = {
-        //     vehicle_type,
-        //     status: { $ne: 2 },
-        //     slot_number: i,
-        //     $or: [
-        //       { start_time: { $lt: endTime.toISOString() }, end_time: { $gt: startTime.toISOString() } }, // booking overlaps with another booking
-        //       { start_time: { $gte: startTime.toISOString(), $lt: endTime.toISOString() } }, // booking starts during another booking
-        //       { end_time: { $gt: startTime.toISOString(), $lte: endTime.toISOString() } } // booking ends during another booking
-        //     ]
-        //   }
-        //   console.log("conflictingBookingsQuery", conflictingBookingsQuery);
-        //   let conflictingBookingsResponse = await getDataArray(Bookings, conflictingBookingsQuery, '');
-        //   if (conflictingBookingsResponse?.status) {
-        //      console.log("total_stots", conflictingBookingsResponse?.data);
-        //     // availableSlots.push(i)
-        //   }
-        // }
-
         let total_available_slot = total_slots - total_booked_slot;
         resolve(helpers.showResponse(true, "Here is a count of available slots", total_available_slot < 0 ? 0 : total_available_slot, null, 200));
       } catch (err) {
@@ -264,48 +219,27 @@ let BookingsUtils = {
   getAllBookings: async (data, user_id) => {
     const { time_zone } = data;
     const currentTimeZone = moment().tz(time_zone).format();
-    let populate = [
-      {
+    let populate = [{
         path: "vehicle_id",
       },
     ];
-
     let response_data = {
       upcoming: [],
       completed: [],
       active: [],
     };
-
     let upcomingQuery = {
       user_id: ObjectId(user_id),
       start_time: { $gte: new Date(currentTimeZone).toISOString() },
     };
-    let upcoming_data = await getDataArray(
-      Bookings,
-      upcomingQuery,
-      "",
-      null,
-      null,
-      populate
-    );
+    let upcoming_data = await getDataArray(Bookings, upcomingQuery, "", null, null, populate);
     response_data.upcoming = upcoming_data?.status ? upcoming_data?.data : [];
-
     let completedQuery = {
       user_id: ObjectId(user_id),
       end_time: { $lte: new Date(currentTimeZone).toISOString() },
     };
-    let completed_data = await getDataArray(
-      Bookings,
-      completedQuery,
-      "",
-      null,
-      null,
-      populate
-    );
-    response_data.completed = completed_data?.status
-      ? completed_data?.data
-      : [];
-
+    let completed_data = await getDataArray(Bookings, completedQuery, "", null, null, populate);
+    response_data.completed = completed_data?.status ? completed_data?.data : [];
     let activeQuery = {
       user_id: ObjectId(user_id),
       $and: [
@@ -313,47 +247,21 @@ let BookingsUtils = {
         { start_time: { $lte: new Date(currentTimeZone).toISOString() } },
       ],
     };
-    let active_data = await getDataArray(
-      Bookings,
-      activeQuery,
-      "",
-      null,
-      null,
-      populate
-    );
+    let active_data = await getDataArray(Bookings, activeQuery, "", null, null, populate);
     response_data.active = active_data?.status ? active_data?.data : [];
-
-    return helpers.showResponse(
-      true,
-      "Successfully fetched bookings",
-      response_data,
-      null,
-      200
-    );
+    return helpers.showResponse(true, "Successfully fetched bookings", response_data, null, 200);
   },
 
   autoUpdateBooking: async () => {
-    let queryObject = {
-      booking_status: { $ne: 2 },
-      end_time: { $lte: new Date() },
-    };
-    let response = await updateByQuery(
-      Bookings,
-      { booking_status: 2 },
-      queryObject
-    );
+    let queryObject = { booking_status: { $ne: 2 }, end_time: { $lte: new Date() } };
+    let response = await updateByQuery(Bookings, { booking_status: 2 }, queryObject);
     if (response) {
-      return helpers.showResponse(
-        true,
-        "successfully updated",
-        null,
-        null,
-        200
-      );
+      return helpers.showResponse(true, "successfully updated", null, null, 200);
     }
     return helpers.showResponse(false, "Failed to update", null, null, 200);
-  },
-};
+  }
+  
+}
 
 module.exports = {
   ...BookingsUtils,

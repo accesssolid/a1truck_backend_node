@@ -7,6 +7,7 @@ const s3_upload = require('../services/helper/image-uploadAWS').single('admin_pr
 const { convertImageToWebp } = require('../services/helper/image_convert');
 
 const adminController = {
+
   login: async (req, res, next) => {
     let requiredFields = ['email', 'password'];
     let validator = helpers.validateParams(req, requiredFields);
@@ -66,21 +67,6 @@ const adminController = {
     return helpers.showOutput(res, result, result.code);
   },
 
-  // addProfilePicture : async(req, res, next) => {
-  //   let admin_id = req.decoded.admin_id;
-  //   if (!admin_id) {
-  //     return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_USER), 403);
-  //   }
-  //   singleUpload(req, res, async(err) => {
-  //     if(!req.file || err){
-  //       return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.NO_IMAGE), 203);
-  //     }
-  //     let fileName = req.file.filename;
-  //     let result = await AdministrationUtils.addProfilePicture(fileName, admin_id);
-  //     return helpers.showOutput(res, result, result.code);
-  //   });
-  // },
-
   addProfilePicture : async(req, res, next) => {
     let admin_id = req.decoded.admin_id;
     if (!admin_id) {
@@ -114,25 +100,6 @@ const adminController = {
     let result = await AdministrationUtils.changePassword(req.body, admin_id);
     return helpers.showOutput(res, result, result.code);
   },
-  
-  // updateProfile : async(req, res, next) => {
-  //   let admin_id = req.decoded.admin_id;
-  //   if (!admin_id) {
-  //       return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_USER), 403);
-  //   }
-  //   singleUpload(req, res, async(err) => {
-  //     let dataObj = {};
-  //     if(req.file){
-  //       let fileName = req.file.filename;
-  //       dataObj.profile_pic = fileName;
-  //     }
-  //     if(Object.keys(req.body).length !== 0){
-  //       dataObj = { ...dataObj, ...req.body }
-  //     }
-  //     let result = await AdministrationUtils.updateProfile(dataObj, admin_id);
-  //     return helpers.showOutput(res, result, result.code);
-  //   });
-  // },
 
   updateProfile : async(req, res, next) => {
     let admin_id = req.decoded.admin_id;
@@ -162,12 +129,12 @@ const adminController = {
   getAllUsersDetailsAdmin : async(req, res) => {
     let admin_id = req.decoded.admin_id;
     if (!admin_id) {
-        return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_ADMIN), 403);
+      return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_ADMIN), 403);
     }
     let requiredFields = ['page', 'limit'];
     let validator = helpers.validateParams(req, requiredFields);
     if (!validator.status) {
-        return helpers.showOutput(res, helpers.showResponse(false, validator.message), 203);
+      return helpers.showOutput(res, helpers.showResponse(false, validator.message), 203);
     }
     let result = await AdministrationUtils.getAllUsersDetailsAdmin(req.body);
     return helpers.showOutput(res, result, result.code);
@@ -176,12 +143,12 @@ const adminController = {
   getAllBookingsAdmin : async(req, res, next) => {
     let admin_id = req.decoded.admin_id;
     if (!admin_id) {
-        return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_ADMIN), 403);
+      return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_ADMIN), 403);
     }
     let requiredFields = ['page', 'limit'];
     let validator = helpers.validateParams(req, requiredFields);
     if (!validator.status) {
-        return helpers.showOutput(res, helpers.showResponse(false, validator.message), 203);
+      return helpers.showOutput(res, helpers.showResponse(false, validator.message), 203);
     }
     let result = await AdministrationUtils.getAllBookingsAdmin(req.body);
     return helpers.showOutput(res, result, result.code);
@@ -341,15 +308,6 @@ const adminController = {
     return helpers.showOutput(res, result, result.code);
   },
 
-  landingPageDataUpdate : async (req, res, next) => {
-    let admin_id = req.decoded.admin_id;
-    if (!admin_id) {
-        return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_ADMIN), 403);
-    }
-    let result = await AdministrationUtils.landingPageDataUpdate(req.body);
-    return helpers.showOutput(res, result, result.code);
-  },
-
   customNotification : async(req, res, next) => {
     let admin_id = req.decoded.admin_id;
     if (!admin_id) {
@@ -362,13 +320,6 @@ const adminController = {
     }
     let result = await AdministrationUtils.customNotification(req.body);
     return helpers.showOutput(res, result, result.code);
-  },
-
-  searchUserByAdmin : async(req, res, next) => {
-    let admin_id = req.decoded.admin_id;
-    if (!admin_id) {
-      return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_ADMIN), 403);
-    }
   }
 
 };

@@ -114,7 +114,7 @@ cronJob.schedule('0 */1 * * * *', async function () {
   await Bookings.autoUpdateBooking();
 });
 
-cronJob.schedule('0 */1 * * * *', async function () {  // 2 hours prior booking ends.
+cronJob.schedule('0 */1 * * * *', async function () {  // 2 hours prior booking ends for daily booking.
   await Common.fireNotificationOnDailyEvents();
 });
 

@@ -187,7 +187,7 @@ const adminUtils = {
     },
 
     getAllUsersDetailsAdmin : async(data) => {
-        const { page, limit } = data;
+        const { page, limit, name, email } = data;
         let currentPage = +(page ? page : 1);
         let pageLimit = +(limit ? limit : 0);
         let skip = (currentPage - 1) * pageLimit;
@@ -196,6 +196,14 @@ const adminUtils = {
             limit : pageLimit * 1 || 0
         }
         let query = { user_status : { $ne : 2 } }
+        if(name && name != '' && name != undefined){
+            paginate = null;
+            query.username = { $regex : new RegExp(`^${name}`), $options : 'i' }
+        }
+        if(email && email != '' && email != undefined){
+            paginate = null;
+            query.email = { $regex : new RegExp(`^${email}`), $options : 'i' }
+        }
         let sort = { createdAt : -1 }
         let result = await getDataArray(Users, query, '-password -otp -stripe_id', paginate, sort);
         if(result.status){
@@ -314,31 +322,36 @@ const adminUtils = {
         }
 
         if(bookingResult != null && bookingResult.length != 0){
-            let dailyRevenue = bookingResult.filter(item => item.slot_type == 'daily')
-            .reduce((total, item) => total + (item.payment_object.amount / 100), 0);
+            let dailyRevenueArray = bookingResult.filter(item => item.slot_type == 'daily');
+            let dailyRevenue = dailyRevenueArray.reduce((total, item) => total + (item.payment_object.amount / 100), 0);
                 
-            let weeklyRevenue = bookingResult.filter(item => item.slot_type == 'weekly')
-            .reduce((total, item) => total + (item.payment_object.amount / 100), 0);
+            let weeklyRevenueArray = bookingResult.filter(item => item.slot_type == 'weekly');
+            let weeklyRevenue = weeklyRevenueArray.reduce((total, item) => total + (item.payment_object.amount / 100), 0);
 
-            let monthlyRevenue = bookingResult.filter(item => item.slot_type == 'monthly')
-            .reduce((total, item) => total + (item.payment_object.amount / 100), 0);
+            let monthlyRevenueArray = bookingResult.filter(item => item.slot_type == 'monthly');
+            let monthlyRevenue = monthlyRevenueArray.reduce((total, item) => total + (item.payment_object.amount / 100), 0);
 
-            let halfYearlyRevenue = bookingResult.filter(item => item.slot_type == 'half_yearly')
-            .reduce((total, item) => total + (item.payment_object.amount / 100), 0);
+            let yearlyRevenueArray = bookingResult.filter(item => item.slot_type == 'yearly');
+            let yearlyRevenue = yearlyRevenueArray.reduce((total, item) => total + (item.payment_object.amount / 100), 0);
 
-            let yearlyRevenue = bookingResult.filter(item => item.slot_type == 'yearly')
-            .reduce((total, item) => total + (item.payment_object.amount / 100), 0);
-
-            let total = 0;
-            let dataObject = {
+            let reservations = {
+                daily_reservation : dailyRevenueArray.length,
+                weekly_reservation : weeklyRevenueArray.length,
+                monthly_reservation : monthlyRevenueArray.length,
+                yearly_reservation : yearlyRevenueArray.length,
+                total_reservation : dailyRevenueArray.length + weeklyRevenueArray.length + monthlyRevenueArray.length + yearlyRevenueArray.length
+            }
+            let earnings = {
                 daily_earning : dailyRevenue != 0 ? dailyRevenue.toFixed(2) : 0,
                 weekly_earning : weeklyRevenue != 0 ? weeklyRevenue.toFixed(2) : 0,
                 monthly_earning : monthlyRevenue != 0 ? monthlyRevenue.toFixed(2) : 0,
-                half_yearly_earning : halfYearlyRevenue != 0 ? halfYearlyRevenue.toFixed(2) : 0,
                 yearly_earning : yearlyRevenue != 0 ? yearlyRevenue.toFixed(2) : 0,
-                total_earning : (total + dailyRevenue + weeklyRevenue + monthlyRevenue + halfYearlyRevenue + yearlyRevenue).toFixed(2)
+                total_earning : (0 + dailyRevenue + weeklyRevenue + monthlyRevenue + yearlyRevenue).toFixed(2)
             }
-
+            let dataObject = {
+                reservations,
+                earnings
+            }
             return helpers.showResponse(true, 'successfully fetched dashboard data', dataObject, null, 200);
 
         }else{
@@ -456,7 +469,6 @@ contactToAdminByAdmin : async(data) => {
                         daily : item.daily != '' ? item.daily : 0,
                         weekly : item.weekly!= '' ? item.weekly : 0,
                         monthly : item.monthly != '' ? item.monthly : 0,
-                        // half_yearly : item.monthly != '' ? Number(item.monthly * 5) : 0,
                         yearly : item.monthly != '' ? Number(item.monthly * 11) : 0
                     }
                     let query = { _id : ObjectId(item._id), status : { $ne : 2 } }
@@ -483,14 +495,6 @@ contactToAdminByAdmin : async(data) => {
             return helpers.showResponse(false, 'Invalid type', null, null, 200);
         }
 
-    },
-
-    landingPageDataUpdate : async(data) => {
-        let response = await updateSingleData(CommonContent, {}, data, { new: true, upsert: true, });
-        if (response.status) {
-            return helpers.showResponse( true, 'Successfully updated landing page data', null, null, 200);
-        }
-        return helpers.showResponse(false, err.message, null, null, 200);
     },
 
     customNotification : async(bodyData) => {

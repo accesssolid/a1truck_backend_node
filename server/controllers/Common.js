@@ -100,22 +100,22 @@ getBookingType: async (req, res) => {
     let query = {
       booking_status : { $ne : 2 },
       slot_type : 'daily', 
-      $and: [{ end_time : { $gte : next119MinTime }}, { end_time: {$lte : next120MinTime } }]
+      $and: [{ end_time : { $gt : next119MinTime } }, { end_time: { $lt : next120MinTime } }]
     }
     let bookingData = {
       title : 'A1 Truck Booking',
       body : 'Your truck parking time is about to expire in next 2 hours.'
     }
     let result = await Common.fireNotificationOnEvents(bookingData, query);
-    return helpers.showResponse(result.status, result.message, null, null, result.code);
+    // return helpers.showResponse(result.status, result.message, null, null, result.code);
   },
 
   fireNotificationOnUpcomingEvent : async() => {
     const nextHalfHourTime = moment().add(30, 'minutes').toDate();
     const next29MinTime = moment().add(29, 'minutes').toDate();
     let query = {
-      booking_status : { $ne : 2 }, 
-      $and: [{ start_time : { $gte : next29MinTime} }, { start_time : { $lte : nextHalfHourTime } }]
+      booking_status : { $ne : 2 },
+      $and: [{ start_time : { $gt : next29MinTime} }, { start_time : { $lt : nextHalfHourTime } }]
     }
     let bookingData = {
       title : 'A1 Truck Booking',
@@ -135,7 +135,7 @@ getBookingType: async (req, res) => {
       }, {
         slot_type : 'monthly'
       }], 
-      $and: [{ end_time : { $gte : next47HoursTime }}, { end_time: {$lte : next48HoursTime } }]
+      $and: [{ end_time : { $gt : next47HoursTime } }, { end_time: { $lt : next48HoursTime } }]
     }
     let bookingData = {
       title : 'A1 Truck Booking',

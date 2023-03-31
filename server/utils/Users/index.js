@@ -1,6 +1,5 @@
 require("../../db_functions");
 let md5 = require("md5");
-
 let Users = require("../../models/Users");
 let Bookings = require("../../models/Bookings");
 let ObjectId = require("mongodb").ObjectID;
@@ -42,7 +41,6 @@ let UserUtils = {
         { fcm_token: fcm_token },
         ObjectId(result?.data?._id)
       );
-
       if (!updatefcm.status) {
         return helpers.showResponse(
           false,
@@ -53,12 +51,11 @@ let UserUtils = {
         );
       }
       // generate token
-      let token = await jwt.sign(
+      let token = jwt.sign(
         { email: result?.data?.email, _id: result?.data?._id },
         process.env.PRIVATE_KEY,
         { expiresIn: process.env.TOKEN_EXPIRE }
       );
-
       if (!token) {
         return helpers.showResponse(
           false,
@@ -86,6 +83,7 @@ let UserUtils = {
       return helpers.showResponse(false, err.message, null, null, 200);
     }
   },
+
   otp_verification: async (data) => {
     try {
       let { UserId, otp } = data;
@@ -126,7 +124,6 @@ let UserUtils = {
           statusCodes.success
         );
       }
-
       let updatefcm = await updateData(
         Users,
         { is_verified: constValues.User_verified },
@@ -142,7 +139,6 @@ let UserUtils = {
         );
       }
       await UserUtils.createAccount(UserId);
-
       return helpers.showResponse(
         true,
         Messages.OTP_VERIFY,
@@ -154,6 +150,7 @@ let UserUtils = {
       return helpers.showResponse(false, err.message, null, null, 200);
     }
   },
+
   register: async (data) => {
     try {
       let {
@@ -175,15 +172,9 @@ let UserUtils = {
           {
             $match: {
               $or: [
-                {
-                  username: username,
-                },
-                {
-                  email: email,
-                },
-                {
-                  phone_number: phone_number,
-                },
+                { username: username },
+                { email: email },
+                { phone_number: phone_number },
               ],
               user_status: { $ne: constValues.user_delete },
             },
@@ -325,7 +316,6 @@ let UserUtils = {
             obj.email = email?.toLocaleLowerCase()?.replace(/ /g, "");
           }
           let user = new Users(obj);
-
           let result = await postData(user);
           if (!result.status) {
             return helpers.showResponse(
@@ -783,7 +773,7 @@ let UserUtils = {
     let { user_id } = bodyData;
     let editObj = {
       fcm_token: "",
-      updated_on: moment().unix()
+      updated_on: moment().unix(),
     };
     let response = await updateData(Users, editObj, ObjectId(user_id));
     if (response.status) {

@@ -3,7 +3,10 @@ const { constValues } = require('../services/helper/constants');
 let moment=require('moment-timezone')
 var Schema = mongoose.Schema;
 var userSchema = new Schema({
-    username: { type: String, default: "", },
+    username: { 
+      type: String, 
+      default: "" 
+    },
     email: {
       type: String,
       default: "",

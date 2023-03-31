@@ -13,7 +13,7 @@ const convertImageToWebp = (data) => {
         .toBuffer()
         .then(async (newBuffer) => {
         let upload_ = await uploadToS3(data, newBuffer)
-            resolve(upload_);;
+            resolve(upload_);
         })
         .catch((err) => {
             resolve(false)
@@ -49,6 +49,30 @@ const uploadToS3 = async (file, bufferImage) => {
 
     })
 }
+
+const videoUploadToS3 = async (file, bufferImage) => {
+    return new Promise((resolve, reject) => {
+        let fileName = Date.now().toString() + ".mp4";
+        let path = "";
+        if(file.fieldname == 'media_file'){
+            path = `videos/${fileName}`
+        }
+        const params = {
+            Bucket: process.env.Bucket,
+            ContentType: file.mimetype,
+            Key: path,
+            Body: bufferImage,
+        }
+        s3.upload(params, async (error, data) => {
+            if (error) {
+                console.log('bucketerror', error)
+                resolve({ status: false, message: "Unable to upload in s3" })
+            }
+            resolve({ status: true, message: "image_uploaded", data: data })
+        });
+    });
+}
+
 const deleteImage = async (objects) => {
     return new Promise((resolve, reject) => {
 
@@ -70,5 +94,6 @@ const deleteImage = async (objects) => {
     })
 }
 module.exports = {
-    convertImageToWebp
+    convertImageToWebp,
+    videoUploadToS3
 };
