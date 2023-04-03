@@ -161,3 +161,58 @@
     timestamp: '2023-04-03T06:44:29.998Z'
   }
 }
+{
+  level: 'warn',
+  message: 'HTTP POST /api/v1/admin/update_price_slot',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/update_price_slot',
+        headers: {
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '11740b73-be0f-47e5-8aec-1b7770ce4676',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '0'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/update_price_slot',
+        query: {}
+      },
+      res: { statusCode: 401 },
+      responseTime: 16
+    },
+    timestamp: '2023-04-03T13:02:22.764Z'
+  }
+}
+{
+  level: 'warn',
+  message: 'HTTP POST /api/v1/admin/update_price_slot',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/update_price_slot',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InlvZ2VzaDEyM0B5b3BtYWlsLmNvbSIsIl9pZCI6IjY0MmFiMWEwZmNmMjBmNzRjY2UwMDJiZiIsImlhdCI6MTY4MDUyNTc0NiwiZXhwIjoxNzEyMDYxNzQ2fQ.b5u14pqdDivYPDd102RcAeoCq5lrtlI0UDXdMY3gLAE',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': 'c19166fa-e69d-4c8a-b1a5-20d670edbc90',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '0'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/update_price_slot',
+        query: {}
+      },
+      res: { statusCode: 451 },
+      responseTime: 333
+    },
+    timestamp: '2023-04-03T13:02:35.086Z'
+  }
+}

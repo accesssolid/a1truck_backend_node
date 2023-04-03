@@ -317,7 +317,7 @@ const sendTwilioSMS = async (to, body) => {
 };
 
 const sendBookingMailToUser = async (bookingData) => {
-  let { user_name, email, booking_creation_time, total_cost, slot_type, slot_number, pdf_fileName } = bookingData;
+  let { user_name, email, booking_creation_time, total_cost, slot_type, pdf_fileName } = bookingData;
   try {
     let transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
@@ -339,9 +339,6 @@ const sendBookingMailToUser = async (bookingData) => {
         <table cellspacing="25">
           <tr>
             <th style="text-align: left">Booking Date</th> <td>${booking_creation_time}</td>
-          </tr>
-          <tr>
-            <th style="text-align: left">Space Number</th> <td>${slot_number}</td>
           </tr>
           <tr>
             <th style="text-align: left">Parking Duration</th> <td>${slot_type}</td>
@@ -381,7 +378,7 @@ const sendBookingMailToUser = async (bookingData) => {
 const createBookingInvoicePDF = async(bookingData) => {
   try{
     let pdfDoc = new pdfkit;
-    let pdfFileName = 'booking_invoice.pdf_'+Date.now();
+    let pdfFileName = `${Date.now()}_invoice.pdf`;
     pdfDoc.pipe(fs.createWriteStream(path.resolve(`./server/uploads/booking_invoice/${pdfFileName}`)));
     pdfDoc.image(path.resolve('./server/uploads/textlogo3.png'), 25, 20, { width: 140 });
     pdfDoc.fontSize(10).font('Helvetica-Bold').fillColor('black').text("Invoice :", 35, 90);
@@ -457,7 +454,7 @@ const changeTimeZoneSettings = async(time_zone, createdAt, start_time, end_time)
 }
 
 const sendBookingMailToAdmin = async(bookingData) => {
-  let { user_name, slot_number, slot_type, vehicle_type, booking_start_time, booking_end_time, phone_number } = bookingData;
+  let { user_name, slot_type, vehicle_type, booking_start_time, booking_end_time, phone_number } = bookingData;
   try {
     let transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
@@ -483,9 +480,6 @@ const sendBookingMailToAdmin = async(bookingData) => {
             <th style="text-align: left">Booking End Time</th> <td>${booking_end_time}</td>
           </tr>
           <tr>
-            <th style="text-align: left">Space Number</th> <td>${slot_number}</td>
-          </tr>
-          <tr>
             <th style="text-align: left">Parking Duration</th> <td>${slot_type}</td>
           </tr>
           <tr>
@@ -506,7 +500,7 @@ const sendBookingMailToAdmin = async(bookingData) => {
 }
 
 const sendRenewedBookingMailToAdmin = async(RenewBookingData) => {
-  let { user_name, booking_start_time, booking_end_time, slot_type, slot_number, vehicle_type, phone_number } = RenewBookingData;
+  let { user_name, booking_start_time, booking_end_time, slot_type, vehicle_type, phone_number } = RenewBookingData;
   try {
     let transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
@@ -530,9 +524,6 @@ const sendRenewedBookingMailToAdmin = async(RenewBookingData) => {
           </tr>
           <tr>
             <th style="text-align: left">Booking End Time</th> <td>${booking_end_time}</td>
-          </tr>
-          <tr>
-            <th style="text-align: left">Space Number</th> <td>${slot_number}</td>
           </tr>
           <tr>
             <th style="text-align: left">Parking Duration</th> <td>${slot_type}</td>
