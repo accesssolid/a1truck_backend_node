@@ -472,7 +472,7 @@ contactToAdminByAdmin : async(data) => {
                         yearly : item.monthly != '' ? Number(item.monthly * 11) : 0
                     }
                     let query = { _id : ObjectId(item._id), status : { $ne : 2 } }
-                    response = await updateSingleData(VehicleType, query, { price : price }, { new: true, upsert : true });
+                    response = await updateSingleData(VehicleType, query, { price : price }, { new: true });
                 }
                 if(response.status){
                     return helpers.showResponse(true, 'Successfully updated prices', null, null, 200);
@@ -484,7 +484,7 @@ contactToAdminByAdmin : async(data) => {
             let response = null;
                 for(let item of slot){
                     let query = { _id : ObjectId(item._id), status : { $ne : 2 } }
-                    response = await updateSingleData(VehicleType, query, { slots : item.slot_data }, { new: true, upsert : true });
+                    response = await updateSingleData(VehicleType, query, { slots : item.slot_data }, { new: true });
                 }
                 if(response.status){
                     return helpers.showResponse(true, 'Successfully updated slots', null, null, 200);

@@ -149,7 +149,7 @@ getBookingType: async (req, res) => {
     const currentTime = moment().toDate();
     let bookingData = {
       title : 'A1 Truck Booking',
-      body : 'Your truck parking time is active now!!'
+      body : 'Please mention your parking slot number!!'
     }
     let query = {
       $and : [
