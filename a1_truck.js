@@ -110,7 +110,7 @@ app.use(process.env["API_V1"] + "common", common);
 app.use(process.env["API_V1"] + "appdata", appdata);
 app.use(process.env["API_V1"] + "bookings", bookings);
 
-cronJob.schedule('0 */1 * * * *', async function () {
+cronJob.schedule('0 */1 * * * *', async function () {  // expire job on expiration.
   await Bookings.autoUpdateBooking();
 });
 

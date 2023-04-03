@@ -290,7 +290,7 @@ update_VehicleType:async(data) => {
     }
     return helpers.showResponse(false, 'No users has booking yet', null, null, 200);
     }
-    return helpers.showResponse(false, 'No Daily bookings found yet', null, null, 200);
+    return helpers.showResponse(false, 'No bookings found yet', null, null, 200);
   },
 
   getUserNotifications : async(_id) => {

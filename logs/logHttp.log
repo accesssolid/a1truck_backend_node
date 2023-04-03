@@ -640,3 +640,118 @@
     timestamp: '2023-03-31T14:16:45.490Z'
   }
 }
+{
+  level: 'warn',
+  message: 'HTTP POST /api/v1/bookings/update_booking_number',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/bookings/update_booking_number',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjYzYWMzNDliMjE4OTk0NTYyZjdhNTY3NSIsImlhdCI6MTY4MDI3MTgxMiwiZXhwIjoxNzExODA3ODEyfQ.OFUdgJSJZhcJoRA7hx01ZwJ_yg6XyjJ7bX3rV6muqsM',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '62c752d7-38a8-4bb8-9aad-828bc9253ffa',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-type': 'application/x-www-form-urlencoded',
+          'content-length': '50'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/bookings/update_booking_number',
+        query: {}
+      },
+      res: { statusCode: 423 },
+      responseTime: 339
+    },
+    timestamp: '2023-04-03T06:44:29.998Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/user/login',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/user/login',
+        headers: {
+          'content-type': 'application/json',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': 'c5e2b259-a47c-48d4-9072-0b2659d7f1c4',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '87'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/user/login',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 943
+    },
+    timestamp: '2023-04-03T06:44:42.427Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/bookings/update_booking_number',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/bookings/update_booking_number',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InlvZ2VzaEB5b3BtYWlsLmNvbSIsIl9pZCI6IjY0MTk0NmI5ZTJiYTg5MzFiMjJjMjgxOSIsImlhdCI6MTY4MDUwNDI4MiwiZXhwIjoxNzEyMDQwMjgyfQ.Kj8mlBj72xtAB1c_gfVv4HyiGSiSk6dIuA7qtJrG-Hs',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': 'e6c18fbc-05bb-4b93-b0c9-45d437baed50',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-type': 'application/x-www-form-urlencoded',
+          'content-length': '50'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/bookings/update_booking_number',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 1244
+    },
+    timestamp: '2023-04-03T06:44:55.596Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/bookings/update_booking_number',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/bookings/update_booking_number',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InlvZ2VzaEB5b3BtYWlsLmNvbSIsIl9pZCI6IjY0MTk0NmI5ZTJiYTg5MzFiMjJjMjgxOSIsImlhdCI6MTY4MDUwNDI4MiwiZXhwIjoxNzEyMDQwMjgyfQ.Kj8mlBj72xtAB1c_gfVv4HyiGSiSk6dIuA7qtJrG-Hs',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '686fc6e3-697f-4761-8887-e68d22747338',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-type': 'application/x-www-form-urlencoded',
+          'content-length': '50'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/bookings/update_booking_number',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 1269
+    },
+    timestamp: '2023-04-03T06:45:46.412Z'
+  }
+}

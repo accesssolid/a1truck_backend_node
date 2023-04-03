@@ -146,14 +146,16 @@ getBookingType: async (req, res) => {
   },
 
   fireNotificationOnActiveBookings : async() => {
+    const currentTime = moment().toDate();
     let bookingData = {
       title : 'A1 Truck Booking',
-      body : 'Your truck booking time has started!!'
+      body : 'Your truck parking time is active now!!'
     }
     let query = {
       $and : [
         { booking_status : { $ne : 2 } },
-        { slot_number : { $eq : 0 } }
+        { slot_number : { $eq : 0 } },
+        { start_time : { $gte : currentTime }, end_time : { $lt : currentTime } }
       ]
     }
     let result = await Common.fireNotificationOnEvents(bookingData, query);

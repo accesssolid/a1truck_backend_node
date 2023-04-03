@@ -132,3 +132,32 @@
     timestamp: '2023-03-31T14:14:47.514Z'
   }
 }
+{
+  level: 'warn',
+  message: 'HTTP POST /api/v1/bookings/update_booking_number',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/bookings/update_booking_number',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjYzYWMzNDliMjE4OTk0NTYyZjdhNTY3NSIsImlhdCI6MTY4MDI3MTgxMiwiZXhwIjoxNzExODA3ODEyfQ.OFUdgJSJZhcJoRA7hx01ZwJ_yg6XyjJ7bX3rV6muqsM',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '62c752d7-38a8-4bb8-9aad-828bc9253ffa',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-type': 'application/x-www-form-urlencoded',
+          'content-length': '50'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/bookings/update_booking_number',
+        query: {}
+      },
+      res: { statusCode: 423 },
+      responseTime: 339
+    },
+    timestamp: '2023-04-03T06:44:29.998Z'
+  }
+}
