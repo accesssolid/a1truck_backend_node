@@ -9,7 +9,7 @@ pipeline {
                    steps {
                        sh 'npm install'
                        sh 'npm install -g pm2'
-                       sh 'pm2 start -f index.js'
+                       sh 'pm2 start -f a1_truck.js'
                       
                        }
                     }
