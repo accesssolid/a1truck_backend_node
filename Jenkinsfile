@@ -12,7 +12,7 @@ pipeline {
                 sh 'pm2 list'
                 sh 'pm2 restart 0'
                 sh 'pm2 list'
-            }
+        
         }
     }
 }
