@@ -402,14 +402,14 @@ contactToAdminByAdmin : async(data) => {
         if(type == 'truck_make'){
             let result = await pushAndUpdateMany(CommonContent, { truck_makes : make }, {});
             if(result.status){
-                return helpers.showResponse(false, 'Successfully updated truck make', null, null, 200);
+                return helpers.showResponse(true, 'Successfully updated truck make', null, null, 200);
             }
             return helpers.showResponse(false, 'Internal Server Error', null, null, 200);
 
         }else if(type == 'truck_color'){
             let result = await pushAndUpdateMany(CommonContent, { truck_colors : color }, {});
             if(result.status){
-                return helpers.showResponse(false, 'Successfully updated truck color', null, null, 200);
+                return helpers.showResponse(true, 'Successfully updated truck color', null, null, 200);
             }
             return helpers.showResponse(false, 'Internal Server Error', null, null, 200);
 
@@ -423,14 +423,14 @@ contactToAdminByAdmin : async(data) => {
         if(type == 'truck_make'){
             let result = await pullAndUpdateMany(CommonContent, { truck_makes : make }, {});
             if(result.status){
-                return helpers.showResponse(false, 'Successfully delete truck make', null, null, 200);
+                return helpers.showResponse(true, 'Successfully delete truck make', null, null, 200);
             }
             return helpers.showResponse(false, 'Internal Server Error', null, null, 200);
 
         }else if(type == 'truck_color'){
             let result = await pullAndUpdateMany(CommonContent, { truck_colors : color }, {});
             if(result.status){
-                return helpers.showResponse(false, 'Successfully delete truck color', null, null, 200);
+                return helpers.showResponse(true, 'Successfully delete truck color', null, null, 200);
             }
             return helpers.showResponse(false, 'Internal Server Error', null, null, 200);
 
