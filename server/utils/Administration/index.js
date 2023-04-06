@@ -213,20 +213,14 @@ const adminUtils = {
         return helpers.showResponse(false, 'No Users Found', null, null, 200);
     },
 
-    getAllBookingsAdmin : async(data) => {
-        // const { page, limit } = data;
-        // let currentPage = +(page ? page : 1);
-        // let pageLimit = +(limit ? limit : 0);
-        // let skip = (currentPage - 1) * pageLimit;
-        // let paginate = {
-        //     skip,
-        //     limit : pageLimit * 1 || 0
-        // }
+    getAllBookingsAdmin : async(data) => { // to be continue...
+        let start_of_day = moment().startOf('day').utc().toDate();
+        let end_of_day = moment().endOf('day').utc().toDate();
         let sort = { createdAt : -1 }
         let populate = [{
             path: 'vehicle_id'
         }]
-        let result = await getDataArray(Bookings, {}, '-payment_object', null, sort, populate);
+        let result = await getDataArray(Bookings, { $and : [{ createdAt : { $gte : start_of_day, $lte : end_of_day } }] }, '-payment_object', null, sort, populate);
         if(result.status){
             let newData = result.data;
             let totalCount = newData.length;

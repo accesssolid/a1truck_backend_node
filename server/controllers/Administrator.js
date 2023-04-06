@@ -145,11 +145,6 @@ const adminController = {
     if (!admin_id) {
       return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_ADMIN), 403);
     }
-    // let requiredFields = ['page', 'limit'];
-    // let validator = helpers.validateParams(req, requiredFields);
-    // if (!validator.status) {
-    //   return helpers.showOutput(res, helpers.showResponse(false, validator.message), 203);
-    // }
     let result = await AdministrationUtils.getAllBookingsAdmin(req.body);
     return helpers.showOutput(res, result, result.code);
   },

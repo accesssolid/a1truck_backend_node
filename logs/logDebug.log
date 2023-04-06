@@ -1063,3 +1063,59 @@
     timestamp: '2023-04-06T14:22:49.697Z'
   }
 }
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/admin/get_all_bookings_admin',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/get_all_bookings_admin',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjYzYWMzNDliMjE4OTk0NTYyZjdhNTY3NSIsImlhdCI6MTY4MDc4ODY0MCwiZXhwIjoxNzEyMzI0NjQwfQ.SzKEr2C8TzC6m_n6lfRBRdojbpDvFuzK-FPZIlpg-Uo',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': 'b081adec-75af-4c50-be44-1465f93571fe',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '0'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/get_all_bookings_admin',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 3212
+    },
+    timestamp: '2023-04-06T15:00:50.315Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/admin/get_all_bookings_admin',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/get_all_bookings_admin',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjYzYWMzNDliMjE4OTk0NTYyZjdhNTY3NSIsImlhdCI6MTY4MDc4ODY0MCwiZXhwIjoxNzEyMzI0NjQwfQ.SzKEr2C8TzC6m_n6lfRBRdojbpDvFuzK-FPZIlpg-Uo',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '866c6db1-4613-41cd-bbfb-c4e61c71f5ee',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '0'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/get_all_bookings_admin',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 1006
+    },
+    timestamp: '2023-04-06T15:01:35.685Z'
+  }
+}
