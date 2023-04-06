@@ -12,10 +12,6 @@ const ContactUtils = {
   addcontact: async (data) => {
     try {
       const { name, email, message } = data;
-      let isMailexist = await getSingleData(Contact, { email, status : { $eq : 1 }}, '');
-      if(isMailexist.status){
-        return helpers.showResponse(false, 'This email is already exist!!', null, null, 200);
-      }
       let newObj = {
         name,
         email,
