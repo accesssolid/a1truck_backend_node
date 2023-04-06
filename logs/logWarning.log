@@ -216,3 +216,85 @@
     timestamp: '2023-04-03T13:02:35.086Z'
   }
 }
+{
+  level: 'warn',
+  message: 'HTTP GET /api/v1/admin/get_dashboard_data_by_admin',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/get_dashboard_data_by_admin',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjYzYWMzNDliMjE4OTk0NTYyZjdhNTY3NSIsImlhdCI6MTY4MDc4ODY0MCwiZXhwIjoxNzEyMzI0NjQwfQ.SzKEr2C8TzC6m_n6lfRBRdojbpDvFuzK-FPZIlpg-Uo',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '0059c517-1a05-49ab-be7b-021faed4c977',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-type': 'application/x-www-form-urlencoded',
+          'content-length': '85'
+        },
+        method: 'GET',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/get_dashboard_data_by_admin',
+        query: {}
+      },
+      res: { statusCode: 405 },
+      responseTime: 36
+    },
+    timestamp: '2023-04-06T13:49:10.349Z'
+  }
+}
+{
+  level: 'warn',
+  message: 'HTTP GET /api/v1/admin/get_dashboard_data_by_admin',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/get_dashboard_data_by_admin',
+        headers: {
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '4cd80317-e63c-45f9-86fe-387d13e9fd81',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive'
+        },
+        method: 'GET',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/get_dashboard_data_by_admin',
+        query: {}
+      },
+      res: { statusCode: 405 },
+      responseTime: 5
+    },
+    timestamp: '2023-04-06T14:22:17.269Z'
+  }
+}
+{
+  level: 'warn',
+  message: 'HTTP POST /api/v1/admin/get_dashboard_data_by_admin',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/get_dashboard_data_by_admin',
+        headers: {
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '535b83f2-c234-45a8-ab57-b6dbb18f8ce5',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '0'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/get_dashboard_data_by_admin',
+        query: {}
+      },
+      res: { statusCode: 401 },
+      responseTime: 0
+    },
+    timestamp: '2023-04-06T14:22:21.004Z'
+  }
+}

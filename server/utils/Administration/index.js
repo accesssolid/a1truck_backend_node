@@ -279,49 +279,95 @@ const adminUtils = {
         return helpers.showResponse(true, 'List of dashboard data', dataArray, null, 200);
     },
 
+    // getDashBoardData : async(bodyData) => {
+    //     const { date_time_type } = bodyData;
+    //     let startOf = null;
+    //     let endOf = null;
+    //     if(date_time_type == 'day'){
+    //         startOf = moment().startOf('day').format();
+    //         endOf = moment().endOf('day').format();
+
+    //     }else if(date_time_type == 'week'){
+    //         startOf = moment().startOf('week').format();
+    //         endOf = moment().endOf('week').format();
+
+    //     }else if(date_time_type == 'month'){
+    //         startOf = moment().startOf('month').format();
+    //         endOf = moment().endOf('month').format();
+
+    //     }else if(date_time_type == 'year'){
+    //         startOf = moment().startOf('year').format();
+    //         endOf = moment().endOf('year').format();
+
+    //     }else if(date_time_type == 'max'){
+    //         startOf = null;
+    //         endOf = null;
+
+    //     }else{
+    //         return helpers.showResponse(false, 'Invalid date time', null, null, 200);
+    //     }
+
+    //     let bookingResult = null;
+    //     if(date_time_type != 'max' && startOf != null && endOf != null){
+    //         let startOfData = new Date(startOf);
+    //         let endOfData = new Date(endOf);
+    //         bookingResult = await Bookings.aggregate([
+    //             { $match : { $and : [ { createdAt : { $gte : startOfData, $lte : endOfData } } ] } }
+    //         ]);
+    //     }else if(date_time_type == 'max' && startOf == null && endOf == null){
+    //         bookingResult = await Bookings.find({});
+
+    //     }else{
+    //         return helpers.showResponse(false, 'Invalid date time', null, null, 200);
+    //     }
+
+    //     if(bookingResult != null && bookingResult.length != 0){
+    //         let dailyRevenueArray = bookingResult.filter(item => item.slot_type == 'daily');
+    //         let dailyRevenue = dailyRevenueArray.reduce((total, item) => total + (item.payment_object.amount / 100), 0);
+                
+    //         let weeklyRevenueArray = bookingResult.filter(item => item.slot_type == 'weekly');
+    //         let weeklyRevenue = weeklyRevenueArray.reduce((total, item) => total + (item.payment_object.amount / 100), 0);
+
+    //         let monthlyRevenueArray = bookingResult.filter(item => item.slot_type == 'monthly');
+    //         let monthlyRevenue = monthlyRevenueArray.reduce((total, item) => total + (item.payment_object.amount / 100), 0);
+
+    //         let yearlyRevenueArray = bookingResult.filter(item => item.slot_type == 'yearly');
+    //         let yearlyRevenue = yearlyRevenueArray.reduce((total, item) => total + (item.payment_object.amount / 100), 0);
+
+    //         let reservations = {
+    //             daily_reservation : dailyRevenueArray.length,
+    //             weekly_reservation : weeklyRevenueArray.length,
+    //             monthly_reservation : monthlyRevenueArray.length,
+    //             yearly_reservation : yearlyRevenueArray.length,
+    //             total_reservation : dailyRevenueArray.length + weeklyRevenueArray.length + monthlyRevenueArray.length + yearlyRevenueArray.length
+    //         }
+    //         let earnings = {
+    //             daily_earning : dailyRevenue != 0 ? dailyRevenue.toFixed(2) : 0,
+    //             weekly_earning : weeklyRevenue != 0 ? weeklyRevenue.toFixed(2) : 0,
+    //             monthly_earning : monthlyRevenue != 0 ? monthlyRevenue.toFixed(2) : 0,
+    //             yearly_earning : yearlyRevenue != 0 ? yearlyRevenue.toFixed(2) : 0,
+    //             total_earning : (0 + dailyRevenue + weeklyRevenue + monthlyRevenue + yearlyRevenue).toFixed(2)
+    //         }
+    //         let dataObject = {
+    //             reservations,
+    //             earnings
+    //         }
+    //         return helpers.showResponse(true, 'successfully fetched dashboard data', dataObject, null, 200);
+
+    //     }else{
+    //         return helpers.showResponse(false, 'Data not found', null, null, 200);
+    //     }
+        
+    // },
+
     getDashBoardData : async(bodyData) => {
-        const { date_time_type } = bodyData;
-        let startOf = null;
-        let endOf = null;
-        if(date_time_type == 'day'){
-            startOf = moment().startOf('day').format();
-            endOf = moment().endOf('day').format();
-
-        }else if(date_time_type == 'week'){
-            startOf = moment().startOf('week').format();
-            endOf = moment().endOf('week').format();
-
-        }else if(date_time_type == 'month'){
-            startOf = moment().startOf('month').format();
-            endOf = moment().endOf('month').format();
-
-        }else if(date_time_type == 'year'){
-            startOf = moment().startOf('year').format();
-            endOf = moment().endOf('year').format();
-
-        }else if(date_time_type == 'max'){
-            startOf = null;
-            endOf = null;
-
-        }else{
-            return helpers.showResponse(false, 'Invalid date time', null, null, 200);
-        }
-
-        let bookingResult = null;
-        if(date_time_type != 'max' && startOf != null && endOf != null){
-            let startOfData = new Date(startOf);
-            let endOfData = new Date(endOf);
-            bookingResult = await Bookings.aggregate([
-                { $match : { $and : [ { createdAt : { $gte : startOfData, $lte : endOfData } } ] } }
-            ]);
-        }else if(date_time_type == 'max' && startOf == null && endOf == null){
-            bookingResult = await Bookings.find({});
-
-        }else{
-            return helpers.showResponse(false, 'Invalid date time', null, null, 200);
-        }
-
-        if(bookingResult != null && bookingResult.length != 0){
+        const { start, end } = bodyData;
+        let newStart = new Date(start)
+        let newEnd = new Date(end)
+        let bookingResult = await Bookings.aggregate([
+            { $match : { $and : [ { createdAt : { $gte : newStart, $lte : newEnd } } ] } }
+        ]);
+        if(bookingResult.length != 0){
             let dailyRevenueArray = bookingResult.filter(item => item.slot_type == 'daily');
             let dailyRevenue = dailyRevenueArray.reduce((total, item) => total + (item.payment_object.amount / 100), 0);
                 
@@ -353,44 +399,24 @@ const adminUtils = {
                 earnings
             }
             return helpers.showResponse(true, 'successfully fetched dashboard data', dataObject, null, 200);
-
-        }else{
-            return helpers.showResponse(false, 'Data not found', null, null, 200);
         }
-        
+        return helpers.showResponse(false, 'Data not found', null, null, 200);
     },
 
-contactToAdminByAdmin : async(data) => {
-    let { email, message } = data;
-    let response = await getSingleData(Users, { email, status : { $ne : 2 } });
-    if(response.status){
-        try {
-            let transporter = nodemailer.createTransport({
-                host: 'smtp.gmail.com',
-                port: 587,
-                secure: false,
-                auth: {
-                    user: process.env.APP_EMAIL,
-                    pass: process.env.APP_PASSWORD
-                },
-            });
-            await transporter.sendMail({
-                from : process.env.APP_EMAIL,
-                to : email,
-                    subject: 'Response from A1 Truck',
-                    html: message,
-                });
-                return helpers.showResponse(true, "Email sent successfully", null, null, 200);
-        
-            } catch (err) {
-                return helpers.showResponse(false, "Error Occured, try again", null, null, 200);
-            }
+    contactToUserByAdmin : async(data) => {
+        let { email, message } = data;
+        let response = await getSingleData(Contact, { email, status : { $eq : 1 } });
+        if(response.status){
+            let userName = response.data.name;
+            await helpers.sendContactEmail({ name : userName, email, message })
+            return helpers.showResponse(true, "Contact mail sent successfully", null, null, 200);
         }
-        return helpers.showResponse(false, 'Mentioned email is not registered with us', null, null, 200);
+        return helpers.showResponse(false, "Error Occured, try again", null, null, 200);
     },
 
     getContactUsAdmin : async(data) => {
-        let result = await getDataArray(Contact, { status: { $ne: 2 }, }, '');
+        let sort = { createdAt : -1 }
+        let result = await getDataArray(Contact, { status: { $ne: 2 }, }, '', null, sort, null);
         if(result.status){
             return helpers.showResponse(true, 'successfully fetched data', result.data, null, 200);
         }

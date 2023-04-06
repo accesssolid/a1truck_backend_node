@@ -177,12 +177,26 @@ const adminController = {
     return helpers.showOutput(res, result, result.code);
   },
 
+  // getDashBoardData : async(req, res, next) => {
+  //   let admin_id = req.decoded.admin_id;
+  //   if (!admin_id) {
+  //     return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_ADMIN), 403);
+  //   }
+  //   let requiredFields = ['date_time_type'];  // day, week, month, year, max --> no need to pass date_time
+  //   let validator = helpers.validateParams(req, requiredFields);
+  //   if (!validator.status) {
+  //     return helpers.showOutput(res, helpers.showResponse(false, validator.message), 203);
+  //   }
+  //   let result = await AdministrationUtils.getDashBoardData(req.body);
+  //   return helpers.showOutput(res, result, result.code);
+  // },
+
   getDashBoardData : async(req, res, next) => {
     let admin_id = req.decoded.admin_id;
     if (!admin_id) {
       return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_ADMIN), 403);
     }
-    let requiredFields = ['date_time_type'];  // day, week, month, year, max --> no need to pass date_time
+    let requiredFields = ['start', 'end'];
     let validator = helpers.validateParams(req, requiredFields);
     if (!validator.status) {
       return helpers.showOutput(res, helpers.showResponse(false, validator.message), 203);
@@ -191,17 +205,17 @@ const adminController = {
     return helpers.showOutput(res, result, result.code);
   },
 
-  contactToAdminByAdmin : async(req, res, next) => {
+  contactToUserByAdmin : async(req, res, next) => {
     let admin_id = req.decoded.admin_id;
     if (!admin_id) {
-        return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_ADMIN), 403);
+      return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_ADMIN), 403);
     }
     let requiredFields = ['email', 'message'];
     let validator = helpers.validateParams(req, requiredFields);
     if (!validator.status) {
       return helpers.showOutput(res, helpers.showResponse(false, validator.message), 203);
     }
-    let result = await AdministrationUtils.contactToAdminByAdmin(req.body);
+    let result = await AdministrationUtils.contactToUserByAdmin(req.body);
     return helpers.showOutput(res, result, result.code);
   },
 

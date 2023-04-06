@@ -316,6 +316,36 @@ const sendTwilioSMS = async (to, body) => {
   }
 };
 
+const sendContactEmail = async (bodyData) => {
+  let { name, email, message } = bodyData;
+  try {
+      let transporter = nodemailer.createTransport({
+          host: 'smtp.gmail.com',
+          port: 587,
+          secure: false,
+          auth: {
+              user: process.env.APP_EMAIL,
+              pass: process.env.APP_PASSWORD
+          },
+      });
+      await transporter.sendMail({
+          from : process.env.APP_EMAIL,
+          to : email,
+          subject: 'A1 Truck Booking',
+          html: `
+          <h4>Dear ${name}, </br></h4>
+          <p>${message}</p></br>
+          <label>Thanks & Regards</label><br/><label>A1 Truck Parking.</label>
+          `,
+      });
+      return showResponse(true, "Email send successfully", null, null, 200);
+
+  } catch (err) {
+      console.log(err)
+      return showResponse(false, "Error Occured, try again", null, null, 200);
+  }
+}
+
 const sendBookingMailToUser = async (bookingData) => {
   let { user_name, email, booking_creation_time, total_cost, slot_type, pdf_fileName } = bookingData;
   try {
@@ -566,5 +596,6 @@ module.exports = {
   createBookingInvoicePDF,
   sendBookingMailToAdmin,
   sendRenewedBookingMailToAdmin,
-  changeTimeZoneSettings
+  changeTimeZoneSettings,
+  sendContactEmail
 };
