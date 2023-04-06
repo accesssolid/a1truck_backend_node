@@ -1,18 +1,19 @@
 pipeline {
     agent any
-    tools {
-        nodejs "nodejs"
+    tool {
+    nodejs "nodejs"
     }
     stages {
-        stage('build')
-        {
+        stage('node modules installation') {
             steps {
+                echo 'module installtion'
                 sh 'npm install'
+                echo 'istallation complete'
                 sh 'pm2 start a1_truck.js'
+                echo 'service started'
                 sh 'pm2 list'
-                sh 'pm2 restart 0'
-                sh 'pm2 list'
+                echo 'service running list'
+            }
         }
     }
-}
 }
