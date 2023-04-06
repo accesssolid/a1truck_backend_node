@@ -1119,3 +1119,234 @@
     timestamp: '2023-04-06T15:01:35.685Z'
   }
 }
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/admin/get_all_bookings_admin',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/get_all_bookings_admin',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjYzYWMzNDliMjE4OTk0NTYyZjdhNTY3NSIsImlhdCI6MTY4MDc5NDQ0OCwiZXhwIjoxNzEyMzMwNDQ4fQ.DXjj9-xCjxTdHTXt4R7WJ374OymVvrOfyC6cHqCt8NA',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '326aebaf-df19-4200-96a0-fdf1053c054f',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '0'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/get_all_bookings_admin',
+        query: {}
+      },
+      res: { statusCode: 203 },
+      responseTime: 355
+    },
+    timestamp: '2023-04-06T15:26:20.607Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/admin/get_all_bookings_admin',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/get_all_bookings_admin',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjYzYWMzNDliMjE4OTk0NTYyZjdhNTY3NSIsImlhdCI6MTY4MDc5NDQ0OCwiZXhwIjoxNzEyMzMwNDQ4fQ.DXjj9-xCjxTdHTXt4R7WJ374OymVvrOfyC6cHqCt8NA',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '59d00999-a678-46ee-9bdf-a3ff5ab4992f',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-type': 'application/x-www-form-urlencoded',
+          'content-length': '10'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/get_all_bookings_admin',
+        query: {}
+      },
+      res: { statusCode: 203 },
+      responseTime: 3664
+    },
+    timestamp: '2023-04-06T15:31:55.749Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/admin/get_all_bookings_admin',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/get_all_bookings_admin',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjYzYWMzNDliMjE4OTk0NTYyZjdhNTY3NSIsImlhdCI6MTY4MDc5NDQ0OCwiZXhwIjoxNzEyMzMwNDQ4fQ.DXjj9-xCjxTdHTXt4R7WJ374OymVvrOfyC6cHqCt8NA',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '7637ffba-bb9d-4934-b3b7-826ce02dc434',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-type': 'application/x-www-form-urlencoded',
+          'content-length': '28'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/get_all_bookings_admin',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 2835
+    },
+    timestamp: '2023-04-06T15:51:16.823Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/admin/get_all_bookings_admin',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/get_all_bookings_admin',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjYzYWMzNDliMjE4OTk0NTYyZjdhNTY3NSIsImlhdCI6MTY4MDc5NDQ0OCwiZXhwIjoxNzEyMzMwNDQ4fQ.DXjj9-xCjxTdHTXt4R7WJ374OymVvrOfyC6cHqCt8NA',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '8925bd5b-0e1d-4980-a12a-7a12276c8949',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-type': 'application/x-www-form-urlencoded',
+          'content-length': '28'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/get_all_bookings_admin',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 1022
+    },
+    timestamp: '2023-04-06T15:51:55.914Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/admin/get_all_bookings_admin',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/get_all_bookings_admin',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjYzYWMzNDliMjE4OTk0NTYyZjdhNTY3NSIsImlhdCI6MTY4MDc5NDQ0OCwiZXhwIjoxNzEyMzMwNDQ4fQ.DXjj9-xCjxTdHTXt4R7WJ374OymVvrOfyC6cHqCt8NA',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '79dd3c76-b2b0-4a5a-87fb-f0524bf61ad6',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-type': 'application/x-www-form-urlencoded',
+          'content-length': '28'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/get_all_bookings_admin',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 2230
+    },
+    timestamp: '2023-04-06T15:57:00.006Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/admin/get_all_bookings_admin',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/get_all_bookings_admin',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjYzYWMzNDliMjE4OTk0NTYyZjdhNTY3NSIsImlhdCI6MTY4MDc5NDQ0OCwiZXhwIjoxNzEyMzMwNDQ4fQ.DXjj9-xCjxTdHTXt4R7WJ374OymVvrOfyC6cHqCt8NA',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': 'c60ead9b-abcb-4822-8713-abd707ab4058',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-type': 'application/x-www-form-urlencoded',
+          'content-length': '28'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/get_all_bookings_admin',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 2515
+    },
+    timestamp: '2023-04-06T15:58:22.806Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/admin/get_all_bookings_admin',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/get_all_bookings_admin',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjYzYWMzNDliMjE4OTk0NTYyZjdhNTY3NSIsImlhdCI6MTY4MDc5NDQ0OCwiZXhwIjoxNzEyMzMwNDQ4fQ.DXjj9-xCjxTdHTXt4R7WJ374OymVvrOfyC6cHqCt8NA',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': 'dc61c975-e115-45ba-9de7-5be779069f4f',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-type': 'application/x-www-form-urlencoded',
+          'content-length': '28'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/get_all_bookings_admin',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 3914
+    },
+    timestamp: '2023-04-06T15:58:57.964Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/admin/get_all_bookings_admin',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/get_all_bookings_admin',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjYzYWMzNDliMjE4OTk0NTYyZjdhNTY3NSIsImlhdCI6MTY4MDc5NDQ0OCwiZXhwIjoxNzEyMzMwNDQ4fQ.DXjj9-xCjxTdHTXt4R7WJ374OymVvrOfyC6cHqCt8NA',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': 'd08c25d0-48c8-4d8b-bde7-614e29ef1721',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-type': 'application/x-www-form-urlencoded',
+          'content-length': '28'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/get_all_bookings_admin',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 1047
+    },
+    timestamp: '2023-04-06T16:46:06.537Z'
+  }
+}

@@ -213,7 +213,24 @@ const adminUtils = {
         return helpers.showResponse(false, 'No Users Found', null, null, 200);
     },
 
+
+
+//     const timezoneTimes = [];
+
+// // Loop through the UTC times and convert each one to the target timezone
+// for (const utcTime of utcTimes) {
+//   // Create a new Date object from the UTC time string
+//   const utcDate = new Date(utcTime);
+
+//   // Convert the Date object to the target timezone using toLocaleString()
+//   const timezoneTime = utcDate.toLocaleString('en-US', { timeZone: tz });
+
+//   // Push the converted time string to the array of timezone times
+//   timezoneTimes.push(timezoneTime);
+// }
+
     getAllBookingsAdmin : async(data) => { // to be continue...
+        const { time_zone } = data;
         let start_of_day = moment().startOf('day').utc().toDate();
         let end_of_day = moment().endOf('day').utc().toDate();
         let sort = { createdAt : -1 }
@@ -223,8 +240,25 @@ const adminUtils = {
         let result = await getDataArray(Bookings, { $and : [{ createdAt : { $gte : start_of_day, $lte : end_of_day } }] }, '-payment_object', null, sort, populate);
         if(result.status){
             let newData = result.data;
-            let totalCount = newData.length;
-            return helpers.showResponse(true, 'Successfully fetched bookings', newData, totalCount, 200);
+            let dataObj = newData.map(item => {
+                return {
+                    _id : item._id,
+                    user_id : item.user_id,
+                    start_time : moment(item.start_time).tz(time_zone).format('YYYY-MM-DD hh:mm:ss A Z'),
+                    end_time : moment(item.end_time).tz(time_zone).format('YYYY-MM-DD hh:mm:ss A Z'),
+                    slot_type : item.slot_type,
+                    vehicle_type : item.vehicle_type,
+                    vehicle_type_key : item.vehicle_type_key,
+                    slot_number : item.slot_number,
+                    booking_ref : item.booking_ref,
+                    booking_status : item.booking_status,
+                    time_zone : item.time_zone,
+                    createdAt : moment(item.createdAt).tz(time_zone).format('YYYY-MM-DD hh:mm:ss A Z'),
+                    updatedAt  : moment(item.updatedAt).tz(time_zone).format('YYYY-MM-DD hh:mm:ss A Z')
+                }
+            });
+            let totalCount = dataObj.length;
+            return helpers.showResponse(true, 'Successfully fetched bookings', dataObj, totalCount, 200);
         }
         return helpers.showResponse(false, 'Bookings not found', null, null, 200);
     },
