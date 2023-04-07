@@ -228,8 +228,8 @@ const adminUtils = {
                 return {
                     _id : item._id,
                     user_id : item.user_id,
-                    start_time : moment(item.start_time).tz(time_zone).format('YYYY-MM-DD hh:mm:ss A Z'),
-                    end_time : moment(item.end_time).tz(time_zone).format('YYYY-MM-DD hh:mm:ss A Z'),
+                    start_time : moment(item.start_time).tz(time_zone).format('YYYY-MM-DD hh:mm:ss A'),
+                    end_time : moment(item.end_time).tz(time_zone).format('YYYY-MM-DD hh:mm:ss A'),
                     slot_type : item.slot_type,
                     vehicle_type : item.vehicle_type,
                     vehicle_type_key : item.vehicle_type_key,
@@ -237,8 +237,8 @@ const adminUtils = {
                     booking_ref : item.booking_ref,
                     booking_status : item.booking_status,
                     time_zone : item.time_zone,
-                    createdAt : moment(item.createdAt).tz(time_zone).format('YYYY-MM-DD hh:mm:ss A Z'),
-                    updatedAt  : moment(item.updatedAt).tz(time_zone).format('YYYY-MM-DD hh:mm:ss A Z')
+                    createdAt : moment(item.createdAt).tz(time_zone).format('YYYY-MM-DD hh:mm:ss A'),
+                    updatedAt  : moment(item.updatedAt).tz(time_zone).format('YYYY-MM-DD hh:mm:ss A')
                 }
             });
             let totalCount = dataObj.length;
