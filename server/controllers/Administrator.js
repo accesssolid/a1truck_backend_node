@@ -140,16 +140,25 @@ const adminController = {
     return helpers.showOutput(res, result, result.code);
   },
 
+  // getAllBookingsAdmin : async(req, res, next) => {
+  //   let admin_id = req.decoded.admin_id;
+  //   if (!admin_id) {
+  //     return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_ADMIN), 403);
+  //   }
+  //   let requiredFields = ['time_zone', 'start_date', 'end_date'];  // according to time_zone.
+  //     let validator = helpers.validateParams(req, requiredFields);
+  //     if (!validator.status) {
+  //       return helpers.showOutput(res, helpers.showResponse(false, validator.message), 203);
+  //     }
+  //   let result = await AdministrationUtils.getAllBookingsAdmin(req.body);
+  //   return helpers.showOutput(res, result, result.code);
+  // },
+  
   getAllBookingsAdmin : async(req, res, next) => {
     let admin_id = req.decoded.admin_id;
     if (!admin_id) {
       return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_ADMIN), 403);
     }
-    let requiredFields = ['time_zone', 'start_date', 'end_date'];  // according to time_zone.
-      let validator = helpers.validateParams(req, requiredFields);
-      if (!validator.status) {
-        return helpers.showOutput(res, helpers.showResponse(false, validator.message), 203);
-      }
     let result = await AdministrationUtils.getAllBookingsAdmin(req.body);
     return helpers.showOutput(res, result, result.code);
   },
