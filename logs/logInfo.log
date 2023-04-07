@@ -1897,3 +1897,88 @@
     timestamp: '2023-04-07T12:13:07.224Z'
   }
 }
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/admin/get_all_bookings_admin',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/get_all_bookings_admin',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjYzYWMzNDliMjE4OTk0NTYyZjdhNTY3NSIsImlhdCI6MTY4MDc5NDQ0OCwiZXhwIjoxNzEyMzMwNDQ4fQ.DXjj9-xCjxTdHTXt4R7WJ374OymVvrOfyC6cHqCt8NA',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': 'ef4eabb0-57c8-4c5f-94b2-19ccf624a759',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '0'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/get_all_bookings_admin',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 2379
+    },
+    timestamp: '2023-04-07T12:36:23.159Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/admin/get_dashboard_data_by_admin',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/get_dashboard_data_by_admin',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjYzYWMzNDliMjE4OTk0NTYyZjdhNTY3NSIsImlhdCI6MTY4MDc5NDQ0OCwiZXhwIjoxNzEyMzMwNDQ4fQ.DXjj9-xCjxTdHTXt4R7WJ374OymVvrOfyC6cHqCt8NA',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '183aa5fa-02a4-4580-848f-6884e4c8e0f9',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '0'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/get_dashboard_data_by_admin',
+        query: {}
+      },
+      res: { statusCode: 203 },
+      responseTime: 346
+    },
+    timestamp: '2023-04-07T12:41:14.298Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/admin/get_dashboard_data_by_admin',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/get_dashboard_data_by_admin',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjYzYWMzNDliMjE4OTk0NTYyZjdhNTY3NSIsImlhdCI6MTY4MDc5NDQ0OCwiZXhwIjoxNzEyMzMwNDQ4fQ.DXjj9-xCjxTdHTXt4R7WJ374OymVvrOfyC6cHqCt8NA',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': 'd456b28c-e578-449e-a385-c34f9dac0771',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-type': 'application/x-www-form-urlencoded',
+          'content-length': '85'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/get_dashboard_data_by_admin',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 3474
+    },
+    timestamp: '2023-04-07T12:42:16.346Z'
+  }
+}
