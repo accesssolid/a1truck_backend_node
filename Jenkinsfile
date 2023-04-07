@@ -9,7 +9,7 @@ pipeline {
                 echo 'module installation'
                 sh 'npm install'
                 echo 'installation complete'
-                sh 'pm2 start index.js'
+                sh 'pm2 start a1_truck.js'
                 echo 'service started'
                 sh 'pm2 list'
                 echo 'service running list'
@@ -18,7 +18,7 @@ pipeline {
         stage('restart service') {
             steps {
                 echo 'Restarting service...'
-                sh 'pm2 restart -f index.js' // Restart the PM2 process for the index.js script
+                sh 'pm2 restart -f a1_truck.js' // Restart the PM2 process for the index.js script
                 echo 'Service restarted'
                 sh 'pm2 list'
                 echo 'Updated service running list'
