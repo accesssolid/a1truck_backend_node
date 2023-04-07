@@ -145,7 +145,7 @@ const adminController = {
     if (!admin_id) {
       return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_ADMIN), 403);
     }
-    let requiredFields = ['time_zone'];  // according to time_zone.
+    let requiredFields = ['time_zone', 'start_date', 'end_date'];  // according to time_zone.
       let validator = helpers.validateParams(req, requiredFields);
       if (!validator.status) {
         return helpers.showOutput(res, helpers.showResponse(false, validator.message), 203);

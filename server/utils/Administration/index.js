@@ -213,31 +213,15 @@ const adminUtils = {
         return helpers.showResponse(false, 'No Users Found', null, null, 200);
     },
 
-
-
-//     const timezoneTimes = [];
-
-// // Loop through the UTC times and convert each one to the target timezone
-// for (const utcTime of utcTimes) {
-//   // Create a new Date object from the UTC time string
-//   const utcDate = new Date(utcTime);
-
-//   // Convert the Date object to the target timezone using toLocaleString()
-//   const timezoneTime = utcDate.toLocaleString('en-US', { timeZone: tz });
-
-//   // Push the converted time string to the array of timezone times
-//   timezoneTimes.push(timezoneTime);
-// }
-
-    getAllBookingsAdmin : async(data) => { // to be continue...
-        const { time_zone } = data;
-        let start_of_day = moment().startOf('day').utc().toDate();
-        let end_of_day = moment().endOf('day').utc().toDate();
+    getAllBookingsAdmin : async(data) => {
+        const { time_zone, start_date, end_date } = data;
+        let startTimeZone = moment(start_date, 'DD-MM-YYYY').tz(time_zone).format();
+        let endTimeZone = moment(end_date, 'DD-MM-YYYY').tz(time_zone).format();
         let sort = { createdAt : -1 }
         let populate = [{
             path: 'vehicle_id'
         }]
-        let result = await getDataArray(Bookings, { $and : [{ createdAt : { $gte : start_of_day, $lte : end_of_day } }] }, '-payment_object', null, sort, populate);
+        let result = await getDataArray(Bookings, { $and : [{ createdAt : { $gte : startTimeZone, $lte : endTimeZone } }] }, '-payment_object', null, sort, populate);
         if(result.status){
             let newData = result.data;
             let dataObj = newData.map(item => {
