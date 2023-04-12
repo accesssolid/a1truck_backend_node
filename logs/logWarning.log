@@ -298,3 +298,287 @@
     timestamp: '2023-04-06T14:22:21.004Z'
   }
 }
+{
+  level: 'warn',
+  message: 'HTTP POST /api/v1/admin/export_booking_and_user_documents',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/export_booking_and_user_documents',
+        headers: {
+          'content-type': 'multipart/form-data; boundary=--------------------------232683482216576895307870',
+          'content-length': '1648425',
+          'accept-encoding': 'gzip, deflate, br',
+          accept: '*/*',
+          'user-agent': 'Thunder Client (https://www.thunderclient.com)',
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5hbW5lZXQxNjlAZ21haWwuY29tIiwiX2lkIjoiNjNlNGMwYmVkZWY1ZTJjMzRjYTliOWY1IiwiaWF0IjoxNjc4MTg1MDg4LCJleHAiOjE3MDk3MjEwODh9.73vM4Ac1LXw0XE3-nJ3sNZ0apTeuAwhCNe3ommIDhUc',
+          host: 'localhost:3001',
+          connection: 'close'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/export_booking_and_user_documents',
+        query: {}
+      },
+      res: { statusCode: 451 },
+      responseTime: 367
+    },
+    timestamp: '2023-04-12T06:43:42.908Z'
+  }
+}
+{
+  level: 'warn',
+  message: 'HTTP POST /api/v1/admin/export_booking_and_user_documents',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/export_booking_and_user_documents',
+        headers: {
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '72d1f2d6-f789-4380-8526-30578bf1494a',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '0'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/export_booking_and_user_documents',
+        query: {}
+      },
+      res: { statusCode: 401 },
+      responseTime: 6
+    },
+    timestamp: '2023-04-12T06:49:24.216Z'
+  }
+}
+{
+  level: 'warn',
+  message: 'HTTP POST /api/v1/admin/export_booking_and_user_documents',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/export_booking_and_user_documents',
+        headers: {
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '0c9fc05d-5809-43a9-bfdb-624fd5f1365a',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '0'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/export_booking_and_user_documents',
+        query: {}
+      },
+      res: { statusCode: 401 },
+      responseTime: 2
+    },
+    timestamp: '2023-04-12T06:49:58.926Z'
+  }
+}
+{
+  level: 'warn',
+  message: 'HTTP POST /api/v1/admin/export_booking_and_user_documents',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/export_booking_and_user_documents',
+        headers: {
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '0358219a-ba24-43e7-87ed-c969a4958d3a',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '0'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/export_booking_and_user_documents',
+        query: {}
+      },
+      res: { statusCode: 401 },
+      responseTime: 1
+    },
+    timestamp: '2023-04-12T06:50:00.729Z'
+  }
+}
+{
+  level: 'warn',
+  message: 'HTTP GET /api/v1/vehicle/get_vehicles',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/vehicle/get_vehicles',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFwcGxlMUBnbWFpbC5jb20iLCJfaWQiOiI2NDAxYTg5OGQ2YzIyOTk4OWI3Y2UwNzgiLCJpYXQiOjE2NzgxNzY4NTMsImV4cCI6MTcwOTcxMjg1M30.CzbL-37VtI2BrW33du2tBLxWW_5gezdtcZBxX32kFHg',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': 'd7e83578-fe3c-41fc-bea5-d7f96a3585f5',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive'
+        },
+        method: 'GET',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/vehicle/get_vehicles',
+        query: {}
+      },
+      res: { statusCode: 423 },
+      responseTime: 330
+    },
+    timestamp: '2023-04-12T07:18:53.551Z'
+  }
+}
+{
+  level: 'warn',
+  message: 'HTTP GET /api/v1/vehicle/get_vehicles',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/vehicle/get_vehicles',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFwcGxlMUBnbWFpbC5jb20iLCJfaWQiOiI2NDAxYTg5OGQ2YzIyOTk4OWI3Y2UwNzgiLCJpYXQiOjE2NzgxNzY4NTMsImV4cCI6MTcwOTcxMjg1M30.CzbL-37VtI2BrW33du2tBLxWW_5gezdtcZBxX32kFHg',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': 'ae8c78b8-8091-4501-9f23-b7fb4cb33434',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive'
+        },
+        method: 'GET',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/vehicle/get_vehicles',
+        query: {}
+      },
+      res: { statusCode: 423 },
+      responseTime: 345
+    },
+    timestamp: '2023-04-12T07:19:13.763Z'
+  }
+}
+{
+  level: 'warn',
+  message: 'HTTP POST /api/v1/admin/export_users_documents',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/export_users_documents',
+        headers: {
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '87e20c93-5e11-45a3-8ae1-285421fbcb33',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '0'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/export_users_documents',
+        query: {}
+      },
+      res: { statusCode: 401 },
+      responseTime: 7
+    },
+    timestamp: '2023-04-12T07:37:24.699Z'
+  }
+}
+{
+  level: 'warn',
+  message: 'HTTP POST /api/v1/admin/export_users_documents',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/export_users_documents',
+        headers: {
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '2503da48-9f92-4ab4-8f1a-558da106774c',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '0'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/export_users_documents',
+        query: {}
+      },
+      res: { statusCode: 401 },
+      responseTime: 8
+    },
+    timestamp: '2023-04-12T07:37:50.053Z'
+  }
+}
+{
+  level: 'warn',
+  message: 'HTTP GET /favicon.ico',
+  metadata: {
+    meta: {
+      req: {
+        url: '/favicon.ico',
+        headers: {
+          host: 'localhost:3001',
+          connection: 'keep-alive',
+          'sec-ch-ua': '"Chromium";v="110", "Not A(Brand";v="24", "Google Chrome";v="110"',
+          'sec-ch-ua-mobile': '?0',
+          'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36',
+          'sec-ch-ua-platform': '"Linux"',
+          accept: 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8',
+          'sec-fetch-site': 'same-origin',
+          'sec-fetch-mode': 'no-cors',
+          'sec-fetch-dest': 'image',
+          referer: 'http://localhost:3001/',
+          'accept-encoding': 'gzip, deflate, br',
+          'accept-language': 'en-US,en;q=0.9'
+        },
+        method: 'GET',
+        httpVersion: '1.1',
+        originalUrl: '/favicon.ico',
+        query: {}
+      },
+      res: { statusCode: 404 },
+      responseTime: 3
+    },
+    timestamp: '2023-04-12T10:57:48.011Z'
+  }
+}
+{
+  level: 'warn',
+  message: 'HTTP GET /files/1681297002387_users_doc.pdf',
+  metadata: {
+    meta: {
+      req: {
+        url: '/files/1681297002387_users_doc.pdf',
+        headers: {
+          host: 'localhost:3001',
+          connection: 'keep-alive',
+          'sec-ch-ua': '"Chromium";v="110", "Not A(Brand";v="24", "Google Chrome";v="110"',
+          'sec-ch-ua-mobile': '?0',
+          'sec-ch-ua-platform': '"Linux"',
+          'upgrade-insecure-requests': '1',
+          'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36',
+          accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
+          'sec-fetch-site': 'none',
+          'sec-fetch-mode': 'navigate',
+          'sec-fetch-user': '?1',
+          'sec-fetch-dest': 'document',
+          'accept-encoding': 'gzip, deflate, br',
+          'accept-language': 'en-US,en;q=0.9'
+        },
+        method: 'GET',
+        httpVersion: '1.1',
+        originalUrl: '/files/1681297002387_users_doc.pdf',
+        query: {}
+      },
+      res: { statusCode: 404 },
+      responseTime: 2
+    },
+    timestamp: '2023-04-12T10:58:00.290Z'
+  }
+}

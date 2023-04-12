@@ -51,6 +51,8 @@ router.post('/fire_custom_notification', middleware.checkAdminToken, Administrat
 router.get('/get_prices_and_slots_admin', middleware.checkAdminToken, AdministratorController.getPricesAndSlots);
 router.get('/get_truck_make_and_color', middleware.checkAdminToken, AdministratorController.getTruckMakeAndColor);
 router.post('/get_dashboard_data_by_admin', middleware.checkAdminToken, AdministratorController.getDashBoardData);
+router.post('/export_bookings_documents', middleware.checkAdminToken, AdministratorController.exportBookingsDocument);
+router.post('/export_users_documents', middleware.checkAdminToken, AdministratorController.exportUsersDocument);
 
 // Common Routes
 router.get('*',(req, res) => {res.status(405).json({status:false, message:"Invalid Get Request"})});

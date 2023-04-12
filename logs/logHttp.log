@@ -1982,3 +1982,703 @@
     timestamp: '2023-04-07T12:42:16.346Z'
   }
 }
+{
+  level: 'warn',
+  message: 'HTTP POST /api/v1/admin/export_booking_and_user_documents',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/export_booking_and_user_documents',
+        headers: {
+          'content-type': 'multipart/form-data; boundary=--------------------------232683482216576895307870',
+          'content-length': '1648425',
+          'accept-encoding': 'gzip, deflate, br',
+          accept: '*/*',
+          'user-agent': 'Thunder Client (https://www.thunderclient.com)',
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5hbW5lZXQxNjlAZ21haWwuY29tIiwiX2lkIjoiNjNlNGMwYmVkZWY1ZTJjMzRjYTliOWY1IiwiaWF0IjoxNjc4MTg1MDg4LCJleHAiOjE3MDk3MjEwODh9.73vM4Ac1LXw0XE3-nJ3sNZ0apTeuAwhCNe3ommIDhUc',
+          host: 'localhost:3001',
+          connection: 'close'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/export_booking_and_user_documents',
+        query: {}
+      },
+      res: { statusCode: 451 },
+      responseTime: 367
+    },
+    timestamp: '2023-04-12T06:43:42.908Z'
+  }
+}
+{
+  level: 'warn',
+  message: 'HTTP POST /api/v1/admin/export_booking_and_user_documents',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/export_booking_and_user_documents',
+        headers: {
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '72d1f2d6-f789-4380-8526-30578bf1494a',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '0'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/export_booking_and_user_documents',
+        query: {}
+      },
+      res: { statusCode: 401 },
+      responseTime: 6
+    },
+    timestamp: '2023-04-12T06:49:24.216Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/admin/login',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/login',
+        headers: {
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': 'bb6611f0-01e0-465e-a0fd-cbe1f86e3341',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-type': 'application/x-www-form-urlencoded',
+          'content-length': '44'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/login',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 364
+    },
+    timestamp: '2023-04-12T06:49:45.204Z'
+  }
+}
+{
+  level: 'warn',
+  message: 'HTTP POST /api/v1/admin/export_booking_and_user_documents',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/export_booking_and_user_documents',
+        headers: {
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '0c9fc05d-5809-43a9-bfdb-624fd5f1365a',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '0'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/export_booking_and_user_documents',
+        query: {}
+      },
+      res: { statusCode: 401 },
+      responseTime: 2
+    },
+    timestamp: '2023-04-12T06:49:58.926Z'
+  }
+}
+{
+  level: 'warn',
+  message: 'HTTP POST /api/v1/admin/export_booking_and_user_documents',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/export_booking_and_user_documents',
+        headers: {
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '0358219a-ba24-43e7-87ed-c969a4958d3a',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '0'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/export_booking_and_user_documents',
+        query: {}
+      },
+      res: { statusCode: 401 },
+      responseTime: 1
+    },
+    timestamp: '2023-04-12T06:50:00.729Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/vehicle/add_vehicle',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/vehicle/add_vehicle',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InlvZ2VzaEBnbWFpbC5jb20iLCJfaWQiOiI2NDM1NWUzZjlmODg2M2ZmODQyN2Q1ODkiLCJpYXQiOjE2ODEyODM4MzEsImV4cCI6MTcxMjgxOTgzMX0.XNLCZIFw7WEifHAvZoueiTwhEBItgVxx9xGDKTAh3_w',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '57c7182b-9fcf-4126-bbd6-c57b3fab07f2',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-type': 'multipart/form-data; boundary=--------------------------552736894764012496111370',
+          'content-length': '1027620'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/vehicle/add_vehicle',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 3569
+    },
+    timestamp: '2023-04-12T07:18:31.051Z'
+  }
+}
+{
+  level: 'warn',
+  message: 'HTTP GET /api/v1/vehicle/get_vehicles',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/vehicle/get_vehicles',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFwcGxlMUBnbWFpbC5jb20iLCJfaWQiOiI2NDAxYTg5OGQ2YzIyOTk4OWI3Y2UwNzgiLCJpYXQiOjE2NzgxNzY4NTMsImV4cCI6MTcwOTcxMjg1M30.CzbL-37VtI2BrW33du2tBLxWW_5gezdtcZBxX32kFHg',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': 'd7e83578-fe3c-41fc-bea5-d7f96a3585f5',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive'
+        },
+        method: 'GET',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/vehicle/get_vehicles',
+        query: {}
+      },
+      res: { statusCode: 423 },
+      responseTime: 330
+    },
+    timestamp: '2023-04-12T07:18:53.551Z'
+  }
+}
+{
+  level: 'warn',
+  message: 'HTTP GET /api/v1/vehicle/get_vehicles',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/vehicle/get_vehicles',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFwcGxlMUBnbWFpbC5jb20iLCJfaWQiOiI2NDAxYTg5OGQ2YzIyOTk4OWI3Y2UwNzgiLCJpYXQiOjE2NzgxNzY4NTMsImV4cCI6MTcwOTcxMjg1M30.CzbL-37VtI2BrW33du2tBLxWW_5gezdtcZBxX32kFHg',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': 'ae8c78b8-8091-4501-9f23-b7fb4cb33434',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive'
+        },
+        method: 'GET',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/vehicle/get_vehicles',
+        query: {}
+      },
+      res: { statusCode: 423 },
+      responseTime: 345
+    },
+    timestamp: '2023-04-12T07:19:13.763Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP GET /api/v1/vehicle/get_vehicles',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/vehicle/get_vehicles',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InlvZ2VzaEBnbWFpbC5jb20iLCJfaWQiOiI2NDM1NWUzZjlmODg2M2ZmODQyN2Q1ODkiLCJpYXQiOjE2ODEyODM4MzEsImV4cCI6MTcxMjgxOTgzMX0.XNLCZIFw7WEifHAvZoueiTwhEBItgVxx9xGDKTAh3_w',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': 'bf387c1f-99e4-4c4f-8c6a-2b6a908959fb',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive'
+        },
+        method: 'GET',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/vehicle/get_vehicles',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 650
+    },
+    timestamp: '2023-04-12T07:19:43.470Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP GET /api/v1/vehicle/get_vehicles',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/vehicle/get_vehicles',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InlvZ2VzaEBnbWFpbC5jb20iLCJfaWQiOiI2NDM1NWUzZjlmODg2M2ZmODQyN2Q1ODkiLCJpYXQiOjE2ODEyODM4MzEsImV4cCI6MTcxMjgxOTgzMX0.XNLCZIFw7WEifHAvZoueiTwhEBItgVxx9xGDKTAh3_w',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '842e4ecc-bf56-466e-9eb1-569e46032c56',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive'
+        },
+        method: 'GET',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/vehicle/get_vehicles',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 637
+    },
+    timestamp: '2023-04-12T07:20:01.377Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/admin/login',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/login',
+        headers: {
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '8d52950c-0eb3-494e-bc14-ee023d0b40f2',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-type': 'application/x-www-form-urlencoded',
+          'content-length': '44'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/login',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 348
+    },
+    timestamp: '2023-04-12T07:35:13.302Z'
+  }
+}
+{
+  level: 'warn',
+  message: 'HTTP POST /api/v1/admin/export_users_documents',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/export_users_documents',
+        headers: {
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '87e20c93-5e11-45a3-8ae1-285421fbcb33',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '0'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/export_users_documents',
+        query: {}
+      },
+      res: { statusCode: 401 },
+      responseTime: 7
+    },
+    timestamp: '2023-04-12T07:37:24.699Z'
+  }
+}
+{
+  level: 'warn',
+  message: 'HTTP POST /api/v1/admin/export_users_documents',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/export_users_documents',
+        headers: {
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '2503da48-9f92-4ab4-8f1a-558da106774c',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '0'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/export_users_documents',
+        query: {}
+      },
+      res: { statusCode: 401 },
+      responseTime: 8
+    },
+    timestamp: '2023-04-12T07:37:50.053Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/admin/export_users_documents',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/export_users_documents',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjY0MzU1OTY4MjZlMWU2OTdjOTY5Y2I0YiIsImlhdCI6MTY4MTI4NDkxMywiZXhwIjoxNzEyODIwOTEzfQ.w1dXTNVaEwSwbIBA6u_N5WV04M9s6xSYQuImrIz1zfc',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '85347b21-1f5e-425d-999a-8995f67aa1ad',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '0'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/export_users_documents',
+        query: {}
+      },
+      res: { statusCode: 203 },
+      responseTime: 1715
+    },
+    timestamp: '2023-04-12T07:40:54.830Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP GET /',
+  metadata: {
+    meta: {
+      req: {
+        url: '/',
+        headers: {
+          host: 'localhost:3001',
+          connection: 'keep-alive',
+          'sec-ch-ua': '"Chromium";v="110", "Not A(Brand";v="24", "Google Chrome";v="110"',
+          'sec-ch-ua-mobile': '?0',
+          'sec-ch-ua-platform': '"Linux"',
+          'upgrade-insecure-requests': '1',
+          'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36',
+          accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
+          'sec-fetch-site': 'none',
+          'sec-fetch-mode': 'navigate',
+          'sec-fetch-user': '?1',
+          'sec-fetch-dest': 'document',
+          'accept-encoding': 'gzip, deflate, br',
+          'accept-language': 'en-US,en;q=0.9',
+          'if-none-match': 'W/"f6-18751e0f070"',
+          'if-modified-since': 'Wed, 05 Apr 2023 14:45:08 GMT'
+        },
+        method: 'GET',
+        httpVersion: '1.1',
+        originalUrl: '/',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 19
+    },
+    timestamp: '2023-04-12T10:57:47.813Z'
+  }
+}
+{
+  level: 'warn',
+  message: 'HTTP GET /favicon.ico',
+  metadata: {
+    meta: {
+      req: {
+        url: '/favicon.ico',
+        headers: {
+          host: 'localhost:3001',
+          connection: 'keep-alive',
+          'sec-ch-ua': '"Chromium";v="110", "Not A(Brand";v="24", "Google Chrome";v="110"',
+          'sec-ch-ua-mobile': '?0',
+          'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36',
+          'sec-ch-ua-platform': '"Linux"',
+          accept: 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8',
+          'sec-fetch-site': 'same-origin',
+          'sec-fetch-mode': 'no-cors',
+          'sec-fetch-dest': 'image',
+          referer: 'http://localhost:3001/',
+          'accept-encoding': 'gzip, deflate, br',
+          'accept-language': 'en-US,en;q=0.9'
+        },
+        method: 'GET',
+        httpVersion: '1.1',
+        originalUrl: '/favicon.ico',
+        query: {}
+      },
+      res: { statusCode: 404 },
+      responseTime: 3
+    },
+    timestamp: '2023-04-12T10:57:48.011Z'
+  }
+}
+{
+  level: 'warn',
+  message: 'HTTP GET /files/1681297002387_users_doc.pdf',
+  metadata: {
+    meta: {
+      req: {
+        url: '/files/1681297002387_users_doc.pdf',
+        headers: {
+          host: 'localhost:3001',
+          connection: 'keep-alive',
+          'sec-ch-ua': '"Chromium";v="110", "Not A(Brand";v="24", "Google Chrome";v="110"',
+          'sec-ch-ua-mobile': '?0',
+          'sec-ch-ua-platform': '"Linux"',
+          'upgrade-insecure-requests': '1',
+          'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36',
+          accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
+          'sec-fetch-site': 'none',
+          'sec-fetch-mode': 'navigate',
+          'sec-fetch-user': '?1',
+          'sec-fetch-dest': 'document',
+          'accept-encoding': 'gzip, deflate, br',
+          'accept-language': 'en-US,en;q=0.9'
+        },
+        method: 'GET',
+        httpVersion: '1.1',
+        originalUrl: '/files/1681297002387_users_doc.pdf',
+        query: {}
+      },
+      res: { statusCode: 404 },
+      responseTime: 2
+    },
+    timestamp: '2023-04-12T10:58:00.290Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP GET /files/pdf_doc/1681297002387_users_doc.pdf',
+  metadata: {
+    meta: {
+      req: {
+        url: '/files/pdf_doc/1681297002387_users_doc.pdf',
+        headers: {
+          host: 'localhost:3001',
+          connection: 'keep-alive',
+          'sec-ch-ua': '"Chromium";v="110", "Not A(Brand";v="24", "Google Chrome";v="110"',
+          'sec-ch-ua-mobile': '?0',
+          'sec-ch-ua-platform': '"Linux"',
+          'upgrade-insecure-requests': '1',
+          'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36',
+          accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
+          'sec-fetch-site': 'none',
+          'sec-fetch-mode': 'navigate',
+          'sec-fetch-user': '?1',
+          'sec-fetch-dest': 'document',
+          'accept-encoding': 'gzip, deflate, br',
+          'accept-language': 'en-US,en;q=0.9'
+        },
+        method: 'GET',
+        httpVersion: '1.1',
+        originalUrl: '/files/pdf_doc/1681297002387_users_doc.pdf',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 4
+    },
+    timestamp: '2023-04-12T10:58:15.797Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP GET /files/pdf_doc/1681297320931_users_doc.pdf',
+  metadata: {
+    meta: {
+      req: {
+        url: '/files/pdf_doc/1681297320931_users_doc.pdf',
+        headers: {
+          host: 'localhost:3001',
+          connection: 'keep-alive',
+          'sec-ch-ua': '"Chromium";v="110", "Not A(Brand";v="24", "Google Chrome";v="110"',
+          'sec-ch-ua-mobile': '?0',
+          'sec-ch-ua-platform': '"Linux"',
+          'upgrade-insecure-requests': '1',
+          'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36',
+          accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
+          'sec-fetch-site': 'none',
+          'sec-fetch-mode': 'navigate',
+          'sec-fetch-user': '?1',
+          'sec-fetch-dest': 'document',
+          'accept-encoding': 'gzip, deflate, br',
+          'accept-language': 'en-US,en;q=0.9'
+        },
+        method: 'GET',
+        httpVersion: '1.1',
+        originalUrl: '/files/pdf_doc/1681297320931_users_doc.pdf',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 8
+    },
+    timestamp: '2023-04-12T11:02:17.880Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/admin/get_dashboard_data_by_admin',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/get_dashboard_data_by_admin',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjY0MzU1OTY4MjZlMWU2OTdjOTY5Y2I0YiIsImlhdCI6MTY4MTI4NDkxMywiZXhwIjoxNzEyODIwOTEzfQ.w1dXTNVaEwSwbIBA6u_N5WV04M9s6xSYQuImrIz1zfc',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': 'f7a6dcd8-89e3-4c30-97d8-8dd8f0ea4fcc',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-type': 'application/x-www-form-urlencoded',
+          'content-length': '20'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/get_dashboard_data_by_admin',
+        query: {}
+      },
+      res: { statusCode: 203 },
+      responseTime: 425
+    },
+    timestamp: '2023-04-12T12:59:47.574Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/admin/export_bookings_documents',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/export_bookings_documents',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjY0MzU1OTY4MjZlMWU2OTdjOTY5Y2I0YiIsImlhdCI6MTY4MTMwNDQ1MywiZXhwIjoxNzEyODQwNDUzfQ.iU3ql_Jhl7-mOWbmU5b3WhckHnCffEQGDcad_quu24k',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': 'a91c6a49-827d-4980-b4d7-09aa66b22712',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-type': 'application/x-www-form-urlencoded',
+          'content-length': '8'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/export_bookings_documents',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 1071
+    },
+    timestamp: '2023-04-12T13:07:43.650Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/admin/export_bookings_documents',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/export_bookings_documents',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjY0MzU1OTY4MjZlMWU2OTdjOTY5Y2I0YiIsImlhdCI6MTY4MTMwNDQ1MywiZXhwIjoxNzEyODQwNDUzfQ.iU3ql_Jhl7-mOWbmU5b3WhckHnCffEQGDcad_quu24k',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '95b130ef-36af-4109-96b3-f05610c3cc27',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-type': 'application/x-www-form-urlencoded',
+          'content-length': '8'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/export_bookings_documents',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 3212
+    },
+    timestamp: '2023-04-12T13:08:18.636Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/admin/export_bookings_documents',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/export_bookings_documents',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjY0MzU1OTY4MjZlMWU2OTdjOTY5Y2I0YiIsImlhdCI6MTY4MTMwNDQ1MywiZXhwIjoxNzEyODQwNDUzfQ.iU3ql_Jhl7-mOWbmU5b3WhckHnCffEQGDcad_quu24k',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '0d1a52b8-059e-466a-be96-c745aeca9393',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-type': 'application/x-www-form-urlencoded',
+          'content-length': '8'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/export_bookings_documents',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 1133
+    },
+    timestamp: '2023-04-12T13:45:34.548Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/admin/export_bookings_documents',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/export_bookings_documents',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjY0MzU1OTY4MjZlMWU2OTdjOTY5Y2I0YiIsImlhdCI6MTY4MTMwNDQ1MywiZXhwIjoxNzEyODQwNDUzfQ.iU3ql_Jhl7-mOWbmU5b3WhckHnCffEQGDcad_quu24k',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': 'ae88dd12-2862-403f-aa5a-ec6faf3b18af',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-type': 'application/x-www-form-urlencoded',
+          'content-length': '8'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/export_bookings_documents',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 1059
+    },
+    timestamp: '2023-04-12T14:42:42.101Z'
+  }
+}

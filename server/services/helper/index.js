@@ -13,6 +13,8 @@ const pdfkit = require('pdfkit');
 const path = require('path');
 const fs = require('fs');
 const nodemailer = require('nodemailer');
+const officeGen = require('officegen');
+const docx = officeGen('docx');
 
 const showResponse = (
   status,
@@ -451,6 +453,169 @@ const createBookingInvoicePDF = async(bookingData) => {
   }
 }
 
+const generatePdfUsersAndBookings = async(dataObject, type) => {
+  if(dataObject.length > 0){
+    try{
+      let pdfDoc = new pdfkit;
+      let height = 125;
+      if(type == 'bookings'){
+        let pdfFileName = `pdf_doc/${Date.now()}_booking_doc.pdf`;
+        pdfDoc.pipe(fs.createWriteStream(path.resolve(`./server/uploads/${pdfFileName}`)));
+        let filePath = `https://api.a1truckpark.com/files/${pdfFileName}`;
+        pdfDoc.image(path.resolve('./server/uploads/textlogo3.png'), 25, 20, { width: 140 });
+        pdfDoc.fontSize(10).font('Helvetica-Bold').fillColor('black').text("S.No", 35, height);
+        pdfDoc.fontSize(10).font('Helvetica-Bold').fillColor('black').text("License No", 70, height);
+        pdfDoc.fontSize(10).font('Helvetica-Bold').fillColor('black').text("Vehicle", 130, height);
+        pdfDoc.fontSize(10).font('Helvetica-Bold').fillColor('black').text("US Dot", 190, height);
+        pdfDoc.fontSize(10).font('Helvetica-Bold').fillColor('black').text("Start", 255, height);
+        pdfDoc.fontSize(10).font('Helvetica-Bold').fillColor('black').text("End", 375, height);
+        pdfDoc.fontSize(10).font('Helvetica-Bold').fillColor('black').text("Space", 500, height);
+        pdfDoc.fontSize(10).font('Helvetica-Bold').fillColor('black').text("Code", 560, height);
+        pdfDoc.lineJoin('round').rect(35, 136, 560, 0).lineWidth(0.1).stroke("#aaa");
+        for(let i = 0; i < dataObject.length; i++){
+          height += 15;
+          pdfDoc.fontSize(10).font('Helvetica').fillColor('black').text(i + 1, 35, height);
+          pdfDoc.fontSize(10).font('Helvetica').fillColor('black').text(dataObject[i].vehicle_id.license_plate, 70, height);
+          pdfDoc.fontSize(10).font('Helvetica').fillColor('black').text(dataObject[i].vehicle_id.truck_makes, 130, height);
+          pdfDoc.fontSize(10).font('Helvetica').fillColor('black').text(dataObject[i].vehicle_id.us_dot, 190, height);
+          pdfDoc.fontSize(10).font('Helvetica').fillColor('black').text(dataObject[i].start_time, 255, height);
+          pdfDoc.fontSize(10).font('Helvetica').fillColor('black').text(dataObject[i].end_time, 375, height);
+          pdfDoc.fontSize(10).font('Helvetica').fillColor('black').text(dataObject[i].slot_number, 510, height);
+          pdfDoc.fontSize(10).font('Helvetica').fillColor('black').text(dataObject[i].booking_ref, 560, height);
+        }
+        pdfDoc.end();
+        return showResponse(true, 'successfully created pdf', filePath, null, 200);
+      }
+
+      if(type == 'users'){
+        let pdfFileName = `pdf_doc/${Date.now()}_users_doc.pdf`;
+        pdfDoc.pipe(fs.createWriteStream(path.resolve(`./server/uploads/${pdfFileName}`)));
+        let filePath = `https://api.a1truckpark.com/files/${pdfFileName}`;
+        pdfDoc.image(path.resolve('./server/uploads/textlogo3.png'), 25, 20, { width: 140 });
+        pdfDoc.fontSize(10).font('Helvetica-Bold').fillColor('black').text("S.No", 35, height);
+        pdfDoc.fontSize(10).font('Helvetica-Bold').fillColor('black').text("Name", 100, height);
+        pdfDoc.fontSize(10).font('Helvetica-Bold').fillColor('black').text("Email", 250, height);
+        pdfDoc.fontSize(10).font('Helvetica-Bold').fillColor('black').text("Phone No", 400, height);
+        pdfDoc.lineJoin('round').rect(35, 136, 500, 0).lineWidth(0.1).stroke("#aaa");
+        for(let i = 0; i < dataObject.length; i++){
+          height += 15;
+          pdfDoc.fontSize(10).font('Helvetica').fillColor('black').text(i + 1, 35, height);
+          pdfDoc.fontSize(10).font('Helvetica').fillColor('black').text(dataObject[i].username, 100, height);
+          pdfDoc.fontSize(10).font('Helvetica').fillColor('black').text(dataObject[i].email, 250, height);
+          pdfDoc.fontSize(10).font('Helvetica').fillColor('black').text(dataObject[i].phone_number, 400, height);
+        }
+        pdfDoc.end();
+        return showResponse(true, 'successfully created pdf', filePath, null, 200);
+      }
+
+    }catch(err){
+      return showResponse(false, 'Server Error, Pdf file did not created..', null, null, 200);
+    }
+
+  }else{
+    return showResponse(false, 'No users found', null, null, 200);
+  }
+}
+
+const generateWordUsersAndBookings = async(dataObject) => {
+  if(dataObject.length > 0){
+    try{
+      const table = [
+        [{
+          val: "S. NO",
+          opts: {
+            b: true,
+            sz: '15',
+            cellColWidth: 1000,
+            shd: {
+              fill: "7F7F7F",
+              themeFill: "text1",
+              "themeFillTint": "80"
+            },
+            fontFamily: "Arial"
+          }
+        },{
+          val: "Name",
+          opts: {
+            b: true,
+            sz: '15',
+            cellColWidth: 3000,
+            shd: {
+              fill: "7F7F7F",
+              themeFill: "text1",
+              "themeFillTint": "80"
+            },
+            fontFamily: "Arial"
+          }
+        }, {
+          val: "Email",
+          opts: {
+            b: true,
+            sz: '15',
+            align: "center",
+            cellColWidth: 3000,
+            shd: {
+              fill: "92CDDC",
+              themeFill: "text1",
+              "themeFillTint": "80"
+            },
+            fontFamily: "Arial"
+          }
+        }, {
+          val: "Phone Number",
+          opts: {
+            b: true,
+            sz: '15',
+            align: "center",
+            cellColWidth: 3000,
+            shd: {
+              fill: "92CDDC",
+              themeFill: "text1",
+              "themeFillTint": "80"
+            },
+            fontFamily: "Arial"
+          }
+        }]
+      ];
+      
+      for (let i = 0; i < dataObject.length; i++ ) {
+        const row = [];
+        row.push(i + 1);
+        row.push(dataObject[i].username);
+        row.push(dataObject[i].email);
+        row.push(dataObject[i].phone_number);
+        table.push(row);
+      }
+      const tableStyle = {
+        tableColWidth: 4290,
+        tableSize: 12,
+        tableColor: "auto",
+        tableAlign: "center",
+        borderSize: 2,
+        borderColor: "000000",
+        cellMargin: 20,
+        marginTop : 1000,
+        marginBottom : 100,
+        marginLeft : 100,
+        marginRight : 100,
+        width : 12240,
+        height : 840
+      };
+
+      docx.createTable(table, tableStyle);
+      const outputStream = fs.createWriteStream(path.resolve('output.docx'));
+      docx.generate(outputStream);
+      
+    }catch(err){
+      console.log(err)
+      return showResponse(false, 'Server Error, word file did not created..', null, null, 200);
+    }
+
+  }else{
+    return showResponse(false, 'No users found', null, null, 200);
+  }
+}
+
 const changeTimeZoneSettings = async(time_zone, createdAt, start_time, end_time) => {
   let booking_creation_time = moment(createdAt).tz(time_zone).format('YYYY-MM-DD hh:mm:ss A Z');
   let booking_start_time = moment(start_time).tz(time_zone).format('YYYY-MM-DD hh:mm:ss A Z');
@@ -479,7 +644,6 @@ const changeTimeZoneSettings = async(time_zone, createdAt, start_time, end_time)
     booking_start_time,
     booking_end_time
   }
-
   return showResponse(true, 'successfully change time', timeData, null, 200); 
 }
 
@@ -597,5 +761,7 @@ module.exports = {
   sendBookingMailToAdmin,
   sendRenewedBookingMailToAdmin,
   changeTimeZoneSettings,
-  sendContactEmail
-};
+  sendContactEmail,
+  generatePdfUsersAndBookings,
+  generateWordUsersAndBookings
+}

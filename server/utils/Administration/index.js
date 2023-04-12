@@ -620,6 +620,52 @@ const adminUtils = {
             return helpers.showResponse(true, 'Truck makes and truck color data fetched!!', truckMakesData, null, 200);
         }
         return helpers.showResponse(true, 'Server Error!! failed to fetch', null, null, 200);
+    },
+
+    exportBookingsDocument : async(bodyData) => {
+        let { type } = bodyData;
+        let bookingsResult = await adminUtils.getAllBookingsAdmin();
+        if(!bookingsResult.status){
+            return helpers.showResponse(false, 'No bookings Found', null, null, 200);
+        }
+        let bookingData = bookingsResult.data;
+        if(type == 'pdf'){
+            let excelResponse = await helpers.generatePdfUsersAndBookings(bookingData, 'bookings');
+            if(excelResponse.status){
+                return helpers.showResponse(true, 'Successfully generated bookings pdf', excelResponse.data, null, 200);
+            }
+            return helpers.showResponse(false, 'Error Occured!!, failed to generate pdf', null, null, 200);
+
+        }else if(type == 'word'){
+            let wordResponse = await helpers.generateWordUsersAndBookings(bookingData);
+
+        }else{
+            return helpers.showResponse(false, 'Invalid type', null, null, 200);
+        }
+        
+    },
+
+    exportUsersDocument : async(bodyData) => {
+        let { type } = bodyData;
+        let usersResult = await adminUtils.getAllUsersDetailsAdmin();
+        if(!usersResult.status){
+            return helpers.showResponse(false, 'No users Found', null, null, 200);
+        }
+        let userData = usersResult.data;
+        if(type == 'pdf'){
+            let excelResponse = await helpers.generatePdfUsersAndBookings(userData, 'users');
+            if(excelResponse.status){
+                return helpers.showResponse(true, 'Successfully generated users pdf', excelResponse.data, null, 200);
+            }
+            return helpers.showResponse(false, 'Error Occured!!, failed to generate pdf', null, null, 200);
+
+        }else if(type == 'word'){
+            let wordResponse = await helpers.generateWordUsersAndBookings(userData);
+
+        }else{
+            return helpers.showResponse(false, 'Invalid type', null, null, 200);
+        }
+        
     }
 
 }
