@@ -2682,3 +2682,210 @@
     timestamp: '2023-04-12T14:42:42.101Z'
   }
 }
+{
+  level: 'warn',
+  message: 'HTTP GET /favicon.ico',
+  metadata: {
+    meta: {
+      req: {
+        url: '/favicon.ico',
+        headers: {
+          host: 'localhost:3001',
+          connection: 'keep-alive',
+          'sec-ch-ua': '"Chromium";v="110", "Not A(Brand";v="24", "Google Chrome";v="110"',
+          'sec-ch-ua-mobile': '?0',
+          'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36',
+          'sec-ch-ua-platform': '"Linux"',
+          accept: 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8',
+          'sec-fetch-site': 'same-origin',
+          'sec-fetch-mode': 'no-cors',
+          'sec-fetch-dest': 'image',
+          referer: 'http://localhost:3001/files/pdf_doc/1681297320931_users_doc.pdf',
+          'accept-encoding': 'gzip, deflate, br',
+          'accept-language': 'en-US,en;q=0.9'
+        },
+        method: 'GET',
+        httpVersion: '1.1',
+        originalUrl: '/favicon.ico',
+        query: {}
+      },
+      res: { statusCode: 404 },
+      responseTime: 13
+    },
+    timestamp: '2023-04-13T06:13:59.119Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/appdata/why_a1_truck_admin',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/appdata/why_a1_truck_admin',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjY0MzU1OTY4MjZlMWU2OTdjOTY5Y2I0YiIsImlhdCI6MTY4MTM2NTgyMywiZXhwIjoxNzEyOTAxODIzfQ.7GW41jDN7OACUw_8hVdmooTXrTFRF1FwTdDwsjS71Qo',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '415fba2e-7ba6-49df-9907-72cf61a2cf16',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-type': 'multipart/form-data; boundary=--------------------------990921343199251710719158',
+          'content-length': '1599838'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/appdata/why_a1_truck_admin',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 3426
+    },
+    timestamp: '2023-04-13T06:45:24.027Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/appdata/why_a1_truck_admin',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/appdata/why_a1_truck_admin',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjY0MzU1OTY4MjZlMWU2OTdjOTY5Y2I0YiIsImlhdCI6MTY4MTM2NTgyMywiZXhwIjoxNzEyOTAxODIzfQ.7GW41jDN7OACUw_8hVdmooTXrTFRF1FwTdDwsjS71Qo',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': 'b41b4dea-855d-45a3-82bb-766fa6edbc68',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-type': 'multipart/form-data; boundary=--------------------------491863633545610762042350',
+          'content-length': '1224257'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/appdata/why_a1_truck_admin',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 2814
+    },
+    timestamp: '2023-04-13T06:46:40.418Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/appdata/why_a1_truck_admin',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/appdata/why_a1_truck_admin',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjY0MzU1OTY4MjZlMWU2OTdjOTY5Y2I0YiIsImlhdCI6MTY4MTM2NTgyMywiZXhwIjoxNzEyOTAxODIzfQ.7GW41jDN7OACUw_8hVdmooTXrTFRF1FwTdDwsjS71Qo',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': 'fb8c6ab4-06cf-4e7f-b76c-50786fa98a7e',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-type': 'multipart/form-data; boundary=--------------------------665759585335227283724850',
+          'content-length': '1224253'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/appdata/why_a1_truck_admin',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 2826
+    },
+    timestamp: '2023-04-13T06:47:22.884Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/appdata/why_a1_truck_admin',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/appdata/why_a1_truck_admin',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjY0MzU1OTY4MjZlMWU2OTdjOTY5Y2I0YiIsImlhdCI6MTY4MTM2NTgyMywiZXhwIjoxNzEyOTAxODIzfQ.7GW41jDN7OACUw_8hVdmooTXrTFRF1FwTdDwsjS71Qo',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '6a3c445b-e108-4598-ba82-a1af7c163f21',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-type': 'multipart/form-data; boundary=--------------------------016302508451009635017516',
+          'content-length': '1696975'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/appdata/why_a1_truck_admin',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 3284
+    },
+    timestamp: '2023-04-13T06:48:06.471Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/appdata/about_and_owners_saying',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/appdata/about_and_owners_saying',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjY0MzU1OTY4MjZlMWU2OTdjOTY5Y2I0YiIsImlhdCI6MTY4MTM2NTgyMywiZXhwIjoxNzEyOTAxODIzfQ.7GW41jDN7OACUw_8hVdmooTXrTFRF1FwTdDwsjS71Qo',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '14fcbd49-611b-4694-abf7-af2a0cb62ecd',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-type': 'application/x-www-form-urlencoded',
+          'content-length': '1312'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/appdata/about_and_owners_saying',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 1005
+    },
+    timestamp: '2023-04-13T07:11:35.012Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/appdata/about_and_owners_saying',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/appdata/about_and_owners_saying',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjY0MzU1OTY4MjZlMWU2OTdjOTY5Y2I0YiIsImlhdCI6MTY4MTM2NTgyMywiZXhwIjoxNzEyOTAxODIzfQ.7GW41jDN7OACUw_8hVdmooTXrTFRF1FwTdDwsjS71Qo',
+          'user-agent': 'PostmanRuntime/7.31.3',
+          accept: '*/*',
+          'postman-token': '582f96d5-1b5f-4ae4-9df6-a112748e89b8',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-type': 'application/x-www-form-urlencoded',
+          'content-length': '1307'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/appdata/about_and_owners_saying',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 946
+    },
+    timestamp: '2023-04-13T07:12:00.967Z'
+  }
+}

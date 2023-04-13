@@ -388,7 +388,7 @@ const adminController = {
       return helpers.showOutput(res, helpers.showResponse(false, validator.message), 203);
     }
     let result = await AdministrationUtils.exportUsersDocument(req.body);
-    // return helpers.showOutput(res, result, result.code);
+    return helpers.showOutput(res, result, result.code);
   }
 
 };

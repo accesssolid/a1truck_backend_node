@@ -582,3 +582,36 @@
     timestamp: '2023-04-12T10:58:00.290Z'
   }
 }
+{
+  level: 'warn',
+  message: 'HTTP GET /favicon.ico',
+  metadata: {
+    meta: {
+      req: {
+        url: '/favicon.ico',
+        headers: {
+          host: 'localhost:3001',
+          connection: 'keep-alive',
+          'sec-ch-ua': '"Chromium";v="110", "Not A(Brand";v="24", "Google Chrome";v="110"',
+          'sec-ch-ua-mobile': '?0',
+          'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36',
+          'sec-ch-ua-platform': '"Linux"',
+          accept: 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8',
+          'sec-fetch-site': 'same-origin',
+          'sec-fetch-mode': 'no-cors',
+          'sec-fetch-dest': 'image',
+          referer: 'http://localhost:3001/files/pdf_doc/1681297320931_users_doc.pdf',
+          'accept-encoding': 'gzip, deflate, br',
+          'accept-language': 'en-US,en;q=0.9'
+        },
+        method: 'GET',
+        httpVersion: '1.1',
+        originalUrl: '/favicon.ico',
+        query: {}
+      },
+      res: { statusCode: 404 },
+      responseTime: 13
+    },
+    timestamp: '2023-04-13T06:13:59.119Z'
+  }
+}

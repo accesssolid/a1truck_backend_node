@@ -637,7 +637,12 @@ const adminUtils = {
             return helpers.showResponse(false, 'Error Occured!!, failed to generate pdf', null, null, 200);
 
         }else if(type == 'word'){
-            let wordResponse = await helpers.generateWordUsersAndBookings(bookingData);
+            let wordResponse = await helpers.generateWordUsersAndBookings(bookingData, 'bookings');
+            if(wordResponse.status){
+                return helpers.showResponse(true, 'Successfully generated bookings word file', wordResponse.data, null, 200);
+            }
+            return helpers.showResponse(false, 'Error Occured!!, failed to generate word file', null, null, 200);
+            
 
         }else{
             return helpers.showResponse(false, 'Invalid type', null, null, 200);
@@ -660,7 +665,12 @@ const adminUtils = {
             return helpers.showResponse(false, 'Error Occured!!, failed to generate pdf', null, null, 200);
 
         }else if(type == 'word'){
-            let wordResponse = await helpers.generateWordUsersAndBookings(userData);
+            let wordResponse = await helpers.generateWordUsersAndBookings(userData, 'users');
+            if(wordResponse.status){
+                return helpers.showResponse(true, 'Successfully generated users word file', wordResponse.data, null, 200);
+            }
+            return helpers.showResponse(false, 'Error Occured!!, failed to generate word file', null, null, 200);
+            
 
         }else{
             return helpers.showResponse(false, 'Invalid type', null, null, 200);

@@ -517,94 +517,90 @@ const generatePdfUsersAndBookings = async(dataObject, type) => {
   }
 }
 
-const generateWordUsersAndBookings = async(dataObject) => {
+const generateWordUsersAndBookings = async(dataObject, type) => {
   if(dataObject.length > 0){
     try{
-      const table = [
-        [{
-          val: "S. NO",
-          opts: {
-            b: true,
-            sz: '15',
-            cellColWidth: 1000,
-            shd: {
-              fill: "7F7F7F",
-              themeFill: "text1",
-              "themeFillTint": "80"
-            },
-            fontFamily: "Arial"
-          }
-        },{
-          val: "Name",
-          opts: {
-            b: true,
-            sz: '15',
-            cellColWidth: 3000,
-            shd: {
-              fill: "7F7F7F",
-              themeFill: "text1",
-              "themeFillTint": "80"
-            },
-            fontFamily: "Arial"
-          }
-        }, {
-          val: "Email",
-          opts: {
-            b: true,
-            sz: '15',
-            align: "center",
-            cellColWidth: 3000,
-            shd: {
-              fill: "92CDDC",
-              themeFill: "text1",
-              "themeFillTint": "80"
-            },
-            fontFamily: "Arial"
-          }
-        }, {
-          val: "Phone Number",
-          opts: {
-            b: true,
-            sz: '15',
-            align: "center",
-            cellColWidth: 3000,
-            shd: {
-              fill: "92CDDC",
-              themeFill: "text1",
-              "themeFillTint": "80"
-            },
-            fontFamily: "Arial"
-          }
-        }]
-      ];
-      
-      for (let i = 0; i < dataObject.length; i++ ) {
-        const row = [];
-        row.push(i + 1);
-        row.push(dataObject[i].username);
-        row.push(dataObject[i].email);
-        row.push(dataObject[i].phone_number);
-        table.push(row);
-      }
-      const tableStyle = {
-        tableColWidth: 4290,
-        tableSize: 12,
-        tableColor: "auto",
-        tableAlign: "center",
-        borderSize: 2,
-        borderColor: "000000",
-        cellMargin: 20,
-        marginTop : 1000,
-        marginBottom : 100,
-        marginLeft : 100,
-        marginRight : 100,
-        width : 12240,
-        height : 840
-      };
+      docx.createP({ align : 'center' }).addImage(path.resolve('./server/uploads/textlogo3.png'), { cx: 300, cy: 80 });
+      let pdfFileName;
+      if(type == 'users'){
+        const table = [
+          [
+            { val: "S. NO", opts: { b: true, sz: '15', cellColWidth: 700, shd: { fill: "7F7F7F", themeFill: "text1", "themeFillTint": "80" }, fontFamily: "Arial" } },
+            { val: "Name", opts: { b: true, sz: '15', cellColWidth: 2500, shd: { fill: "7F7F7F", themeFill: "text1", "themeFillTint": "80" }, fontFamily: "Arial" } }, 
+            { val: "Email", opts: { b: true, sz: '15', align: "center", cellColWidth: 4000, shd: { fill: "7F7F7F", themeFill: "text1", "themeFillTint": "80" }, fontFamily: "Arial" } }, 
+            { val: "Phone Number", opts: { b: true, sz: '15', align: "center", cellColWidth: 2500, shd: { fill: "7F7F7F", themeFill: "text1", "themeFillTint": "80" }, fontFamily: "Arial" }}
+          ]
+        ];
+        for (let i = 0; i < dataObject.length; i++ ) {
+          const row = [];
+          row.push(i + 1);
+          row.push(dataObject[i].username);
+          row.push(dataObject[i].email);
+          row.push(dataObject[i].phone_number);
+          table.push(row);
+        }
+        const tableStyle = {
+          tableColWidth: 4290,
+          tableSize: 12,
+          tableColor: "auto",
+          tableAlign: "left",
+          borderSize: 2,
+          borderColor: "000000",
+          cellMargin: 20,
+          marginTop : 1000,
+          marginBottom : 100,
+          marginLeft : 100,
+          marginRight : 100,
+          width : 12240,
+          height : 840
+        };
+        docx.createTable(table, tableStyle);
+        pdfFileName = `word_doc/${Date.now()}_users_doc.docx`;
 
-      docx.createTable(table, tableStyle);
-      const outputStream = fs.createWriteStream(path.resolve('output.docx'));
+      }
+      if(type == 'bookings'){
+        const table = [
+          [
+            { val: "S. NO", opts: { b: true, sz: '15', cellColWidth: 700, shd: { fill: "7F7F7F", themeFill: "text1", "themeFillTint": "80" }, fontFamily: "Arial" } },
+            { val: "License No", opts: { b: true, sz: '15', cellColWidth: 1200, shd: { fill: "7F7F7F", themeFill: "text1", "themeFillTint": "80" }, fontFamily: "Arial" } },
+            { val: "Vehicle", opts: { b: true, sz: '15', align: "center", cellColWidth: 1800, shd: { fill: "7F7F7F", themeFill: "text1", "themeFillTint": "80" }, fontFamily: "Arial" } },
+            { val: "US Dot", opts: { b: true, sz: '15', align: "center", cellColWidth: 1400, shd: { fill: "7F7F7F", themeFill: "text1", "themeFillTint": "80" }, fontFamily: "Arial" }},
+            { val: "Start", opts: { b: true, sz: '15', align: "center", cellColWidth: 1800, shd: { fill: "7F7F7F", themeFill: "text1", "themeFillTint": "80" }, fontFamily: "Arial" }},
+            { val: "End", opts: { b: true, sz: '15', align: "center", cellColWidth: 1800, shd: { fill: "7F7F7F", themeFill: "text1", "themeFillTint": "80" }, fontFamily: "Arial" }},
+            { val: "Space", opts: { b: true, sz: '15', align: "center", cellColWidth: 700, shd: { fill: "7F7F7F", themeFill: "text1", "themeFillTint": "80" }, fontFamily: "Arial" }},
+            { val: "Code", opts: { b: true, sz: '15', align: "center", cellColWidth: 800, shd: { fill: "7F7F7F", themeFill: "text1", "themeFillTint": "80" }, fontFamily: "Arial" }}
+          ]
+        ];
+        for (let i = 0; i < dataObject.length; i++ ) {
+          const row = [];
+          row.push(i + 1);
+          row.push(dataObject[i].vehicle_id.license_plate);
+          row.push(dataObject[i].vehicle_id.truck_makes);
+          row.push(dataObject[i].vehicle_id.us_dot);
+          row.push(dataObject[i].start_time);
+          row.push(dataObject[i].end_time);
+          row.push((dataObject[i].slot_number).toString());
+          row.push(dataObject[i].booking_ref);
+          table.push(row);
+        }
+        const tableStyle = {
+          tableColWidth: 4290,
+          tableSize: 12,
+          tableColor: "auto",
+          tableAlign: "left",
+          borderSize: 2,
+          borderColor: "000000",
+          cellMargin: 20,
+          width : 12240,
+          height : 840
+        };
+        docx.createTable(table, tableStyle);
+        pdfFileName = `word_doc/${Date.now()}_bookings_doc.docx`;
+      }
+      let filePath = `https://api.a1truckpark.com/files/${pdfFileName}`;
+      const outputStream = fs.createWriteStream(path.resolve(`./server/uploads/${pdfFileName}`));
       docx.generate(outputStream);
+      return showResponse(true, 'Successfully generated word file', filePath, null, 200);
       
     }catch(err){
       console.log(err)
