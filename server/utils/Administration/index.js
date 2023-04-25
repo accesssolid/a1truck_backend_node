@@ -16,6 +16,7 @@ const VehicleType = require('../../models/VehicleType');
 const { Console } = require("winston/lib/winston/transports");
 const Contact = require('../../models/Contactus');
 const fireBaseAdmin = require('../../services/helper/firebaseAdmin');
+const AWS = require('aws-sdk'); 
 
 const adminUtils = {
     login : async(bodyData) => {
@@ -33,6 +34,50 @@ const adminUtils = {
         return helpers.showResponse(false, 'Invalid Credentials', null, null, 200);
     },
 
+    // forgotPassword : async(bodyData) => {
+    //     const { email } =  bodyData;
+    //     let query = { email : { $eq : email }, status : { $ne : 2 } }
+    //     let result = await getSingleData(Administration, query, '');
+    //     if(result.status){
+    //         let { data } = result;
+    //         let otp = helpers.randomStr(4, "1234567890");
+    //         let dataObj = {
+    //             otp,
+    //             updated_on : moment().unix()
+    //         }
+    //         let response = await updateData(Administration, dataObj, ObjectId(data._id));
+    //         if(response.status){
+    //             // Forget-password email send to admin here
+    //             try{
+    //                 let transporter = nodemailer.createTransport({
+    //                     host: 'smtp.gmail.com',
+    //                     port: 587,
+    //                     secure: false,
+    //                     auth: {
+    //                         user: process.env.APP_EMAIL,
+    //                         pass: process.env.APP_PASSWORD
+    //                     },
+    //                 });
+    //                 await transporter.sendMail({
+    //                     from: process.env.APP_EMAIL,
+    //                     to: email,
+    //                     subject: 'Forgot password',
+    //                     html: "<b>Greetings, </b><br /><br />Here is your 4 Digits reset password Code<br />" +
+    //                         "<h2>" + otp + "</h2><br /><br /><label><small>Please use this code for Authorization." +
+    //                         "</small></label><br /><br /><label>Thanks & Regards</label><br /><label>Frontier" +
+    //                         "Community</label>",
+    //                 });
+    //                 return helpers.showResponse(true, 'Forgot Password Instruction has been sent to your Registered email', null, null, 200);
+
+    //             }catch(error){
+    //                 return helpers.showResponse(false, 'Unable to send email at the moment', null, null, 200);
+    //             }
+    //         }
+    //         return helpers.showResponse(false, 'Internal Server Error!!', null, null, 200);
+    //     }
+    //     return helpers.showResponse(false, 'Mentioned email is not registered with us', null, null, 200);
+    // },
+
     forgotPassword : async(bodyData) => {
         const { email } =  bodyData;
         let query = { email : { $eq : email }, status : { $ne : 2 } }
@@ -46,31 +91,12 @@ const adminUtils = {
             }
             let response = await updateData(Administration, dataObj, ObjectId(data._id));
             if(response.status){
-                // Forget-password email send to admin here
-                try{
-                    let transporter = nodemailer.createTransport({
-                        host: 'smtp.gmail.com',
-                        port: 587,
-                        secure: false,
-                        auth: {
-                            user: process.env.APP_EMAIL,
-                            pass: process.env.APP_PASSWORD
-                        },
-                    });
-                    await transporter.sendMail({
-                        from: process.env.APP_EMAIL,
-                        to: email,
-                        subject: 'Forgot password',
-                        html: "<b>Greetings, </b><br /><br />Here is your 4 Digits reset password Code<br />" +
-                            "<h2>" + otp + "</h2><br /><br /><label><small>Please use this code for Authorization." +
-                            "</small></label><br /><br /><label>Thanks & Regards</label><br /><label>Frontier" +
-                            "Community</label>",
-                    });
-                    return helpers.showResponse(true, 'Forgot Password Instruction has been sent to your Registered email', null, null, 200);
-
-                }catch(error){
-                    return helpers.showResponse(false, 'Unable to send email at the moment', null, null, 200);
-                }
+                let html = "<b>Greetings, </b><br /><br />Here is your 4 Digits reset password Code<br />" +
+                "<h2>" + otp + "</h2><br /><br /><label><small>Please use this code for Authorization." +
+                "</small></label><br /><br /><label>Thanks & Regards</label><br /><label>Frontier" +
+                "Community</label>"
+                await helpers.sendEmailService(process.env.APP_EMAIL, email, 'Forgot password', html);
+                return helpers.showResponse(true, 'Forgot Password Instruction has been sent to your Registered email', null, null, 200);
             }
             return helpers.showResponse(false, 'Internal Server Error!!', null, null, 200);
         }

@@ -145,8 +145,10 @@ let BookingsUtils = {
             }
             let pdfResponse = await helpers.createBookingInvoicePDF(bookingData);
             pdfResponse.status == true ? (bookingData.pdf_fileName = pdfResponse.data) : (bookingData.pdf_fileName = null);
-            await helpers.sendBookingMailToUser(bookingData);
-            await helpers.sendBookingMailToAdmin(bookingData);
+            // await helpers.sendBookingMailToUser(bookingData); // not using.
+            // await helpers.sendBookingMailToAdmin(bookingData); // not using.
+            await helpers.sendBookingMailToUserAws(bookingData);
+            await helpers.sendBookingMailToAdminAws(bookingData);
             resolve(helpers.showResponse(true, "Parking Lot has been assigned", response?.data, null, 200));
           }
           resolve(helpers.showResponse(false, "Booking Error !!! Please Try Again Later", null, null, 200));

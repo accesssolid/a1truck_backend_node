@@ -153,21 +153,10 @@ let UserUtils = {
 
   register: async (data) => {
     try {
-      let {
-        username,
-        email,
-        phone_number,
-        country_code,
-        password,
-        fcm_token,
-        login_source,
-        google_id,
-        auth_token,
-      } = data;
+      let { username, email, phone_number, country_code, password, fcm_token, login_source, google_id, auth_token } = data;
       // email signup
       if (login_source == "email") {
-        // let otp = helpers.randomStr(4, "1234567890");
-        let otp = 1234;
+        let otp = helpers.randomStr(4, "1234567890");
         let finduser = await Users.aggregate([
           {
             $match: {
@@ -180,10 +169,7 @@ let UserUtils = {
             },
           },
         ]);
-        if (
-          finduser.length > 0 &&
-          finduser[0]?.is_verified == constValues.User_verified
-        ) {
+        if ( finduser.length > 0 && finduser[0]?.is_verified == constValues.User_verified) {
           let resmessage;
           if (finduser[0]?.username == username) {
             resmessage = Messages.USER_NAME_EXISTS;
@@ -222,28 +208,13 @@ let UserUtils = {
         };
         let user = new Users(obj);
         let result = await postData(user);
-        let token = jwt.sign(
-          { email: result?.data?.email, _id: result?.data?._id },
-          process.env.PRIVATE_KEY,
-          { expiresIn: process.env.TOKEN_EXPIRE }
-        );
+        await helpers.sendSMSService(phone_number, `Here is your 4 digit verification code : ${otp}`);
+        let token = jwt.sign( { email: result?.data?.email, _id: result?.data?._id }, process.env.PRIVATE_KEY, { expiresIn: process.env.TOKEN_EXPIRE });
         if (!token) {
-          return helpers.showResponse(
-            false,
-            "Token not generated",
-            null,
-            null,
-            statusCodes.success
-          );
+          return helpers.showResponse(false, "Token not generated", null, null, statusCodes.success);
         }
         if (result?.status) {
-          return helpers.showResponse(
-            true,
-            Messages.SEND_OTP,
-            result?.data,
-            { token: token },
-            statusCodes.createdsuccess
-          );
+          return helpers.showResponse(true, Messages.SEND_OTP, result?.data, { token: token }, statusCodes.createdsuccess);
         }
       }
       // apple signup
@@ -504,6 +475,7 @@ let UserUtils = {
   forgot_pass: async (data) => {
     try {
       let { country_code, phone_number } = data;
+      let otp = helpers.randomStr(4, "1234567890");
       let query = [
         {
           $match: {
@@ -528,7 +500,7 @@ let UserUtils = {
           result?.code
         );
       }
-
+      await helpers.sendSMSService(phone_number, `here is your 4 digit forget password instruction : ${otp}`);
       return helpers.showResponse(
         true,
         Messages.SEND_OTP,
@@ -920,6 +892,7 @@ let UserUtils = {
           statusCodes.success
         );
       }
+      await helpers.sendSMSService(phone_number, 'here is your 4 digit verification code');
       return helpers.showResponse(
         true,
         Messages.SEND_OTP,

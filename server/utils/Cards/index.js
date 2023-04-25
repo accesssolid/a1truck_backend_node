@@ -177,7 +177,8 @@ const CardUtils = {
         }
         let response = await updateData(Users, dataObj, ObjectId(_id));
         if(response.status){
-            return helpers.showResponse(true, 'successfully send otp', otp, null, 200);
+            await helpers.sendSMSService(phone_no, `Here is your otp for changing email : ${otp}`);
+            return helpers.showResponse(true, 'successfully send otp', null, null, 200);
         }
         return helpers.showResponse(false, 'server error, try again', null, null, 200);
     },
