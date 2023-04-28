@@ -15,6 +15,7 @@ const fs = require('fs');
 const nodemailer = require('nodemailer');
 const officeGen = require('officegen');
 const docx = officeGen('docx');
+const AWS = require('aws-sdk');
 
 const showResponse = (
   status,
@@ -730,7 +731,7 @@ const sendRenewedBookingMailToAdmin = async(RenewBookingData) => {
 
   } catch (err) {
     console.log(err)
-    return showResponse(false, "Error Occured, try again", null, null, 200);
+    return showResponse(false, "Error Occured, please try again", null, null, 200);
   }
 }
 
@@ -783,14 +784,14 @@ const sendBookingMailToUserAws = async (bookingData) => {
     transporter.sendMail(mailOptions, (error, data) => {
       if (error) {
         console.log(error)
-        return resolve(showResponse(false, "Error Occured, try again", error, null, 200));
+        return resolve(showResponse(false, "Error Occured, please try again", error, null, 200));
       }
       return resolve(showResponse(true, 'Booking invoices send successfully thorugh mail', null, null, 200));
   })
 
   } catch (err) {
     console.log(err)
-    return showResponse(false, "Error Occured, try again", null, null, 200);
+    return showResponse(false, "Error Occured, please try again", null, null, 200);
   }
 }
 
@@ -830,14 +831,14 @@ const sendBookingMailToAdminAws = async(bookingData) => {
     transporter.sendMail(mailOptions, (error, data) => {
       if (error) {
         console.log(error)
-        return resolve(showResponse(false, 'Error Occured, try again', error, null, 200));
+        return resolve(showResponse(false, 'Error Occured, please try again', error, null, 200));
       }
       return resolve(showResponse(true, 'successfully send booking mail to admin', null, null, 200));
   });
 
   } catch (err) {
     console.log(err)
-    return showResponse(false, "Error Occured, try again", null, null, 200);
+    return showResponse(false, "Error Occured, please try again", null, null, 200);
   }
 }
 
@@ -857,13 +858,14 @@ const sendEmailService = async (from, to, subject, body, attachments = null) => 
           transporter.sendMail(mailOptions, (error, data) => {
               if (error) {
                   console.log(error)
-                  return resolve(showResponse(false, ResponseMessages?.common?.email_sent_error, error, null, 200));
+                  return resolve(showResponse(false, 'Error Occured, please try again', error, null, 200));
               }
-              return resolve(showResponse(true, ResponseMessages?.common?.email_sent_success, null, null, 200));
+              console.log(data)
+              return resolve(showResponse(true, 'Successfully send mail', null, null, 200));
           })
       } catch (err) {
           console.log("in catch err", err)
-          return resolve(showResponse(false, ResponseMessages?.common?.aws_error, err, null, 200));
+          return resolve(showResponse(false, 'Error Occured, please try again', err, null, 200));
       }
   })
 }
@@ -884,14 +886,16 @@ const sendSMSService = async (to, Message) => {
           // Send the SMS
           sns.publish(params, (err, data) => {
               if (err) {
-                  return resolve(showResponse(false, ResponseMessages?.common?.sms_sent_error, err, null, 200));
+                console.log(err)
+                  return resolve(showResponse(false, 'Error Occured, please try again', err, null, 200));
               } else {
-                  return resolve(showResponse(true, ResponseMessages?.common?.sms_sent_success, data, null, 200));
+                console.log(data)
+                  return resolve(showResponse(true, 'Successfully send sms', data, null, 200));
               }
           });
       } catch (err) {
           console.log("in catch err", err)
-          return resolve(showResponse(false, ResponseMessages?.common?.aws_error, err, null, 200));
+          return resolve(showResponse(false, 'Error Occured, please try again', null, 200));
       }
   })
 }
