@@ -13,16 +13,14 @@ const Common = require('./server/controllers/Common');
 
 const expressWiston = require('express-winston');
 const { transports,format } = require('winston');
-require('winston-mongodb');
+// require('winston-mongodb');
 const db = require('./server/connection/index');
 
 const app = express();
 
 // **********Logging Start*********
-
 app.use(expressWiston.logger({
   transports:[
-      // new transports.Console(),
       new transports.File({
           level:'warn',
           filename:'logs/logWarning.log'
@@ -51,10 +49,10 @@ app.use(expressWiston.logger({
           level:'silly',
           filename:'logs/logSilly.log'
       }),
-      new transports.MongoDB({
-        db : db,
-        collection: 'mylogs'
-      })
+      // new transports.MongoDB({
+      //   db : db,
+      //   collection: 'mylogs'
+      // })
   ],
   format:format.combine(
       format.json(),
@@ -64,8 +62,6 @@ app.use(expressWiston.logger({
   ),
   statusLevels:true
 }))
-
-// for internal error logger 
 app.use(expressWiston.errorLogger({
   transports:[
       new transports.File({
@@ -79,7 +75,6 @@ app.use(expressWiston.errorLogger({
   ),
   statusLevels:true
 }))
-
 // **********Logging End*********
 
 app.use(compression());

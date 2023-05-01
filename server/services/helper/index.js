@@ -411,7 +411,7 @@ const sendContactEmail = async (bodyData) => {
 const createBookingInvoicePDF = async(bookingData) => {
   try{
     let pdfDoc = new pdfkit;
-    let pdfFileName = `${Date.now()}_invoice.pdf`;
+    let pdfFileName = `Booking_${Date.now()}_invoice`;
     pdfDoc.pipe(fs.createWriteStream(path.resolve(`./server/uploads/booking_invoice/${pdfFileName}`)));
     pdfDoc.image(path.resolve('./server/uploads/textlogo3.png'), 25, 20, { width: 140 });
     pdfDoc.fontSize(10).font('Helvetica-Bold').fillColor('black').text("Invoice :", 35, 90);
@@ -736,110 +736,115 @@ const sendRenewedBookingMailToAdmin = async(RenewBookingData) => {
 }
 
 const sendBookingMailToUserAws = async (bookingData) => {
-  let { user_name, email, booking_creation_time, total_cost, slot_type, pdf_fileName } = bookingData;
-  try {
-    let body = `
-    //     <h4>Dear ${user_name},</h4>
-    //     <p>Thank you for booking a truck parking slot with us. We are pleased to confirm your reservation for the following :</p>
-    //     <p>Booking Details:</p>
-    //     <table cellspacing="25">
-    //       <tr>
-    //         <th style="text-align: left">Booking Date</th> <td>${booking_creation_time}</td>
-    //       </tr>
-    //       <tr>
-    //         <th style="text-align: left">Parking Duration</th> <td>${slot_type}</td>
-    //       </tr>
-    //       <tr>
-    //         <th style="text-align: left">Total Cost</th> <td>${total_cost}</td>
-    //       </tr>
-    //     </table>
-    //     <br/>
-    //     <p>Please find attached the invoice for your reference.</p> <br/>
-    //     <h3>Parking Rules :</h3> <br/>
-    //     <p>Please note that your parking slot is reserved for the specified duration only. Additional charges will apply for overstaying.
-    //     <p>All vehicles must comply with our parking rules and regulations.</p> <br/>
-    //     <p>We are not responsible for any loss or damage to vehicles or their contents while parked on our premises.</p> </br>
-    //     <p>Please notify us if you need to cancel or change your booking at least 24 hours before the booking start time to avoid cancellation charges.</p> </br></br>
-    //     <p>Thank you for choosing our truck parking services. We look forward to serving you again.</p>
-    //     </p> </br> </br>
-    //     <p>Sincerely,</p>
-    //     <br/><label>A1 Truck Parking.</label>
-    //     `
-    let transporter = nodemailer.createTransport({
-      SES: new AWS.SES({ accessKeyId: process.env.AccessKeyId, secretAccessKey: process.env.SecretAccessKey, region : process.env.Region, apiVersion: "2010-12-01" })
-    });
-    let mailOptions = {
-      from : process.env.APP_EMAIL,
-      to : email,
-      subject : 'A1 Truck Booking',
-      html : body,
-      attachments: [
-        {
-          filename : 'invoice.pdf',
-          path : `${path.resolve('./server/uploads/booking_invoice/'+pdf_fileName)}`,
-          contentType : 'application/pdf'
-        }
-      ]
-    }
-    transporter.sendMail(mailOptions, (error, data) => {
-      if (error) {
-        console.log(error)
-        return resolve(showResponse(false, "Error Occured, please try again", error, null, 200));
+  return new Promise(async (resolve, reject) => {
+    let { user_name, email, booking_creation_time, total_cost, slot_type, pdf_fileName } = bookingData;
+    try {
+      // let filePath = `${path.resolve('./server/uploads/booking_invoice/'+pdf_fileName)}`
+      let body = `
+        <h4>Dear ${user_name},</h4>
+        <p>Thank you for booking a truck parking slot with us. We are pleased to confirm your reservation for the following :</p>
+        <p>Booking Details:</p>
+        <table cellspacing="25">
+          <tr>
+            <th style="text-align: left">Booking Date</th> <td>${booking_creation_time}</td>
+          </tr>
+          <tr>
+            <th style="text-align: left">Parking Duration</th> <td>${slot_type}</td>
+          </tr>
+          <tr>
+            <th style="text-align: left">Total Cost</th> <td>${total_cost}</td>
+          </tr>
+        </table>
+        <br/>
+        <p>Please find attached the invoice for your reference.</p> <br/>
+        <h3>Parking Rules :</h3> <br/>
+        <p>Please note that your parking slot is reserved for the specified duration only. Additional charges will apply for overstaying.
+        <p>All vehicles must comply with our parking rules and regulations.</p> <br/>
+        <p>We are not responsible for any loss or damage to vehicles or their contents while parked on our premises.</p> </br>
+        <p>Please notify us if you need to cancel or change your booking at least 24 hours before the booking start time to avoid cancellation charges.</p> </br></br>
+        <p>Thank you for choosing our truck parking services. We look forward to serving you again.</p>
+        </p> </br> </br>
+        <p>Sincerely,</p>
+        <br/><label>A1 Truck Parking.</label>
+      `
+      let transporter = nodemailer.createTransport({
+        SES: new AWS.SES({ accessKeyId: process.env.AccessKeyId, secretAccessKey: process.env.SecretAccessKey, region : process.env.Region, apiVersion: "2010-12-01" })
+      });
+      let mailOptions = {
+        from : process.env.APP_EMAIL,
+        to : email,
+        subject : 'A1 Truck Booking',
+        html : body,
+        attachments: [
+          {
+            filename : 'invoice.pdf',
+            path : `${path.resolve('./server/uploads/booking_invoice/'+pdf_fileName)}`,
+            // content : fs.createReadStream(filePath),
+            contentType : 'application/pdf'
+          }
+        ]
       }
-      return resolve(showResponse(true, 'Booking invoices send successfully thorugh mail', null, null, 200));
-  })
-
-  } catch (err) {
-    console.log(err)
-    return showResponse(false, "Error Occured, please try again", null, null, 200);
-  }
+      transporter.sendMail(mailOptions, (error, data) => {
+        if (error) {
+          console.log(error)
+          return resolve(showResponse(false, "Error Occured, please try again", error, null, 200));
+        }
+        return resolve(showResponse(true, 'Booking invoices send successfully thorugh mail', null, null, 200));
+      })
+    } catch (err) {
+      console.log(err)
+      return showResponse(false, "Error Occured, please try again", null, null, 200);
+    }
+  });
 }
 
 const sendBookingMailToAdminAws = async(bookingData) => {
-  let { user_name, slot_type, vehicle_type, booking_start_time, booking_end_time, phone_number } = bookingData;
-  try {
-    let body = `
-    <h4>Hello, Administrator</h4>
-    <p>There is a new ${slot_type} booking of ${vehicle_type} from ${user_name}.</br></p>
-    <table cellspacing="25">
-      <tr>
-        <th style="text-align: left">Booking Start Time</th> <td>${booking_start_time}</td>
-      </tr>
-      <tr>
-        <th style="text-align: left">Booking End Time</th> <td>${booking_end_time}</td>
-      </tr>
-      <tr>
-        <th style="text-align: left">Parking Duration</th> <td>${slot_type}</td>
-      </tr>
-      <tr>
-        <th style="text-align: left">Phone No</th> <td>${phone_number}</td>
-      </tr>
-    </table>
-    </br>
-    <p>So please contact to user if any type of concern.</p>
-    <br/><label>A1 Truck Parking.</label>
-    `
-    let transporter = nodemailer.createTransport({
-      SES: new AWS.SES({ accessKeyId: process.env.AccessKeyId, secretAccessKey: process.env.SecretAccessKey, region : process.env.Region, apiVersion: "2010-12-01" })
-    });
-    let mailOptions = {
-      from : process.env.APP_EMAIL,
-      to : 'anak@solidappmaker.com',
-      subject : 'A1 Truck Booking',
-      html : body
-    }
-    transporter.sendMail(mailOptions, (error, data) => {
-      if (error) {
-        console.log(error)
-        return resolve(showResponse(false, 'Error Occured, please try again', error, null, 200));
+  return new Promise(async (resolve, reject) => {
+    let { user_name, slot_type, vehicle_type, booking_start_time, booking_end_time, phone_number } = bookingData;
+    try {
+      let body = `
+      <h4>Hello, Administrator</h4>
+      <p>There is a new ${slot_type} booking of ${vehicle_type} from ${user_name}.</br></p>
+      <table cellspacing="25">
+        <tr>
+          <th style="text-align: left">Booking Start Time</th> <td>${booking_start_time}</td>
+        </tr>
+        <tr>
+          <th style="text-align: left">Booking End Time</th> <td>${booking_end_time}</td>
+        </tr>
+        <tr>
+          <th style="text-align: left">Parking Duration</th> <td>${slot_type}</td>
+        </tr>
+        <tr>
+          <th style="text-align: left">Phone No</th> <td>${phone_number}</td>
+        </tr>
+      </table>
+      </br>
+      <p>So please contact to user if any type of concern.</p>
+      <br/><label>A1 Truck Parking.</label>
+      `
+      let transporter = nodemailer.createTransport({
+        SES: new AWS.SES({ accessKeyId: process.env.AccessKeyId, secretAccessKey: process.env.SecretAccessKey, region : process.env.Region, apiVersion: "2010-12-01" })
+      });
+      let mailOptions = {
+        from : process.env.APP_EMAIL,
+        to : 'anak@solidappmaker.com',
+        subject : 'A1 Truck Booking',
+        html : body
       }
-      return resolve(showResponse(true, 'successfully send booking mail to admin', null, null, 200));
-  });
+      transporter.sendMail(mailOptions, (error, data) => {
+        if (error) {
+          console.log(error)
+          return resolve(showResponse(false, 'Error Occured, please try again', error, null, 200));
+        }
+        return resolve(showResponse(true, 'successfully send booking mail to admin', null, null, 200));
+      });
 
-  } catch (err) {
-    console.log(err)
-    return showResponse(false, "Error Occured, please try again", null, null, 200);
-  }
+      } catch (err) {
+        console.log(err)
+        return showResponse(false, "Error Occured, please try again", null, null, 200);
+      }
+  });
 }
 
 const sendEmailService = async (from, to, subject, body, attachments = null) => {
