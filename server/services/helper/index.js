@@ -411,7 +411,7 @@ const sendContactEmail = async (bodyData) => {
 const createBookingInvoicePDF = async(bookingData) => {
   try{
     let pdfDoc = new pdfkit;
-    let pdfFileName = `Booking_${Date.now()}_invoice`;
+    let pdfFileName = `Booking_${Date.now()}_invoice.pdf`;
     pdfDoc.pipe(fs.createWriteStream(path.resolve(`./server/uploads/booking_invoice/${pdfFileName}`)));
     pdfDoc.image(path.resolve('./server/uploads/textlogo3.png'), 25, 20, { width: 140 });
     pdfDoc.fontSize(10).font('Helvetica-Bold').fillColor('black').text("Invoice :", 35, 90);
@@ -739,7 +739,7 @@ const sendBookingMailToUserAws = async (bookingData) => {
   return new Promise(async (resolve, reject) => {
     let { user_name, email, booking_creation_time, total_cost, slot_type, pdf_fileName } = bookingData;
     try {
-      // let filePath = `${path.resolve('./server/uploads/booking_invoice/'+pdf_fileName)}`
+    let s3Link = `https://api.a1truckpark.com/files/booking_invoice/${pdf_fileName}`;
       let body = `
         <h4>Dear ${user_name},</h4>
         <p>Thank you for booking a truck parking slot with us. We are pleased to confirm your reservation for the following :</p>
@@ -767,7 +767,7 @@ const sendBookingMailToUserAws = async (bookingData) => {
         <p>Sincerely,</p>
         <br/><label>A1 Truck Parking.</label>
       `
-      let transporter = nodemailer.createTransport({
+      let transporter = await nodemailer.createTransport({
         SES: new AWS.SES({ accessKeyId: process.env.AccessKeyId, secretAccessKey: process.env.SecretAccessKey, region : process.env.Region, apiVersion: "2010-12-01" })
       });
       let mailOptions = {
@@ -778,8 +778,7 @@ const sendBookingMailToUserAws = async (bookingData) => {
         attachments: [
           {
             filename : 'invoice.pdf',
-            path : `${path.resolve('./server/uploads/booking_invoice/'+pdf_fileName)}`,
-            // content : fs.createReadStream(filePath),
+            path : s3Link,
             contentType : 'application/pdf'
           }
         ]
