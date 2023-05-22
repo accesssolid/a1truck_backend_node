@@ -746,6 +746,16 @@ const adminUtils = {
         }else{
             return helpers.showResponse(false, 'Unable to add slots.', checkSlotsData, null, 200);
         }
+    },
+    slotList : async(bodyData) => {        
+        let checkSlotsData = await Slots.find({
+            status:{$eq:1}
+        });
+        if(checkSlotsData.length > 0){
+            return helpers.showResponse(true, 'Slots list get successfully', checkSlotsData, null, 200);
+        }else{
+            return helpers.showResponse(false, 'Empty slot list data.', checkSlotsData, null, 200);
+        }
     }
 
 }

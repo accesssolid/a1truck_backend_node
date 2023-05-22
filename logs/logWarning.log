@@ -252,3 +252,31 @@
     timestamp: '2023-05-22T12:13:54.624Z'
   }
 }
+{
+  level: 'warn',
+  message: 'HTTP POST /api/v1/admin/slot_list',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/admin/slot_list',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjY0MzU1OTY4MjZlMWU2OTdjOTY5Y2I0YiIsImlhdCI6MTY4NDc1NzY1MSwiZXhwIjoxNzE2MjkzNjUxfQ.1jNAt4i90zcu-95SRZPLVA9qBJxXJPgJ2_0_F9gK-ik',
+          'user-agent': 'PostmanRuntime/7.32.2',
+          accept: '*/*',
+          'postman-token': 'a8f32f20-abdf-4415-a0f2-5bb4e5dd1bff',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '0'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/admin/slot_list',
+        query: {}
+      },
+      res: { statusCode: 405 },
+      responseTime: 2
+    },
+    timestamp: '2023-05-22T12:47:52.794Z'
+  }
+}

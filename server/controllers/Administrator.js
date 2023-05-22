@@ -404,6 +404,14 @@ const adminController = {
     let result = await AdministrationUtils.createSlots(req.body,admin_id);
     return helpers.showOutput(res, result, result.code);
   },
+  slotList : async(req, res, next) => {
+    let admin_id = req.decoded.admin_id;
+    if (!admin_id) {
+      return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_ADMIN), 403);
+    }
+    let result = await AdministrationUtils.slotList(req.body,admin_id);
+    return helpers.showOutput(res, result, result.code);
+  },
   checkSlotExist : async(req, res, next) => {
     let admin_id = req.decoded.admin_id;
     if (!admin_id) {

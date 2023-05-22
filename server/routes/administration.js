@@ -13,6 +13,7 @@ router.post('/logout', AdministratorController.logout);
 
 router.post('/create_slots', middleware.checkAdminToken, AdministratorController.createSlots);
 router.post('/check_slot_exist', middleware.checkAdminToken, AdministratorController.checkSlotExist);
+router.post('/slot_list', middleware.checkAdminToken, AdministratorController.slotList);
 router.get('/get_admin_detail', middleware.checkAdminToken, AdministratorController.getAdminDetail);
 router.post('/add_profile_pic', middleware.checkAdminToken, AdministratorController.addProfilePicture);
 router.post('/change_password', middleware.checkAdminToken, AdministratorController.changePassword);
