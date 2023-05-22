@@ -15,6 +15,7 @@ router.post('/new_password', AuthController.new_password);
 router.post('/resendotp', AuthController.resend_otp);
 
 // Users Routes with token
+router.post('/check_slot_exist',middleware.checkToken, AuthController.checkSlotExist);
 router.get('/profile',middleware.checkToken, AuthController.user_profile);
 router.patch('/update_profile',middleware.checkToken, AuthController.user_Updateprofile);
 router.delete('/delete_account',middleware.checkToken, AuthController.delete_account);

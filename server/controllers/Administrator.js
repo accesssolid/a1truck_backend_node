@@ -389,6 +389,33 @@ const adminController = {
     }
     let result = await AdministrationUtils.exportUsersDocument(req.body);
     return helpers.showOutput(res, result, result.code);
+  },
+
+  createSlots : async(req, res, next) => {
+    let admin_id = req.decoded.admin_id;
+    if (!admin_id) {
+      return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_ADMIN), 403);
+    }
+    let requiredFields = ['interval_time_minutes']; // pdf and word
+    let validator = helpers.validateParams(req, requiredFields);
+    if (!validator.status) {
+      return helpers.showOutput(res, helpers.showResponse(false, validator.message), 203);
+    }
+    let result = await AdministrationUtils.createSlots(req.body,admin_id);
+    return helpers.showOutput(res, result, result.code);
+  },
+  checkSlotExist : async(req, res, next) => {
+    let admin_id = req.decoded.admin_id;
+    if (!admin_id) {
+      return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_ADMIN), 403);
+    }
+    let requiredFields = ['slot_time']; // pdf and word
+    let validator = helpers.validateParams(req, requiredFields);
+    if (!validator.status) {
+      return helpers.showOutput(res, helpers.showResponse(false, validator.message), 203);
+    }
+    let result = await AdministrationUtils.checkSlotExist(req.body,admin_id);
+    return helpers.showOutput(res, result, result.code);
   }
 
 };

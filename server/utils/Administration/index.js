@@ -10,6 +10,7 @@ let md5 = require("md5");
 let FAQ = require("../../models/FAQ");
 let Users = require('../../models/Users');
 let Bookings = require('../../models/Bookings');
+let Slots = require('../../models/Slots');
 const { constValues, statusCodes } = require("../../services/helper/constants");
 const CommonContent = require('../../models/CommonContent');
 const VehicleType = require('../../models/VehicleType');
@@ -700,8 +701,51 @@ const adminUtils = {
 
         }else{
             return helpers.showResponse(false, 'Invalid type', null, null, 200);
-        }
+        }  
+    },
+
+    createSlots : async(bodyData) => {
+        let { interval_time_minutes } = bodyData;
+        let interval = parseInt(interval_time_minutes);
         
+        const slots = [];
+        const uniqueNumbers = new Set();
+        const startTime = moment('00:00', 'HH:mm');
+        const endTime = moment('23:59', 'HH:mm');
+        
+        while (startTime <= endTime) {
+            const slot = {
+                slot_start_time: startTime.format('HH:mm'),
+                slot_end_time: startTime.add(interval, 'minutes').format('HH:mm'),
+                // slot_number: adminUtils.generateUniqueNumber(uniqueNumbers),
+                slot_number: Math.floor(Math.random() * 9000) + 1000,
+                created_at:moment().unix()
+            };
+            slots.push(slot);
+        }
+
+        let deletePrevData = await Slots.deleteMany({status:{$eq:1}},{status:2,updated_at:moment().unix()})
+        let insertData = await Slots.insertMany(slots);
+        if(insertData){
+            return helpers.showResponse(true, 'Slots created successfully', insertData, null, 200);
+        }else{
+            return helpers.showResponse(false, 'Unable to add slots.', insertData, null, 200);
+        }
+    },
+    checkSlotExist : async(bodyData) => {
+        let { slot_time } = bodyData;
+        
+        let checkSlotsData = await Slots.findOne({
+            $and: [
+                { slot_start_time: { $lte: slot_time } },
+                { slot_end_time: { $gt: slot_time } }
+            ]
+        });
+        if(checkSlotsData){
+            return helpers.showResponse(true, 'Time slot get successfully', checkSlotsData, null, 200);
+        }else{
+            return helpers.showResponse(false, 'Unable to add slots.', checkSlotsData, null, 200);
+        }
     }
 
 }
