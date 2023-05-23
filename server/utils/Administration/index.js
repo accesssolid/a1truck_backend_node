@@ -703,6 +703,32 @@ const adminUtils = {
             return helpers.showResponse(false, 'Invalid type', null, null, 200);
         }  
     },
+    exportSlotsDocument : async(bodyData) => {
+        let { type } = bodyData;
+        
+        
+        let slotsData = await Slots.find({status:{$eq:1}});
+        if(slotsData.length < 1){
+            return helpers.showResponse(false, 'Empty Slots Data', null, null, 200);
+        }
+
+        if(type == 'pdf'){
+            let excelResponse = await helpers.generatePdfSlots(slotsData, 'slots');
+            if(excelResponse.status){
+                return helpers.showResponse(true, 'Successfully generated slots pdf', excelResponse.data, null, 200);
+            }
+            return helpers.showResponse(false, 'Error Occured!!, failed to generate pdf', null, null, 200);
+
+        }else if(type == 'word'){
+            let wordResponse = await helpers.generateWordSlots(slotsData, 'slots');
+            if(wordResponse.status){
+                return helpers.showResponse(true, 'Successfully generated slots word file', wordResponse.data, null, 200);
+            }
+            return helpers.showResponse(false, 'Error Occured!!, failed to generate word file', null, null, 200);
+        }else{
+            return helpers.showResponse(false, 'Invalid type', null, null, 200);
+        }  
+    },
 
     createSlots : async(bodyData) => {
         let { interval_time_minutes } = bodyData;

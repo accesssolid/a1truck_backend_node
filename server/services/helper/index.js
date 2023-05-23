@@ -517,6 +517,98 @@ const generatePdfUsersAndBookings = async(dataObject, type) => {
     return showResponse(false, 'No users found', null, null, 200);
   }
 }
+const generateWordSlots = async(dataObject, type) => {
+  if(dataObject.length > 0){
+    try{
+      docx.createP({ align : 'center' }).addImage(path.resolve('./server/uploads/textlogo3.png'), { cx: 300, cy: 80 });
+      let pdfFileName;
+      if(type == 'slots'){
+        const table = [
+          [
+            { val: "S. NO", opts: { b: true, sz: '15', cellColWidth: 700, shd: { fill: "7F7F7F", themeFill: "text1", "themeFillTint": "80" }, fontFamily: "Arial" } },
+            { val: "Start Time", opts: { b: true, sz: '15', cellColWidth: 2500, shd: { fill: "7F7F7F", themeFill: "text1", "themeFillTint": "80" }, fontFamily: "Arial" } }, 
+            { val: "End Time", opts: { b: true, sz: '15', align: "center", cellColWidth: 4000, shd: { fill: "7F7F7F", themeFill: "text1", "themeFillTint": "80" }, fontFamily: "Arial" } }, 
+            { val: "Slot Number", opts: { b: true, sz: '15', align: "center", cellColWidth: 2500, shd: { fill: "7F7F7F", themeFill: "text1", "themeFillTint": "80" }, fontFamily: "Arial" }}
+          ]
+        ];
+        for (let i = 0; i < dataObject.length; i++ ) {
+          const row = [];
+          row.push(i + 1);
+          row.push(dataObject[i].slot_start_time);
+          row.push(dataObject[i].slot_end_time);
+          row.push(dataObject[i].slot_number);
+          table.push(row);
+        }
+        const tableStyle = {
+          tableColWidth: 4290,
+          tableSize: 12,
+          tableColor: "auto",
+          tableAlign: "left",
+          borderSize: 2,
+          borderColor: "000000",
+          cellMargin: 20,
+          marginTop : 1000,
+          marginBottom : 100,
+          marginLeft : 100,
+          marginRight : 100,
+          width : 12240,
+          height : 840
+        };
+        docx.createTable(table, tableStyle);
+        pdfFileName = `word_doc/${Date.now()}_slots_doc.docx`;
+
+      }
+      
+      let filePath = `https://api.a1truckpark.com/files/${pdfFileName}`;
+      const outputStream = fs.createWriteStream(path.resolve(`./server/uploads/${pdfFileName}`));
+      docx.generate(outputStream);
+      return showResponse(true, 'Successfully generated word file', filePath, null, 200);
+      
+    }catch(err){
+      console.log(err)
+      return showResponse(false, 'Server Error, word file did not created..', null, null, 200);
+    }
+
+  }else{
+    return showResponse(false, 'No users found', null, null, 200);
+  }
+}
+
+const generatePdfSlots = async(dataObject, type) => {
+  if(dataObject.length > 0){
+    try{
+      let pdfDoc = new pdfkit;
+      let height = 125;
+      if(type == 'slots'){
+        let pdfFileName = `pdf_doc/${Date.now()}_slots_doc.pdf`;
+        pdfDoc.pipe(fs.createWriteStream(path.resolve(`./server/uploads/${pdfFileName}`)));
+        let filePath = `https://api.a1truckpark.com/files/${pdfFileName}`;
+        pdfDoc.image(path.resolve('./server/uploads/textlogo3.png'), 25, 20, { width: 140 });
+        pdfDoc.fontSize(10).font('Helvetica-Bold').fillColor('black').text("S.No", 35, height);
+        pdfDoc.fontSize(10).font('Helvetica-Bold').fillColor('black').text("Start Time", 100, height);
+        pdfDoc.fontSize(10).font('Helvetica-Bold').fillColor('black').text("End Time", 250, height);
+        pdfDoc.fontSize(10).font('Helvetica-Bold').fillColor('black').text("Slot Number", 400, height);
+        pdfDoc.lineJoin('round').rect(35, 136, 500, 0).lineWidth(0.1).stroke("#aaa");
+        for(let i = 0; i < dataObject.length; i++){
+          height += 15;
+          pdfDoc.fontSize(10).font('Helvetica').fillColor('black').text(i + 1, 35, height);
+          pdfDoc.fontSize(10).font('Helvetica').fillColor('black').text(dataObject[i].slot_start_time, 100, height);
+          pdfDoc.fontSize(10).font('Helvetica').fillColor('black').text(dataObject[i].slot_end_time, 250, height);
+          pdfDoc.fontSize(10).font('Helvetica').fillColor('black').text(dataObject[i].slot_number, 400, height);
+        }
+        pdfDoc.end();
+        return showResponse(true, 'successfully created pdf', filePath, null, 200);
+      }
+
+    }catch(err){
+      return showResponse(false, 'Server Error, Pdf file did not created..', null, null, 200);
+    }
+
+  }else{
+    return showResponse(false, 'No users found', null, null, 200);
+  }
+}
+
 
 const generateWordUsersAndBookings = async(dataObject, type) => {
   if(dataObject.length > 0){
@@ -612,6 +704,7 @@ const generateWordUsersAndBookings = async(dataObject, type) => {
     return showResponse(false, 'No users found', null, null, 200);
   }
 }
+
 
 const changeTimeZoneSettings = async(time_zone, createdAt, start_time, end_time) => {
   let booking_creation_time = moment(createdAt).tz(time_zone).format('YYYY-MM-DD hh:mm:ss A Z');
@@ -933,5 +1026,8 @@ module.exports = {
   sendEmailService,
   sendSMSService,
   sendBookingMailToUserAws,
-  sendBookingMailToAdminAws
+  sendBookingMailToAdminAws,
+  generateWordSlots,
+  generatePdfSlots
+  
 }

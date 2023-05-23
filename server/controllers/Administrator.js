@@ -391,6 +391,20 @@ const adminController = {
     return helpers.showOutput(res, result, result.code);
   },
 
+  exportSlotsDocument : async(req, res, next) => {
+    let admin_id = req.decoded.admin_id;
+    if (!admin_id) {
+      return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_ADMIN), 403);
+    }
+    let requiredFields = ['type']; // pdf and word
+    let validator = helpers.validateParams(req, requiredFields);
+    if (!validator.status) {
+      return helpers.showOutput(res, helpers.showResponse(false, validator.message), 203);
+    }
+    let result = await AdministrationUtils.exportSlotsDocument(req.body);
+    return helpers.showOutput(res, result, result.code);
+  },
+
   createSlots : async(req, res, next) => {
     let admin_id = req.decoded.admin_id;
     if (!admin_id) {

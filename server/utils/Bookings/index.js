@@ -51,7 +51,8 @@ let BookingsUtils = {
         endTime = new Date(endTime);
         let userResponse = await getSingleData(Users, { _id: ObjectId(user_id), status: { $ne: 2 } }, "");
         if (!userResponse?.status) {
-          return helpers.showResponse(false, "Invalid User", null, null, 200);
+          return resolve(helpers.showResponse(false, 'Invalid User', null, null, 200))
+          // return helpers.showResponse(false, "Invalid User", null, null, 200);
         }
         let userData = userResponse?.data;
         let oldBookinData = null;
@@ -60,7 +61,8 @@ let BookingsUtils = {
           let { old_booking_id } = data;
           let oldBookingResponse = await getSingleData(Bookings, { _id: ObjectId(old_booking_id), status: { $eq: 1 } }, "");
           if (!oldBookingResponse?.status) {
-            return helpers.showResponse(false, "Sorry !!! Invalid Booking Reference", null, null, 200);
+            return resolve(helpers.showResponse(false, 'Sorry !!! Invalid Booking Reference', null, null, 200))
+            // return helpers.showResponse(false, "Sorry !!! Invalid Booking Reference", null, null, 200);
           }
           oldBookinData = oldBookingResponse?.data;
         }
@@ -80,7 +82,8 @@ let BookingsUtils = {
         }
         let vehicleTypeResponse = await getSingleData(VehicleType, { _id: ObjectId(vehicle_type), status: { $ne: 2 } }, "");
         if (!vehicleTypeResponse?.status) {
-          return helpers.showResponse(false, "Invalid vehicle type", null, null, 200);
+          return resolve(helpers.showResponse(false, 'Invalid vehicle type', null, null, 200))
+          // return helpers.showResponse(false, "Invalid vehicle type", null, null, 200);
         }
         let vehicleTypeData = vehicleTypeResponse.data;
         let total_slots = vehicleTypeData?.slots;
@@ -99,8 +102,8 @@ let BookingsUtils = {
           total_booked_slot = conflictingBookingsResponse?.data?.length;
         }
         let total_available_slot = total_slots - total_booked_slot;
-        if(total_available_slot<=0){
-          return helpers.showResponse(false, "Sorry !!! No empty space for parking", null, null, 200);
+        if(total_available_slot <= 0){
+          return resolve(helpers.showResponse(false, 'Sorry !!! No empty space for parking', null, null, 200))
         }
         // make payment
         let payObj = {

@@ -375,3 +375,32 @@
     timestamp: '2023-05-15T11:34:48.572Z'
   }
 }
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/bookings/check_slot_availability',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/bookings/check_slot_availability',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5hdm5lZXRyYXdhdDU0QGdtYWlsLmNvbSIsIl9pZCI6IjY0NmM2NmNlZjJjNGMxZGI2M2VmYTlmZiIsImlhdCI6MTY4NDgzNzQyMywiZXhwIjoxNzE2MzczNDIzfQ.rESzRfJC-7suaL9ogwmTMxRXkG1GoSnYzk2tqVjehgg',
+          'user-agent': 'PostmanRuntime/7.32.2',
+          accept: '*/*',
+          'postman-token': 'd984721b-16ec-43f8-a76c-71f72f87978a',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-type': 'application/x-www-form-urlencoded',
+          'content-length': '265'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/bookings/check_slot_availability',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 1631
+    },
+    timestamp: '2023-05-23T10:34:28.007Z'
+  }
+}
