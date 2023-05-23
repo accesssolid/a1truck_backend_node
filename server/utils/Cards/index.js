@@ -1,4 +1,5 @@
 const Users = require('../../models/Users');
+const Slots = require('../../models/Slots');
 const Stripe = require('stripe');
 const stripe = Stripe(process.env.Stripe_Secret_Key);
 const helpers = require('../../services/helper/index');
@@ -191,6 +192,21 @@ const CardUtils = {
             return helpers.showResponse(true, 'Valid otp', null, null, 200);
         }
         return helpers.showResponse(false, 'Invalid otp', null, null, 200);
+    },
+    checkSlotExist : async(_id, bodyData) => {
+        let { slot_time } = bodyData;
+        
+        let checkSlotsData = await Slots.findOne({
+            $and: [
+                { slot_start_time: { $lte: slot_time } },
+                { slot_end_time: { $gt: slot_time } }
+            ]
+        });
+        if(checkSlotsData){
+            return helpers.showResponse(true, 'Time slot get successfully', checkSlotsData, null, 200);
+        }else{
+            return helpers.showResponse(false, 'Unable to get slots.', checkSlotsData, null, 200);
+        }
     }
 
 }

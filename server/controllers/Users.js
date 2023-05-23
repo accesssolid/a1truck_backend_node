@@ -188,6 +188,19 @@ const authController = {
     let result = await Stripcard.changePhoneNoVerifyOtp(_id, req.body);
     return helpers.showOutput(res, result, result.code);
   },
+  checkSlotExist: async (req, res, next) => {
+    let _id = req.decoded._id;
+    if (!_id) {
+      return helpers.showOutput(res, helpers.showResponse(false, ControllerMessages.INVALID_USER), 403);
+    }
+    let requiredFields = ["slot_time"];
+    let validator = helpers.validateParams(req, requiredFields);
+    if (!validator.status) {
+      return helpers.showOutput(res, helpers.showResponse(false, validator.message), 203);
+    }
+    let result = await Stripcard.checkSlotExist(_id, req.body);
+    return helpers.showOutput(res, result, result.code);
+  },
 };
 
 module.exports = {
