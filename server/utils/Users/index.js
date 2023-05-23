@@ -156,7 +156,8 @@ let UserUtils = {
       let { username, email, phone_number, country_code, password, fcm_token, login_source, google_id, auth_token } = data;
       // email signup
       if (login_source == "email") {
-        let otp = helpers.randomStr(4, "1234567890");
+        let otp = 1234;
+        // let otp = helpers.randomStr(4, "1234567890");
         let finduser = await Users.aggregate([
           {
             $match: {
@@ -475,7 +476,8 @@ let UserUtils = {
   forgot_pass: async (data) => {
     try {
       let { country_code, phone_number } = data;
-      let otp = helpers.randomStr(4, "1234567890");
+      // let otp = helpers.randomStr(4, "1234567890");
+      let otp = 1234;
       let query = [
         {
           $match: {

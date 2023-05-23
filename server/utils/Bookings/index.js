@@ -155,6 +155,7 @@ let BookingsUtils = {
         }
         resolve(helpers.showResponse(false, "Stripe Error !!! Please Try Again Later", null, null, 200));
       } catch (err) {
+        console.log(err)
         resolve(helpers.showResponse(false, "Slot Error !!! Please Try Again Later", err, null, 200));
       }
     });

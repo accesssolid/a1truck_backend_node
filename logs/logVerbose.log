@@ -288,3 +288,90 @@
     timestamp: '2023-05-01T12:56:23.682Z'
   }
 }
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/user/signup',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/user/signup',
+        headers: {
+          'content-type': 'application/json',
+          'user-agent': 'PostmanRuntime/7.32.2',
+          accept: '*/*',
+          'postman-token': '64c68cf9-978e-4a9c-a367-651907d63995',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '227',
+          cookie: 'jwtToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NWUxNTZiNzdjMjJiYWI0ZGMwNDBjNSIsImlhdCI6MTY4Mzg4ODA5MiwiZXhwIjoxNjgzODg4NjkyfQ.SWIbOOpQLxqTDpZesq0pEkxsbbbxpbI9OtRVD5a3T50'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/user/signup',
+        query: {}
+      },
+      res: { statusCode: 201 },
+      responseTime: 1948
+    },
+    timestamp: '2023-05-15T11:25:30.711Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/user/signup',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/user/signup',
+        headers: {
+          'content-type': 'application/json',
+          'user-agent': 'PostmanRuntime/7.32.2',
+          accept: '*/*',
+          'postman-token': '6d26a920-688f-4e84-a2a6-fc98e96fafc7',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '227',
+          cookie: 'jwtToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NWUxNTZiNzdjMjJiYWI0ZGMwNDBjNSIsImlhdCI6MTY4Mzg4ODA5MiwiZXhwIjoxNjgzODg4NjkyfQ.SWIbOOpQLxqTDpZesq0pEkxsbbbxpbI9OtRVD5a3T50'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/user/signup',
+        query: {}
+      },
+      res: { statusCode: 201 },
+      responseTime: 1930
+    },
+    timestamp: '2023-05-15T11:26:32.505Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/user/signup',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/user/signup',
+        headers: {
+          'content-type': 'application/json',
+          'user-agent': 'PostmanRuntime/7.32.2',
+          accept: '*/*',
+          'postman-token': '764de1b0-c1f0-4c7c-8845-9d886de5b01c',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-length': '228',
+          cookie: 'jwtToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NWUxNTZiNzdjMjJiYWI0ZGMwNDBjNSIsImlhdCI6MTY4Mzg4ODA5MiwiZXhwIjoxNjgzODg4NjkyfQ.SWIbOOpQLxqTDpZesq0pEkxsbbbxpbI9OtRVD5a3T50'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/user/signup',
+        query: {}
+      },
+      res: { statusCode: 201 },
+      responseTime: 2544
+    },
+    timestamp: '2023-05-15T11:34:48.572Z'
+  }
+}
