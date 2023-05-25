@@ -797,7 +797,7 @@ const sendRenewedBookingMailToAdmin = async(RenewBookingData) => {
       });
       await transporter.sendMail({
         from : process.env.APP_EMAIL,
-        to : 'anak@solidappmaker.com',
+        to : 'a1truckpark@gmail.com',
         subject : 'A1 Truck Booking',
         html : `
         <h4>Hello, Administrator</h4>
@@ -920,7 +920,7 @@ const sendBookingMailToAdminAws = async(bookingData) => {
       });
       let mailOptions = {
         from : process.env.APP_EMAIL,
-        to : 'anak@solidappmaker.com',
+        to : 'a1truckpark@gmail.com',
         subject : 'A1 Truck Booking',
         html : body
       }
