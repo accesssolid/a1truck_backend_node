@@ -854,7 +854,6 @@ const sendBookingMailToUserAws = async (bookingData) => {
         <p>Please note that your parking slot is reserved for the specified duration only. Additional charges will apply for overstaying.
         <p>All vehicles must comply with our parking rules and regulations.</p> <br/>
         <p>We are not responsible for any loss or damage to vehicles or their contents while parked on our premises.</p> </br>
-        <p>Please notify us if you need to cancel or change your booking at least 24 hours before the booking start time to avoid cancellation charges.</p> </br></br>
         <p>Thank you for choosing our truck parking services. We look forward to serving you again.</p>
         </p> </br> </br>
         <p>Sincerely,</p>

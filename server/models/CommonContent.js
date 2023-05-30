@@ -59,8 +59,14 @@ const commanSchema = mongoose.Schema({
         default : ''
     },
     video_link : {
-        type : String,
-        default : ''
+        video : {
+            type : String,
+            default : ''
+        },
+        youtube : {
+            type : String,
+            default : ''
+        }
     },
     services_and_amenities : [
         {

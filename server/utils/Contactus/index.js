@@ -45,11 +45,20 @@ const ContactUtils = {
     return helpers.showResponse(false, 'No data found', null, null, 200);
   },
 
-  videoUploadAdmin : async(fileName) => {
+  videoUploadAdmin : async(bodyData) => {
     let updateObj = {
-      video_link : fileName,
+      video : '',
+      youtube : ''
     }
-    let response = await updateSingleData(CommonContent, {}, updateObj, { new : true });
+    if(bodyData?.media_file && bodyData?.media_file != ''){
+      updateObj.video = bodyData.media_file;
+      updateObj.youtube = '';
+    }
+    if(bodyData?.youtube_link && bodyData?.youtube_link != ''){
+      updateObj.youtube = bodyData.youtube_link;
+      updateObj.video = ''
+    }
+    let response = await updateSingleData(CommonContent, {}, { video_link : updateObj }, { new : true });
     if (response.status) {
       return helpers.showResponse( true, 'Successfully updated video', null, null, 200);
     }

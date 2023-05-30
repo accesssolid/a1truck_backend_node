@@ -404,3 +404,119 @@
     timestamp: '2023-05-23T10:34:28.007Z'
   }
 }
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/appdata/video_upload_admin',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/appdata/video_upload_admin',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjY0MzU1OTY4MjZlMWU2OTdjOTY5Y2I0YiIsImlhdCI6MTY4NTQ0OTgzMiwiZXhwIjoxNzE2OTg1ODMyfQ.Z2E0TJ7QCIQwzEWqm8RmhTVqdyroINjt4LMXYwNesFU',
+          'user-agent': 'PostmanRuntime/7.32.2',
+          accept: '*/*',
+          'postman-token': '0cfd7cf1-d58b-4edb-9d21-d7e81f1e34bc',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-type': 'multipart/form-data; boundary=--------------------------818650539302281558081355',
+          'content-length': '9080532'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/appdata/video_upload_admin',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 7561
+    },
+    timestamp: '2023-05-30T12:41:05.849Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/appdata/video_upload_admin',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/appdata/video_upload_admin',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjY0MzU1OTY4MjZlMWU2OTdjOTY5Y2I0YiIsImlhdCI6MTY4NTQ0OTgzMiwiZXhwIjoxNzE2OTg1ODMyfQ.Z2E0TJ7QCIQwzEWqm8RmhTVqdyroINjt4LMXYwNesFU',
+          'user-agent': 'PostmanRuntime/7.32.2',
+          accept: '*/*',
+          'postman-token': '236dc5ea-6bb2-4378-a40e-027b88f2ce3e',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-type': 'multipart/form-data; boundary=--------------------------313425426664692868531917',
+          'content-length': '3466826'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/appdata/video_upload_admin',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 8440
+    },
+    timestamp: '2023-05-30T12:45:17.978Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/appdata/video_upload_admin',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/appdata/video_upload_admin',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjY0MzU1OTY4MjZlMWU2OTdjOTY5Y2I0YiIsImlhdCI6MTY4NTQ0OTgzMiwiZXhwIjoxNzE2OTg1ODMyfQ.Z2E0TJ7QCIQwzEWqm8RmhTVqdyroINjt4LMXYwNesFU',
+          'user-agent': 'PostmanRuntime/7.32.2',
+          accept: '*/*',
+          'postman-token': 'd23293c9-3444-47f3-b040-94cbd8dc9a9d',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-type': 'multipart/form-data; boundary=--------------------------919725754185982934122045',
+          'content-length': '3466826'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/appdata/video_upload_admin',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 6436
+    },
+    timestamp: '2023-05-30T13:25:19.000Z'
+  }
+}
+{
+  level: 'info',
+  message: 'HTTP POST /api/v1/appdata/video_upload_admin',
+  metadata: {
+    meta: {
+      req: {
+        url: '/api/v1/appdata/video_upload_admin',
+        headers: {
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjY0MzU1OTY4MjZlMWU2OTdjOTY5Y2I0YiIsImlhdCI6MTY4NTQ0OTgzMiwiZXhwIjoxNzE2OTg1ODMyfQ.Z2E0TJ7QCIQwzEWqm8RmhTVqdyroINjt4LMXYwNesFU',
+          'user-agent': 'PostmanRuntime/7.32.2',
+          accept: '*/*',
+          'postman-token': 'eb2eebaa-19d6-4c9d-a4d8-1b795fcefdb4',
+          host: 'localhost:3001',
+          'accept-encoding': 'gzip, deflate, br',
+          connection: 'keep-alive',
+          'content-type': 'multipart/form-data; boundary=--------------------------336647919109664047792111',
+          'content-length': '3466826'
+        },
+        method: 'POST',
+        httpVersion: '1.1',
+        originalUrl: '/api/v1/appdata/video_upload_admin',
+        query: {}
+      },
+      res: { statusCode: 200 },
+      responseTime: 4794
+    },
+    timestamp: '2023-05-30T13:34:32.160Z'
+  }
+}

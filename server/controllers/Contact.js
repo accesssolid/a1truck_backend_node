@@ -32,16 +32,20 @@ const ContactController = {
         return helpers.showOutput(res, helpers.showResponse(false, ControllerMessage.INVALID_USER), 403);
     }
     s3_upload_single(req, res, async(err) => {
-        if(!req.file || err){
-            return helpers.showOutput(res, helpers.showResponse(false, ControllerMessage.NO_IMAGE), 203);
-        }
+        // if(!req.file || err){
+        //     return helpers.showOutput(res, helpers.showResponse(false, ControllerMessage.NO_IMAGE), 203);
+        // }
         let fileObj = req.file;
-        let uploadResponseFromAws = await videoUploadToS3(fileObj, fileObj.buffer);
-        if(!uploadResponseFromAws.status){
-          return helpers.showResponse(false, "AWS Error!!, Upload Failed", null, null, 200);
+        let dataObj = {};
+        if(fileObj){
+          let uploadResponseFromAws = await videoUploadToS3(fileObj, fileObj.buffer);
+          if(!uploadResponseFromAws.status){
+            return helpers.showResponse(false, "AWS Error!!, Upload Failed", null, null, 200);
+          }
+          dataObj['media_file'] = uploadResponseFromAws.data.Key;
         }
-        let fileName = uploadResponseFromAws.data.key;
-        let result = await Contact.videoUploadAdmin(fileName);
+        dataObj = { ...dataObj, ...req.body };
+        let result = await Contact.videoUploadAdmin(dataObj);
         return helpers.showOutput(res, result, result.code);
     });
   },
