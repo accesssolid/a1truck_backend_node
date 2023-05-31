@@ -63,7 +63,8 @@ const authController = {
   },
 
   forgot_pass: async (req, res) => {
-    let requiredFields = ["country_code", "phone_number"];
+    // let requiredFields = ["country_code", "phone_number"];
+    let requiredFields = ["country_code", "email"];
     let validator = helpers.validateParams(req, requiredFields);
     if (!validator.status) {
       return helpers.showOutput(res, helpers.showResponse(false, validator.message), 203);
@@ -83,7 +84,8 @@ const authController = {
   },
 
   resend_otp: async (req, res) => {
-    let requiredFields = ["country_code", "phone_number"];
+    // let requiredFields = ["country_code", "phone_number"];
+    let requiredFields = ["country_code", "email"];
     let validator = helpers.validateParams(req, requiredFields);
     if (!validator.status) {
       return helpers.showOutput(res, helpers.showResponse(false, validator.message), 203);

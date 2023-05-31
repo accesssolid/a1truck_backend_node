@@ -156,8 +156,7 @@ let UserUtils = {
       let { username, email, phone_number, country_code, password, fcm_token, login_source, google_id, auth_token } = data;
       // email signup
       if (login_source == "email") {
-        let otp = 1234;
-        // let otp = helpers.randomStr(4, "1234567890");
+        let otp = helpers.randomStr(4, "1234567890");
         let finduser = await Users.aggregate([
           {
             $match: {
@@ -209,7 +208,12 @@ let UserUtils = {
         };
         let user = new Users(obj);
         let result = await postData(user);
-        await helpers.sendSMSService(phone_number, `Here is your 4 digit verification code : ${otp}`);
+        // await helpers.sendSMSService(phone_number, `Here is your 4 digit verification code : ${otp}`);
+        let html = "<b>Greetings, </b><br /><br />Here is your 4 Digits registration Code<br />" +
+          "<h2>" + otp + "</h2><br /><br /><label><small>Please use this code for Authorization." +
+          "</small></label><br /><br /><label>Thanks & Regards</label><br /><label>Frontier" +
+          "Community</label>"
+        await helpers.sendEmailService(process.env.APP_EMAIL, email, 'User Registration', html);
         let token = jwt.sign( { email: result?.data?.email, _id: result?.data?._id }, process.env.PRIVATE_KEY, { expiresIn: process.env.TOKEN_EXPIRE });
         if (!token) {
           return helpers.showResponse(false, "Token not generated", null, null, statusCodes.success);
@@ -475,13 +479,13 @@ let UserUtils = {
   },
   forgot_pass: async (data) => {
     try {
-      let { country_code, phone_number } = data;
-      // let otp = helpers.randomStr(4, "1234567890");
-      let otp = 1234;
+      // let { country_code, phone_number } = data;
+      let { country_code, email } = data;
+      let otp = helpers.randomStr(4, "1234567890");
       let query = [
         {
           $match: {
-            phone_number: phone_number,
+            email : email,
             country_code: country_code,
             is_verified: { $ne: constValues.User_unverified },
             user_status: { $ne: constValues.user_delete },
@@ -502,10 +506,15 @@ let UserUtils = {
           result?.code
         );
       }
-      await helpers.sendSMSService(phone_number, `here is your 4 digit forget password instruction : ${otp}`);
+      // await helpers.sendSMSService(phone_number, `here is your 4 digit forget password instruction : ${otp}`);
+      let html = "<b>Greetings, </b><br /><br />Here is your 4 Digits Reset Password Instructions<br />" +
+          "<h2>" + otp + "</h2><br /><br /><label><small>Please use this code to reset your password." +
+          "</small></label><br /><br /><label>Thanks & Regards</label><br /><label>Frontier" +
+          "Community</label>"
+      await helpers.sendEmailService(process.env.APP_EMAIL, email, 'Forget Password', html);
       return helpers.showResponse(
         true,
-        Messages.SEND_OTP,
+        Messages.SEND_OTP_EMAIL,
         result.data,
         null,
         statusCodes.success
@@ -667,7 +676,7 @@ let UserUtils = {
           statusCodes.success
         );
       }
-      if (username) {
+      if (username || phone_no) {
         let result = await Users.aggregate([
           {
             $match: {
@@ -855,13 +864,14 @@ let UserUtils = {
 
   resend_otp: async (data) => {
     try {
-      let { country_code, phone_number, userid } = data;
-      // let otp = helpers.randomStr(4, "1234567890");
-      let otp = 1234;
+      // let { country_code, phone_number, userid } = data;
+      let { country_code, email } = data;
+      let otp = helpers.randomStr(4, "1234567890");
       let query = [
         {
           $match: {
-            phone_number: phone_number,
+            // phone_number: phone_number,
+            email : email,
             country_code: country_code,
             user_status: { $ne: constValues.user_delete },
             is_verified: { $ne: constValues.User_unverified },
@@ -894,10 +904,15 @@ let UserUtils = {
           statusCodes.success
         );
       }
-      await helpers.sendSMSService(phone_number, 'here is your 4 digit verification code');
+      // await helpers.sendSMSService(phone_number, 'here is your 4 digit verification code');
+      let html = "<b>Greetings, </b><br /><br />Here is your 4 Digits Reset Password Instructions<br />" +
+          "<h2>" + otp + "</h2><br /><br /><label><small>Please use this code to reset your password." +
+          "</small></label><br /><br /><label>Thanks & Regards</label><br /><label>Frontier" +
+          "Community</label>"
+      await helpers.sendEmailService(process.env.APP_EMAIL, email, 'Forget Password', html);
       return helpers.showResponse(
         true,
-        Messages.SEND_OTP,
+        Messages.SEND_OTP_EMAIL,
         null,
         null,
         statusCodes.success

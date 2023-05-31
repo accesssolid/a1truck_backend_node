@@ -1,6 +1,7 @@
 module.exports = {
   REGESTERED_SUCCESS: "User register successfully",
   SEND_OTP: "We have sent a 4-digit verification code on your Mobile number",
+  SEND_OTP_EMAIL: "We have sent a 4-digit forget password instruction on your registered email.",
   ALREADY_EXISTS: "Account with this email already exists",
   ALREADY_EXISTS_STRIP: "Strip Account with this email already exists",
   USER_NAME_EXISTS: "Account with this user name already exists",
