@@ -51,8 +51,7 @@ let BookingsUtils = {
         endTime = new Date(endTime);
         let userResponse = await getSingleData(Users, { _id: ObjectId(user_id), status: { $ne: 2 } }, "");
         if (!userResponse?.status) {
-          return resolve(helpers.showResponse(false, 'Invalid User', null, null, 200))
-          // return helpers.showResponse(false, "Invalid User", null, null, 200);
+          return resolve(helpers.showResponse(false, 'Invalid User', null, null, 200));
         }
         let userData = userResponse?.data;
         let oldBookinData = null;
@@ -61,8 +60,7 @@ let BookingsUtils = {
           let { old_booking_id } = data;
           let oldBookingResponse = await getSingleData(Bookings, { _id: ObjectId(old_booking_id), status: { $eq: 1 } }, "");
           if (!oldBookingResponse?.status) {
-            return resolve(helpers.showResponse(false, 'Sorry !!! Invalid Booking Reference', null, null, 200))
-            // return helpers.showResponse(false, "Sorry !!! Invalid Booking Reference", null, null, 200);
+            return resolve(helpers.showResponse(false, 'Sorry !!! Invalid Booking Reference', null, null, 200));
           }
           oldBookinData = oldBookingResponse?.data;
         }
@@ -82,8 +80,7 @@ let BookingsUtils = {
         }
         let vehicleTypeResponse = await getSingleData(VehicleType, { _id: ObjectId(vehicle_type), status: { $ne: 2 } }, "");
         if (!vehicleTypeResponse?.status) {
-          return resolve(helpers.showResponse(false, 'Invalid vehicle type', null, null, 200))
-          // return helpers.showResponse(false, "Invalid vehicle type", null, null, 200);
+          return resolve(helpers.showResponse(false, 'Invalid vehicle type', null, null, 200));
         }
         let vehicleTypeData = vehicleTypeResponse.data;
         let total_slots = vehicleTypeData?.slots;
@@ -105,6 +102,7 @@ let BookingsUtils = {
         if(total_available_slot <= 0){
           return resolve(helpers.showResponse(false, 'Sorry !!! No empty space for parking', null, null, 200))
         }
+
         // make payment
         let payObj = {
           amount: Number(total_amount) * 100, // amount received from appside
@@ -113,6 +111,7 @@ let BookingsUtils = {
           description: `Book ${slot_type} slot for my ${vehicleTypeData.vehicle_Type}`,
           customer: userData.stripe_id,
         };
+        
         const charge = await stripe.charges.create(payObj);
         if (charge.status === "succeeded") {
           // payment done
@@ -148,8 +147,6 @@ let BookingsUtils = {
             }
             let pdfResponse = await helpers.createBookingInvoicePDF(bookingData);
             pdfResponse.status == true ? (bookingData.pdf_fileName = pdfResponse.data) : (bookingData.pdf_fileName = null);
-            // await helpers.sendBookingMailToUser(bookingData); // not using.
-            // await helpers.sendBookingMailToAdmin(bookingData); // not using.
             await helpers.sendBookingMailToUserAws(bookingData);
             await helpers.sendBookingMailToAdminAws(bookingData);
             resolve(helpers.showResponse(true, "Parking Lot has been assigned", response?.data, null, 200));
