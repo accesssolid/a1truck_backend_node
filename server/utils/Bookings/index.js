@@ -168,6 +168,8 @@ let BookingsUtils = {
         path: "vehicle_id",
       },
     ];
+    const inputTime = moment(currentTimeZone).utc().format();
+    const toUtcDate = moment(inputTime).toDate();
     let response_data = {
       upcoming: [],
       completed: [],
@@ -175,21 +177,21 @@ let BookingsUtils = {
     };
     let upcomingQuery = {
       user_id: ObjectId(user_id),
-      start_time: { $gte: new Date(currentTimeZone).toISOString() },
+      start_time: { $gte: toUtcDate },
     };
     let upcoming_data = await getDataArray(Bookings, upcomingQuery, "", null, null, populate);
     response_data.upcoming = upcoming_data?.status ? upcoming_data?.data : [];
     let completedQuery = {
       user_id: ObjectId(user_id),
-      end_time: { $lte: new Date(currentTimeZone).toISOString() },
+      end_time: { $lte: toUtcDate },
     };
     let completed_data = await getDataArray(Bookings, completedQuery, "", null, null, populate);
     response_data.completed = completed_data?.status ? completed_data?.data : [];
     let activeQuery = {
       user_id: ObjectId(user_id),
       $and: [
-        { end_time: { $gte: new Date(currentTimeZone).toISOString() } },
-        { start_time: { $lte: new Date(currentTimeZone).toISOString() } },
+        { start_time: { $lte: toUtcDate } },
+        { end_time: { $gte: toUtcDate } }
       ],
     };
     let active_data = await getDataArray(Bookings, activeQuery, "", null, null, populate);
