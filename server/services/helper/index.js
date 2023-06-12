@@ -320,33 +320,40 @@ const sendTwilioSMS = async (to, body) => {
 };
 
 const sendContactEmail = async (bodyData) => {
-  let { name, email, message } = bodyData;
-  try {
+  return new Promise(async (resolve, reject) => {
+    let { name, email, message } = bodyData;
+    try {
       let transporter = nodemailer.createTransport({
-          host: 'smtp.gmail.com',
-          port: 587,
-          secure: false,
-          auth: {
-              user: process.env.APP_EMAIL,
-              pass: process.env.APP_PASSWORD
-          },
+        SES: new AWS.SES({
+          accessKeyId : process.env.AccessKeyId, 
+          secretAccessKey : process.env.SecretAccessKey, 
+          region : process.env.Region, 
+          apiVersion : "2010-12-01" 
+        })
       });
-      await transporter.sendMail({
-          from : process.env.APP_EMAIL,
-          to : email,
-          subject: 'A1 Truck Booking',
-          html: `
+      let mailOptions = {
+        from : process.env.APP_EMAIL,
+        to : email,
+        subject : 'A1 Truck Parking',
+        html : `
           <h4>Dear ${name}, </br></h4>
           <p>${message}</p></br>
           <label>Thanks & Regards</label><br/><label>A1 Truck Parking.</label>
-          `,
+        `
+      }
+      transporter.sendMail(mailOptions, (error, data) => {
+        if (error) {
+          console.log(error)
+          return resolve(showResponse(false, 'Error Occured, please try again', error, null, 200));
+        }
+        console.log(data)
+        return resolve(showResponse(true, 'Successfully send contact mail to user', null, null, 200));
       });
-      return showResponse(true, "Email send successfully", null, null, 200);
-
-  } catch (err) {
-      console.log(err)
+    } catch (err) {
+      console.log(err);
       return showResponse(false, "Error Occured, try again", null, null, 200);
-  }
+    }
+  });
 }
 
 // const sendBookingMailToUser = async (bookingData) => {
@@ -1014,9 +1021,6 @@ module.exports = {
   localNotificationBooking,
   isValidId,
   createBookingInvoicePDF,
-  // sendTwilioSMS,
-  // sendBookingMailToUser,
-  // sendBookingMailToAdmin,
   sendRenewedBookingMailToAdmin,
   changeTimeZoneSettings,
   sendContactEmail,
@@ -1028,5 +1032,4 @@ module.exports = {
   sendBookingMailToAdminAws,
   generateWordSlots,
   generatePdfSlots
-  
 }
