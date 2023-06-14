@@ -65,7 +65,7 @@ const adminUtils = {
     //                     subject: 'Forgot password',
     //                     html: "<b>Greetings, </b><br /><br />Here is your 4 Digits reset password Code<br />" +
     //                         "<h2>" + otp + "</h2><br /><br /><label><small>Please use this code for Authorization." +
-    //                         "</small></label><br /><br /><label>Thanks & Regards</label><br /><label>Frontier" +
+    //                         "</small></label><br /><br /><label>Thanks & Regards</label><br /><label>A1 Truck" +
     //                         "Community</label>",
     //                 });
     //                 return helpers.showResponse(true, 'Forgot Password Instruction has been sent to your Registered email', null, null, 200);
@@ -94,7 +94,7 @@ const adminUtils = {
             if(response.status){
                 let html = "<b>Greetings, </b><br /><br />Here is your 4 Digits reset password Code<br />" +
                 "<h2>" + otp + "</h2><br /><br /><label><small>Please use this code for Authorization." +
-                "</small></label><br /><br /><label>Thanks & Regards</label><br /><label>Frontier" +
+                "</small></label><br /><br /><label>Thanks & Regards</label><br /><label>A1 Truck" +
                 "Community</label>"
                 await helpers.sendEmailService(process.env.APP_EMAIL, email, 'Forgot password', html);
                 return helpers.showResponse(true, 'Forgot Password Instruction has been sent to your Registered email', null, null, 200);

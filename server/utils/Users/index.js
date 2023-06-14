@@ -211,7 +211,7 @@ let UserUtils = {
         // await helpers.sendSMSService(phone_number, `Here is your 4 digit verification code : ${otp}`);
         let html = "<b>Greetings, </b><br /><br />Here is your 4 Digits registration Code<br />" +
           "<h2>" + otp + "</h2><br /><br /><label><small>Please use this code for Authorization." +
-          "</small></label><br /><br /><label>Thanks & Regards</label><br /><label>Frontier" +
+          "</small></label><br /><br /><label>Thanks & Regards</label><br /><label>A1 Truck" +
           "Community</label>"
         await helpers.sendEmailService(process.env.APP_EMAIL, email, 'User Registration', html);
         let token = jwt.sign( { email: result?.data?.email, _id: result?.data?._id }, process.env.PRIVATE_KEY, { expiresIn: process.env.TOKEN_EXPIRE });
@@ -509,7 +509,7 @@ let UserUtils = {
       // await helpers.sendSMSService(phone_number, `here is your 4 digit forget password instruction : ${otp}`);
       let html = "<b>Greetings, </b><br /><br />Here is your 4 Digits Reset Password Instructions<br />" +
           "<h2>" + otp + "</h2><br /><br /><label><small>Please use this code to reset your password." +
-          "</small></label><br /><br /><label>Thanks & Regards</label><br /><label>Frontier" +
+          "</small></label><br /><br /><label>Thanks & Regards</label><br /><label>A1 Truck" +
           "Community</label>"
       await helpers.sendEmailService(process.env.APP_EMAIL, email, 'Forget Password', html);
       return helpers.showResponse(
@@ -907,7 +907,7 @@ let UserUtils = {
       // await helpers.sendSMSService(phone_number, 'here is your 4 digit verification code');
       let html = "<b>Greetings, </b><br /><br />Here is your 4 Digits Reset Password Instructions<br />" +
           "<h2>" + otp + "</h2><br /><br /><label><small>Please use this code to reset your password." +
-          "</small></label><br /><br /><label>Thanks & Regards</label><br /><label>Frontier" +
+          "</small></label><br /><br /><label>Thanks & Regards</label><br /><label>A1 Truck" +
           "Community</label>"
       await helpers.sendEmailService(process.env.APP_EMAIL, email, 'Forget Password', html);
       return helpers.showResponse(
